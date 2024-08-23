@@ -1,4 +1,4 @@
-# Proyecto: Hogar de Ancianos Nuestra Señora del Rosario
+# Proyecto: Hogar de Ancianos Nuestra Señora del Rosario.
 
 ## Tabla de Contenidos
 1. [Introducción](#introducción)
