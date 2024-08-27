@@ -1,16 +1,14 @@
 import axios from 'axios';
 
-//Sections Urls
-const CONTACT_URL = 'http://localhost:5074/api/Contact'; 
-const TITTLE_URL = 'http://localhost:5074/api/TitleSection/';
+// UrlBase
+const UrlBase = 'http://localhost:5074/api';
 
 export const getContacts = async () => {
-  const response = await axios.get(CONTACT_URL);
+  const response = await axios.get(`${UrlBase}/Contact`);
   return response.data;
 };
 
-export const getTitles = async (id : number) => {
-  const response = await axios.get(`${TITTLE_URL}${id}`);
+export const getTitles = async (id: number) => {
+  const response = await axios.get(`${UrlBase}/TitleSection/${id}`);
   return response.data;
 };
-
