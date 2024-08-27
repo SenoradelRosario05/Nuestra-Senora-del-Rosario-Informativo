@@ -1,8 +1,12 @@
-import Map from './Components/Map'; // Replace 'path/to/MapComponent' with the actual path to your Map component
+import DonationSection from './Components/DonationSection';
+import Map from './Components/Map'; 
 
 const MainPage = () => {
   return (
-   <Map />
+    <>
+    <DonationSection />
+    <Map />
+    </>
   )
 }
 
