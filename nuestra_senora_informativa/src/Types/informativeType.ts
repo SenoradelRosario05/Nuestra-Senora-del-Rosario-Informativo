@@ -81,3 +81,10 @@ Title_Text_Section: string,
 Description_Section: string,
 
 }
+
+
+export type {
+
+
+    
+}

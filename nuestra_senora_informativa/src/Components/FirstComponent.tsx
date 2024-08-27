@@ -2,7 +2,9 @@ import React from 'react'
 
 const FirstComponent = () => {
   return (
-    <div>FirstComponent</div>
+    <div>FirstComponent
+      holaaaa
+    </div>
   )
 }
 
