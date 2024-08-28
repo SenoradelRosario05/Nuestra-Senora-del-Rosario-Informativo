@@ -1,4 +1,6 @@
 
+import { FaFacebookF, FaEnvelope, FaPhoneAlt, FaMapMarkerAlt, FaInfoCircle } from "react-icons/fa";
+import { IconType } from "react-icons/lib";
 
 export type AboutUsSection = {
 
@@ -83,8 +85,21 @@ export type AboutUsSection = {
     }
     
     
-    export type {
-    
-    
-        
+    export type ContactSection = {
+    id_Contact: number,
+    contact_title: string,
+    contact_url: string
     }
+
+
+export const iconMap: { [key: string]: IconType } = {
+  "Hogar de Nuestra Señora del Rosario, Santa Cruz, Gte": FaFacebookF,
+  "hogar.nsrosario@yahoo.es": FaEnvelope,
+  "+(506) 2680 0591": FaPhoneAlt,
+  "Santa Cruz, Guanacaste, Costa Rica": FaMapMarkerAlt,
+  "Citas ó visitas a nuestras instalaciones en el horario de lunes a sábados de 8:30 a.m. a 11:00 a.m. y de 1:00 p.m. a 3:30 p.m.": FaInfoCircle
+};
+
+
+
+

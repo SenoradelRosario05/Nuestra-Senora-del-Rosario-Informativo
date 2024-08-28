@@ -1,0 +1,37 @@
+
+import { useQuery } from 'react-query';
+import { getHeroSection, getTitles } from '../../../Services/ServiceInformative';
+
+
+const HeroSection = () => {
+  const { data: TitleSection } = useQuery(['title', 1], () => getTitles(1));
+  const { data: HeroSection } = useQuery('hero', getHeroSection);
+
+  const heroDataArray = HeroSection ? HeroSection[0] : null;
+  if (!TitleSection || !heroDataArray) return null;
+
+  return (
+    <div className="relative w-full h-screen">
+      <img
+        className="w-full h-full object-cover object-center"
+        src={heroDataArray?.heroImage_Url}
+        alt="Hero Image"
+      />
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <div className="text-center text-white text-5xl font-bold font-'Poppins' mb-6">
+          <p>{heroDataArray?.hero_Title || "Hogar de Ancianos nuestra señora del Rosario"}</p>
+        </div>
+        <div className="text-center text-white text-2xl font-bold font-'Poppins' mb-12">
+          <p>{heroDataArray?.subtitle_Hero}</p>
+        </div>
+        <a href="#about-us-section">
+          <button className="bg-[#dab87d] text-[#0d313f] text-[20px] sm:text-[25px] font-bold font-'Poppins' py-3 sm:py-4 px-6 sm:px-8 rounded-[20px] sm:rounded-[30px] shadow transition-all duration-300 hover:bg-[#c7a46d]">
+            {TitleSection?.title_Text_Section || "Sobre Nosotros"}
+          </button>
+        </a>
+      </div>
+    </div>
+  );
+};
+
+export default HeroSection;

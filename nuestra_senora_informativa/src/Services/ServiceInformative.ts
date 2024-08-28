@@ -5,38 +5,55 @@ import axios from 'axios';
 
 
 
-const URLBase = 'https://localhost:7066/api/AboutUsSection';
+const URLBase =  'http://localhost:5074/api';
 
 
-export const getAboutUsSection = async (id: number) => {
-    const response = await axios.get(`${URLBase}/subtitle_About_Us/${id}`);
-    return response.data;
-}
-
-
-export const getMissionTitle = async () => {  
-const response = await axios.get(`${URLBase}/missionTitle_About_Us`);
-return response.data;
-}
-
-
-export const getMissionDescription = async () => {
-    const response = await axios.get(`${URLBase}/missionDescription_About_Us`);
-    return response.data;
-}
-
-
-
-export const getVisionTitle = async () => {
-  const response = await axios.get(`${URLBase}/visionTitle_About_Us`);
-  return response.data 
-
-}
-
-
-export const getVisionDescription = async () => {
-  const response = await axios.get(`${URLBase}/visionDescription_About_Us`);
+export const getAboutUsSection = async () => {
+  const response = await axios.get(`${URLBase}/AboutUsSection`);
+  console.log(response.data);
   return response.data;
 }
 
- 
+
+export const getContacts = async () => {
+  const response = await axios.get(`${URLBase}/Contact`);
+  return response.data;
+};
+
+export const getTitles = async (id: number) => {
+  const response = await axios.get(`${URLBase}/TitleSection/${id}`);
+  return response.data;
+};
+
+export const getIcons = async () => {
+  const response = await axios.get(`${URLBase}/SiteSettings`);
+ console.log(response.data);
+  return response.data;
+};
+
+export const getDonationsSection = async () => {
+  const response = await axios.get(`${URLBase}/DonationsSection`);
+  return response.data;
+};
+
+export const getButtonText = async (id: number) => {
+  const response = await axios.get(`${URLBase}/ButtonInfo/${id}`);
+  return response.data;
+};
+
+
+
+export const getHeroSection = async () => {
+const response = await axios.get(`${URLBase}/HeroSection`);
+return response.data ; 
+
+}
+
+
+
+export const SiteSettings = async () => {
+  const response = await axios.get(`${URLBase}/SiteSettings`);
+  return response.data;
+}
+
+
