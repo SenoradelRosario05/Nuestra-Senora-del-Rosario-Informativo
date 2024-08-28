@@ -1,8 +1,8 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { LatLngTuple } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { getTitles } from '../../../Services/ServiceInformative';
 import { useQuery } from 'react-query';
+import { getTitles } from '../../../Services/ServiceInformative';
 
 const Map = () => {
   const position: LatLngTuple = [10.256690, -85.590225];
@@ -12,7 +12,7 @@ const Map = () => {
     <>
       {isLoadingTitle && <div>Loading...</div> || isErrorTitle && <div>Error fetching data.</div>}
       <div className="min-h-screen bg-white flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8 mt-16"> {/* Agregué margen superior */}
-        <h2 className="text-[#0d313f] text-[28px] sm:text-[35px] font-normal font-['Poppins'] uppercase text-center">
+        <h2 className="text-[#0d313f] text-[28px] sm:text-[35px] font-normal font-'Poppins' uppercase text-center">
           {title ? title.title_Text_Section : ""}
         </h2>
         <div className="w-full h-[400px] max-w-6xl mt-8">

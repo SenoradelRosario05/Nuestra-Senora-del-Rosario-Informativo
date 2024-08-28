@@ -1,6 +1,7 @@
 import { useQuery } from 'react-query';
-import { getButtonText, getDonationsSection, getIcons, getTitles } from '../../../Services/ServiceInformative';
+
 import { Link } from 'react-router-dom';
+import { getButtonText, getDonationsSection, getIcons, getTitles } from '../../../Services/ServiceInformative';
 
 export const DonationSection = () => {
 
@@ -15,7 +16,7 @@ export const DonationSection = () => {
   return (
     <div className="relative w-full min-h-screen bg-white flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="relative w-full flex flex-col items-center">
-        <h2 className="text-[#0d313f] text-[28px] sm:text-[35px] font-normal font-['Poppins'] uppercase text-center">
+        <h2 className="text-[#0d313f] text-[28px] sm:text-[35px] font-normal font-'Poppins' uppercase text-center">
           {title ? title.title_Text_Section : ""}
         </h2>
         <div className="flex items-center justify-center my-6 w-full max-w-lg">
@@ -25,10 +26,10 @@ export const DonationSection = () => {
         </div>
         <div className="relative w-full max-w-4xl">
           <img className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[400px] h-auto opacity-20" src={siteSettingsData?.icon_HGA_Url} alt="Imagen de Fondo" />
-          <p className="relative z-10 text-[#0d313f] text-base sm:text-xl font-normal font-['Poppins'] text-center mt-6">
+          <p className="relative z-10 text-[#0d313f] text-base sm:text-xl font-normal font-'Poppins' text-center mt-6">
             {title?.description_Section || ""}   
           </p>
-          <p className="relative z-10 text-[#0d313f] text-base sm:text-xl font-normal font-['Poppins'] text-center mt-6">
+          <p className="relative z-10 text-[#0d313f] text-base sm:text-xl font-normal font-'Poppins' text-center mt-6">
             {donationsData?.description_Donations || "En el Hogar de Ancianos Nuestra Señora del Rosario se reciben todo tipo de donaciones para mejorar la calidad de vida de los residentes. Puedes contribuir con ropa, alimentos, artículos de aseo personal, libros, juegos de mesa y más."}
           </p>
           <p className="relative z-10 text-[#0d313f] text-[20px] sm:text-[25px] font-bold font-['Poppins'] text-center mt-6">

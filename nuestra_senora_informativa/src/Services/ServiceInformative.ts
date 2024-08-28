@@ -1,32 +1,59 @@
+
+
+
 import axios from 'axios';
 
-// UrlBase
-const UrlBase = 'http://localhost:5074/api';
+
+
+const URLBase =  'http://localhost:5074/api';
+
+
+export const getAboutUsSection = async () => {
+  const response = await axios.get(`${URLBase}/AboutUsSection`);
+  console.log(response.data);
+  return response.data;
+}
+
 
 export const getContacts = async () => {
-  const response = await axios.get(`${UrlBase}/Contact`);
+  const response = await axios.get(`${URLBase}/Contact`);
   return response.data;
 };
 
 export const getTitles = async (id: number) => {
-  const response = await axios.get(`${UrlBase}/TitleSection/${id}`);
+  const response = await axios.get(`${URLBase}/TitleSection/${id}`);
   return response.data;
 };
 
 export const getIcons = async () => {
-  const response = await axios.get(`${UrlBase}/SiteSettings`);
-  console.log(response.data);
+  const response = await axios.get(`${URLBase}/SiteSettings`);
+ console.log(response.data);
   return response.data;
 };
 
 export const getDonationsSection = async () => {
-  const response = await axios.get(`${UrlBase}/DonationsSection`);
-  console.log(response.data);
+  const response = await axios.get(`${URLBase}/DonationsSection`);
   return response.data;
 };
 
 export const getButtonText = async (id: number) => {
-  const response = await axios.get(`${UrlBase}/ButtonInfo/${id}`);
-  console.log(response.data);
+  const response = await axios.get(`${URLBase}/ButtonInfo/${id}`);
   return response.data;
 };
+
+
+
+export const getHeroSection = async () => {
+const response = await axios.get(`${URLBase}/HeroSection`);
+return response.data ; 
+
+}
+
+
+
+export const SiteSettings = async () => {
+  const response = await axios.get(`${URLBase}/SiteSettings`);
+  return response.data;
+}
+
+
