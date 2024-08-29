@@ -24,9 +24,7 @@ const AboutUsSection = () => {
         <div className="w-full h-[2px] border-t-2 border-[#0d313f] mb-8"></div>
         <div className="text-[#0d313f] text-[22px] font-medium font-['Poppins'] text-center max-w-2xl mb-12">
           <p>{AboutUs?.subtitle_About_Us}</p>
-          <br />
-          Nuestra misión es proporcionar un entorno seguro y afectuoso, donde cada persona reciba la atención y el apoyo que necesita para vivir plenamente.
-        </div>
+         </div>
         <div className="w-full bg-[#f3f3f3] flex flex-col items-center justify-center py-8 px-6">
           <div className="w-full max-w-screen-xl flex flex-col items-center justify-center space-y-6 mb-12 px-6">
             <div className="flex items-center justify-center space-x-4">
