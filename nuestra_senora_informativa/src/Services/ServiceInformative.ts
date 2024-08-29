@@ -14,6 +14,10 @@ export const getAboutUsSection = async () => {
   return response.data;
 }
 
+export const getVolunteerSection = async () => {
+  const response = await axios.get(`${URLBase}/VolunteeringSection`);
+  return response.data;
+};
 
 export const getContacts = async () => {
   const response = await axios.get(`${URLBase}/Contact`);

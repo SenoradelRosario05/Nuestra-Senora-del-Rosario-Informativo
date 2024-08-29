@@ -30,10 +30,10 @@ export const DonationSection = () => {
             {title?.description_Section || ""}   
           </p>
           <p className="relative z-10 text-[#0d313f] text-base sm:text-xl font-normal font-'Poppins' text-center mt-6">
-            {donationsData?.description_Donations || "En el Hogar de Ancianos Nuestra Señora del Rosario se reciben todo tipo de donaciones para mejorar la calidad de vida de los residentes. Puedes contribuir con ropa, alimentos, artículos de aseo personal, libros, juegos de mesa y más."}
+            {donationsData?.description_Donations || ""}
           </p>
           <p className="relative z-10 text-[#0d313f] text-[20px] sm:text-[25px] font-bold font-['Poppins'] text-center mt-6">
-            {donationsData?.donations_MoreInfoPrompt || "Tu generosidad hará una diferencia significativa en la vida de quienes residen allí. ¡Gracias por tu apoyo!"}
+            {donationsData?.donations_MoreInfoPrompt || ""}
           </p>
         </div>
       </div>
