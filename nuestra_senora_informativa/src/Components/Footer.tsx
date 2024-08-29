@@ -2,7 +2,7 @@
 import { useQuery } from 'react-query';
 import useContact from "../Hooks/useContact";
 import { getTitles } from '../Services/ServiceInformative';
-import { iconMap } from '../Types/informativeType';
+import { iconMap } from '../Icons/IconsComponent';
 
 
 
@@ -33,7 +33,7 @@ const Footer = () => {
                 className="flex items-center gap-4 sm:gap-6 cursor-pointer transition-all duration-300 hover:text-[#cce7f3] hover:scale-105"
               >
                 <IconComponent className="text-white text-2xl transition-all duration-300 hover:text-[#cce7f3] hover:scale-110" />
-                <div className="text-white text-lg sm:text-xl font-medium font-['Poppins']">
+                <div className="text-white text-lg sm:text-xl font-normal font-'Poppins'">
                   {contact.contact_title}
                 </div>
               </a>
@@ -52,7 +52,7 @@ const Footer = () => {
                 className="flex items-center gap-4 sm:gap-6 cursor-pointer transition-all duration-300 hover:text-[#cce7f3] hover:scale-105"
               >
                 <IconComponent className="text-white text-2xl transition-all duration-300 hover:text-[#cce7f3] hover:scale-110" />
-                <div className="text-white text-lg sm:text-xl font-medium font-['Poppins']">
+                <div className="text-white text-lg sm:text-xl font-normal font-'Poppins'">
                   {contact.contact_title}
                 </div>
               </a>

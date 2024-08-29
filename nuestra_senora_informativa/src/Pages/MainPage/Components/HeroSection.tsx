@@ -1,7 +1,5 @@
-
 import { useQuery } from 'react-query';
 import { getHeroSection, getTitles } from '../../../Services/ServiceInformative';
-
 
 const HeroSection = () => {
   const { data: TitleSection } = useQuery(['title', 1], () => getTitles(1));
@@ -17,11 +15,11 @@ const HeroSection = () => {
         src={heroDataArray?.heroImage_Url}
         alt="Hero Image"
       />
-      <div className="absolute inset-0 flex flex-col items-center justify-center">
+      <div className="absolute inset-0 bg-black bg-opacity-30 flex flex-col items-center justify-center">
         <div className="text-center text-white text-5xl font-bold font-'Poppins' mb-6">
           <p>{heroDataArray?.hero_Title || "Hogar de Ancianos nuestra señora del Rosario"}</p>
         </div>
-        <div className="text-center text-white text-2xl font-bold font-'Poppins' mb-12">
+        <div className="text-center text-white text-2xl font-medium font-'Poppins' mb-12">
           <p>{heroDataArray?.subtitle_Hero}</p>
         </div>
         <a href="#about-us-section">

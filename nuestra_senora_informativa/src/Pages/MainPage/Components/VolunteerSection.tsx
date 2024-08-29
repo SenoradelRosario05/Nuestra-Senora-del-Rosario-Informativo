@@ -16,7 +16,7 @@ const VolunteerSection = () => {
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8">
-      <h2 className="text-[#0d313f] text-[28px] sm:text-[35px] font-normal font-['Poppins'] uppercase text-center">
+      <h2 className="text-[#0d313f] text-[28px] sm:text-[35px] font-normal font-'Poppins' uppercase text-center">
         {titleData?.title_Text_Section || ""}
       </h2>
       <div className="flex items-center justify-center my-6 w-full max-w-lg">
@@ -25,7 +25,7 @@ const VolunteerSection = () => {
         <div className="w-1/4 sm:w-1/3 md:w-1/2 border-t-2 border-[#0d313f]"></div>
       </div>
       <div className="block lg:hidden">
-        <p className="text-[#0d313f] text-lg font-normal font-['Poppins'] text-center max-w-4xl mb-12">
+        <p className="text-[#0d313f] text-lg font-normal font-'Poppins' text-center max-w-4xl mb-12">
           {getTextToShow()}
           <Button 
             text={expandedText ? buttonLess?.buttonText : buttonMore?.buttonText}
@@ -35,23 +35,22 @@ const VolunteerSection = () => {
         </p>
       </div>
       <div className="hidden lg:block">
-        <p className="text-[#0d313f] text-lg font-normal font-['Poppins'] text-center max-w-4xl mb-12">
+        <p className="text-[#0d313f] text-lg font-normal font-'Poppins' text-center max-w-4xl mb-12">
           {fullText}   
         </p>
       </div>
 
-      <h2 className="text-[#0d313f] text-[35px] font-normal font-['Poppins'] uppercase text-center mb-8">
+      <h2 className="text-[#0d313f] text-[35px] font-normal font-'Poppins' uppercase text-center mb-8">
         {Subtitle ? Subtitle.title_Text_Section : ""}
       </h2>
 
-      <div className="overflow-x-auto flex space-x-16 max-w-full px-4 snap-x snap-mandatory">
+      <div className="overflow-x-auto flex space-x-32 max-w-full px-16 sm:px-16 snap-x snap-mandatory">
         {volunteerData?.map((service: any, index: number) => (
           <div 
             key={index}  
             className="relative flex-shrink-0 w-[300px] h-[350px] bg-[#0d313f] rounded-[15px] overflow-hidden shadow-lg group snap-center">
             
-            {/* Título del voluntariado */}
-            <div className="p-2 bg-[#0d313f] text-center text-white font-bold text-lg">
+            <div className="p-2 bg-[#0d313f] text-center text-white font-'Poppins' text-lg">
               {service.title_Card_VT}
             </div>
             
@@ -62,12 +61,14 @@ const VolunteerSection = () => {
             />
             <div 
               className="absolute inset-0 flex flex-col justify-center items-center text-white text-center p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <p className="text-lg font-normal font-['Poppins']">
+              <p className="text-lg font-normal font-'Poppins'">
                 {service.description_Card_VT.split('.')[0]}.
               </p>
-             <Button text={buttonMore?.buttonText || ''} 
-             onClick={() => {}} 
-             className="mt-4 px-4 py-2 border border-white rounded-md text-white text-sm" />
+             <Button 
+               text={buttonMore?.buttonText || ''} 
+               onClick={() => {}} 
+               className="mt-4 px-4 py-2 border border-white rounded-md text-white text-sm transition-all duration-300 bg-transparent hover:bg-white hover:text-[#0d313f]" 
+             />
             </div>
           </div>
         ))}

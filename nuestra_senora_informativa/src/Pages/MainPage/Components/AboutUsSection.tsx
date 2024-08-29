@@ -21,8 +21,8 @@ const AboutUsSection = () => {
             {title?.title_Text_Section}
           </p>
         </div>
-        <div className="w-full h-[2px] border-t-2 border-[#0d313f] mb-8"></div>
-        <div className="text-[#0d313f] text-[22px] font-medium font-['Poppins'] text-center max-w-2xl mb-12">
+        <div className="w-[70%] h-[2px] border-t-2 border-[#0d313f] mb-8"></div>
+        <div className="text-[#0d313f] text-lg font-normal font-'Poppins' text-center max-w-4xl mb-12">
           <p>{AboutUs?.subtitle_About_Us}</p>
          </div>
         <div className="w-full bg-[#f3f3f3] flex flex-col items-center justify-center py-8 px-6">
@@ -31,8 +31,8 @@ const AboutUsSection = () => {
               <IconsComponent iconName="mission" size={30} color="#0d313f" />
               <h2 className="text-3xl text-[#0d313f] font-bold">{AboutUs?.missionTitle_About_US}</h2>
             </div>
-            <div className="w-full h-[2px] border-t-2 border-[#0d313f]"></div>
-            <div className="w-full text-center text-[#0d313f] text-xl font-medium font-['Poppins']">
+            <div className="w-[70%] h-[2px] border-t-2 border-[#0d313f]"></div>
+            <div className="text-[#0d313f] text-lg font-normal font-'Poppins' text-center max-w-4xl mb-12">
               <p>{AboutUs?.missionDescription_About_US}</p>
             </div>
           </div>
@@ -41,8 +41,8 @@ const AboutUsSection = () => {
               <IconsComponent iconName="vision" size={30} color="#0d313f" />
               <h2 className="text-3xl text-[#0d313f] font-bold">{AboutUs?.visionTitle_About_US}</h2>
             </div>
-            <div className="w-full h-[2px] border-t-2 border-[#0d313f]"></div>
-            <div className="w-full text-center text-[#0d313f] text-xl font-medium font-['Poppins']">
+            <div className="w-[70%] h-[2px] border-t-2 border-[#0d313f]"></div>
+            <div className="text-[#0d313f] text-lg font-normal font-'Poppins' text-center max-w-4xl mb-12">
               <p>{AboutUs?.visionDescription_About_US}</p>
             </div>
           </div>
