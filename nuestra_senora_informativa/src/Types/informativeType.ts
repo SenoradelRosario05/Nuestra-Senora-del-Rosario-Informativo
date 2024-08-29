@@ -92,14 +92,4 @@ export type AboutUsSection = {
     }
 
 
-export const iconMap: { [key: string]: IconType } = {
-  "Hogar de Nuestra Señora del Rosario, Santa Cruz, Gte": FaFacebookF,
-  "hogar.nsrosario@yahoo.es": FaEnvelope,
-  "+(506) 2680 0591": FaPhoneAlt,
-  "Santa Cruz, Guanacaste, Costa Rica": FaMapMarkerAlt,
-  "Citas ó visitas a nuestras instalaciones en el horario de lunes a sábados de 8:30 a.m. a 11:00 a.m. y de 1:00 p.m. a 3:30 p.m.": FaInfoCircle
-};
-
-
-
 
