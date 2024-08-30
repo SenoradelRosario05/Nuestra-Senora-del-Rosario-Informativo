@@ -1,6 +1,4 @@
 
-import { FaFacebookF, FaEnvelope, FaPhoneAlt, FaMapMarkerAlt, FaInfoCircle } from "react-icons/fa";
-import { IconType } from "react-icons/lib";
 
 export type AboutUsSection = {
 
@@ -23,16 +21,14 @@ export type AboutUsSection = {
     
     }
     
-    
     export type NavbarItem = {
-    
-    Id_Navbar_It: number, //id de navegacion
-    Title_Nav: string,
-    UrlNav: string,
-    Order_Item_Nav: number,
-    IsActive: boolean,
-    
-    }
+        id_Nav_It: number;         
+        title_Nav: string;         
+        urlNav: string;             
+        order_Item_Nav: number;     
+        isActive: boolean;         
+        children: NavbarItem[];     
+      };
     
     
     export type SectionPatchOperation = {

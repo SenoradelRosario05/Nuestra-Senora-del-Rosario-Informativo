@@ -41,3 +41,9 @@ export const getHeroSection = async () => {
 const response = await axios.get(`${URLBase}/HeroSection`);
 return response.data ; 
 }
+
+
+export const getNavbarItems = async () => {
+  const response = await axios.get(`${URLBase}/NavbarItem`);
+  return response.data;
+};

@@ -1,79 +1,163 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavbarItems } from '../Hooks/useNavbarItems';
+import { useSiteSettings } from '../Hooks/useSiteSettings';
+import { NavbarItem } from '../Types/informativeType'; // Asegúrate de importar tu tipo
 
 function Header() {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [openDropdowns, setOpenDropdowns] = useState<Record<number, boolean>>({});
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+  const { data: navbarItems, error: navbarError, isLoading: navbarLoading } = useNavbarItems();
+  const { data: siteSettings, error: siteSettingsError, isLoading: siteSettingsLoading } = useSiteSettings();
+
+  const toggleDropdown = (id: number) => {
+    setOpenDropdowns((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleScroll = () => {
+    setIsScrolled(window.scrollY > 50);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  if (navbarLoading || siteSettingsLoading) return <div>Loading...</div>;
+  if (navbarError || siteSettingsError) return <div>Error loading data</div>;
+
+  const siteTitle = siteSettings?.[0]?.siteTitle || 'Default Title';
+  const siteIconUrl = siteSettings?.[0]?.icon_HGA_Url || 'https://via.placeholder.com/53x52';
+
   return (
-    <nav className="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700 fixed w-full z-50">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
-          <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
-        </a>
-        <button
-          data-collapse-toggle="navbar-dropdown"
-          type="button"
-          className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-          aria-controls="navbar-dropdown"
-          aria-expanded={isDropdownOpen}
-          onClick={toggleDropdown}
-        >
-          <span className="sr-only">Open main menu</span>
-          <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15" />
-          </svg>
-        </button>
-        <div className={`w-full md:block md:w-auto ${isDropdownOpen ? 'block' : 'hidden'}`} id="navbar-dropdown">
-          <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-            <li>
-              <a href="#" className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent" aria-current="page">Home</a>
-            </li>
-            <li className="relative">
-              <button
-                id="dropdownNavbarLink"
-                data-dropdown-toggle="dropdownNavbar"
-                className="flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
-                onClick={toggleDropdown}
-              >
-                Dropdown
-                <svg className="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
-                </svg>
-              </button>
-              <div id="dropdownNavbar" className={`fixed left-auto right-auto z-10 ${isDropdownOpen ? 'block' : 'hidden'} font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600`} style={{ top: '60px' }}>
-                <ul className="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
-                  <li>
-                    <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-                  </li>
-                  <li>
-                    <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-                  </li>
-                  <li>
-                    <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-                  </li>
-                </ul>
-                <div className="py-1">
-                  <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
-                </div>
-              </div>
-            </li>
-            <li>
-              <a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Services</a>
-            </li>
-            <li>
-              <a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Pricing</a>
-            </li>
-            <li>
-              <a href="#" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
-            </li>
-          </ul>
+    <>
+      <header className={`fixed w-full z-20 transition-colors duration-300 top-0 left-0 ${isScrolled ? 'bg-[#317591]' : 'bg-transparent'}`}>
+        <div className="w-full p-4 flex items-center justify-between">
+          {/* Logo y Título */}
+          <a href="#" className="flex items-center space-x-3">
+            <img src={siteIconUrl} className="h-8 w-8" alt="Logo" />
+            <span className="text-xl font-semibold text-white whitespace-nowrap">{siteTitle}</span>
+          </a>
+
+          {/* Botón de Menú para dispositivos móviles */}
+          <button
+            onClick={toggleMenu}
+            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-white rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+          >
+            <span className="sr-only">Open main menu</span>
+            <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+
+          {/* Menú de Navegación para pantallas grandes */}
+          <nav className="hidden md:flex space-x-6">
+            <ul className="flex space-x-5 text-sm font-medium">
+              {navbarItems?.map((item: NavbarItem) => (
+                <li key={item.id_Nav_It} className="relative group">
+                  <div className="flex items-center">
+                    <a href={item.urlNav} className="text-white hover:text-blue-500">
+                      {item.title_Nav}
+                    </a>
+                    {item.children && item.children.length > 0 && (
+                      <button
+                        onClick={() => toggleDropdown(item.id_Nav_It)}
+                        className="ml-2"
+                      >
+                        <svg
+                          className={`w-4 h-4 transform transition-transform ${openDropdowns[item.id_Nav_It] ? 'rotate-90' : ''}`}
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="white"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                        </svg>
+                      </button>
+                    )}
+                  </div>
+                  {item.children && item.children.length > 0 && (
+                    <ul className={`absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg ${openDropdowns[item.id_Nav_It] ? 'block' : 'hidden'}`}>
+                      {item.children.map((child: NavbarItem) => (
+                        <li key={child.id_Nav_It}>
+                          <a href={child.urlNav} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                            {child.title_Nav}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
+      </header>
+
+      {/* Menú "off-canvas" para dispositivos móviles */}
+      <div
+        className={`fixed inset-y-0 right-0 w-64 bg-gray-800 text-white transform ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out z-30`}
+      >
+        <div className="p-4 flex justify-between items-center">
+          <h2 className="text-xl font-semibold">Menú</h2>
+          <button onClick={toggleMenu}>
+            <svg className="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <ul className="space-y-2 p-4">
+          {navbarItems?.map((item: NavbarItem) => (
+            <li key={item.id_Nav_It}>
+              <div className="flex justify-between items-center">
+                <a href={item.urlNav} className="block text-lg font-medium hover:bg-gray-700 p-2 rounded">
+                  {item.title_Nav}
+                </a>
+                {item.children && item.children.length > 0 && (
+                  <button onClick={() => toggleDropdown(item.id_Nav_It)}>
+                    <svg
+                      className={`w-5 h-5 transform transition-transform ${openDropdowns[item.id_Nav_It] ? 'rotate-90' : ''}`}
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                )}
+              </div>
+              {item.children && item.children.length > 0 && openDropdowns[item.id_Nav_It] && (
+                <ul className="pl-4 space-y-1 mt-2">
+                  {item.children.map((child: NavbarItem) => (
+                    <li key={child.id_Nav_It}>
+                      <a href={child.urlNav} className="block text-sm font-normal hover:bg-gray-700 p-2 rounded">
+                        {child.title_Nav}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ul>
       </div>
-    </nav>
+
+      {/* Fondo oscuro para cuando el menú está abierto */}
+      {isMenuOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 z-20"
+          onClick={toggleMenu}
+        />
+      )}
+    </>
   );
 }
 
