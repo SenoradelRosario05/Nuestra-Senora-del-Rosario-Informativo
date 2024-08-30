@@ -2,6 +2,7 @@ import IconsComponent from '../../../Icons/IconsComponent';
 import useAboutUs from '../Hooks/useAboutUs';
 import { useSiteSettings } from '../../../Hooks/useSiteSettings';
 import useTitles from '../../../Hooks/useTitles';
+import useNavbarItemsId from '../../../Hooks/useNavbarItemsId';
 
 const AboutUsSection = () => {
   const { data: AboutUsDataArray } = useAboutUs();  

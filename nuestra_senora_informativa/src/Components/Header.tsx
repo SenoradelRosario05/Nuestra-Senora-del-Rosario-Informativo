@@ -3,6 +3,7 @@ import NavbarContext from '../Context/NavbarContextType';
 import { useNavbarItems } from '../Hooks/useNavbarItems';
 import { useSiteSettings } from '../Hooks/useSiteSettings';
 import { NavbarItem } from '../Types/informativeType';
+import useHandleScroll from '../Hooks/useHandleScroll';
 
 function Header() {
   const navbarContext = useContext(NavbarContext);
@@ -21,6 +22,7 @@ function Header() {
 
   const { data: navbarItems, error: navbarError, isLoading: navbarLoading } = useNavbarItems();
   const { data: siteSettings, error: siteSettingsError, isLoading: siteSettingsLoading } = useSiteSettings();
+  const{handleScroll} = useHandleScroll();
 
   if (navbarLoading || siteSettingsLoading) return <div>Loading...</div>;
   if (navbarError || siteSettingsError) return <div>Error loading data</div>;
@@ -55,7 +57,11 @@ function Header() {
               {navbarItems?.map((item: NavbarItem) => (
                 <li key={item.id_Nav_It} className="relative group">
                   <div className="flex items-center">
-                    <a href={item.urlNav} className="text-white hover:text-blue-500">
+                    <a 
+                      href={item.urlNav} 
+                      className="text-white hover:text-blue-500"
+                      onClick={(event) => handleScroll(event, item.urlNav)}
+                    >
                       {item.title_Nav}
                     </a>
                     {item.children && item.children.length > 0 && (
@@ -109,7 +115,11 @@ function Header() {
           {navbarItems?.map((item: NavbarItem) => (
             <li key={item.id_Nav_It}>
               <div className="flex justify-between items-center">
-                <a href={item.urlNav} className="block text-lg font-medium hover:bg-gray-700 p-2 rounded">
+                <a 
+                  href={item.urlNav} 
+                  className="block text-lg font-medium hover:bg-gray-700 p-2 rounded"
+                  onClick={(event) => handleScroll(event, item.urlNav)}
+                >
                   {item.title_Nav}
                 </a>
                 {item.children && item.children.length > 0 && (

@@ -1,12 +1,15 @@
 import { useQuery } from 'react-query';
 import { getHeroSection, getTitles } from '../../../Services/ServiceInformative';
+import useNavbarItemsId from '../../../Hooks/useNavbarItemsId';
 
 const HeroSection = () => {
   const { data: TitleSection } = useQuery(['title', 1], () => getTitles(1));
   const { data: HeroSection } = useQuery('hero', getHeroSection);
+  const { data: navbarItems } = useNavbarItemsId(2);
 
   const heroDataArray = HeroSection ? HeroSection[0] : null;
   if (!TitleSection || !heroDataArray) return null;
+
 
   return (
     <div className="relative w-full h-screen">
@@ -22,7 +25,7 @@ const HeroSection = () => {
         <div className="text-center text-white text-2xl font-medium font-'Poppins' mb-12">
           <p>{heroDataArray?.subtitle_Hero}</p>
         </div>
-        <a href="#about-us-section">
+        <a href={`#${navbarItems?.urlNav}`}>
           <button className="bg-[#dab87d] text-[#0d313f] text-[20px] sm:text-[25px] font-bold font-'Poppins' py-3 sm:py-4 px-6 sm:px-8 rounded-[20px] sm:rounded-[30px] shadow transition-all duration-300 hover:bg-[#c7a46d]">
             {TitleSection?.title_Text_Section || "Sobre Nosotros"}
           </button>
