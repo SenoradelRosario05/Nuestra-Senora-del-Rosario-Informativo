@@ -33,15 +33,15 @@ function Header() {
       <header className={`fixed w-full z-20 transition-colors duration-300 top-0 left-0 ${isScrolled ? 'bg-[#317591]' : 'bg-transparent'}`}>
         <div className="w-full p-4 flex items-center justify-between">
           {/* Logo y Título */}
-          <a href="#" className="flex items-center space-x-3">
+          <a href="#" className="flex items-center space-x-3 ml-3">
             <img src={siteIconUrl} className="h-8 w-8" alt="Logo" />
             <span className="text-xl font-semibold text-white whitespace-nowrap">{siteTitle}</span>
           </a>
 
-          {/* Botón de Menú para dispositivos móviles */}
+          {/* Botón de Menú para dispositivos móviles y pantallas medianas */}
           <button
             onClick={toggleMenu}
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-white rounded-lg md:hidden hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-200"
+            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-white rounded-lg lg:hidden hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-200"
           >
             <span className="sr-only">Open main menu</span>
             <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -50,7 +50,7 @@ function Header() {
           </button>
 
           {/* Menú de Navegación para pantallas grandes */}
-          <nav className="hidden md:flex space-x-6">
+          <nav className="hidden lg:flex space-x-6 mr-3 ">
             <ul className="flex space-x-5 text-sm font-medium">
               {navbarItems?.map((item: NavbarItem) => (
                 <li key={item.id_Nav_It} className="relative group">
@@ -93,7 +93,7 @@ function Header() {
         </div>
       </header>
 
-      {/* Menú "off-canvas" para dispositivos móviles */}
+      {/* Menú "off-canvas" para dispositivos móviles y pantallas medianas */}
       <div
         className={`fixed inset-y-0 right-0 w-64 bg-gray-800 text-white transform ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out z-30`}
       >
