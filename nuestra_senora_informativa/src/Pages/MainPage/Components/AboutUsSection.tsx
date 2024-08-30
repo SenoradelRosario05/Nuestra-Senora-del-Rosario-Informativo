@@ -1,51 +1,55 @@
-import { useQuery } from 'react-query';
-import { getAboutUsSection, getIcons, getTitles} from '../../../Services/ServiceInformative';
 import IconsComponent from '../../../Icons/IconsComponent';
+import useAboutUs from '../Hooks/useAboutUs';
+import { useSiteSettings } from '../../../Hooks/useSiteSettings';
+import useTitles from '../../../Hooks/useTitles';
 
 const AboutUsSection = () => {
-  const { data: AboutUsDataArray } = useQuery('AboutUs', getAboutUsSection);
+  const { data: AboutUsDataArray } = useAboutUs();  
   const AboutUs = AboutUsDataArray ? AboutUsDataArray[0] : null;
-
-  const { data: IconsDataArray } = useQuery('Icons', getIcons);
+  const { data: title } = useTitles (1);
+  const { data: IconsDataArray } = useSiteSettings();
   const IconsDA = IconsDataArray ? IconsDataArray[0] : null;
 
-  const { data: title } = useQuery(['title', 1], () => getTitles(1));
-  if (!title) return null;
-
   return (
-    <div id="about-us-section" className="relative w-full min-h-screen bg-white flex flex-col items-center py-12 px-0">
-      <div className="relative w-full flex flex-col items-center">
-        <div className="flex items-center justify-center mb-8">
+    <div id="about-us-section" className="relative w-full min-h-screen bg-white flex flex-col items-center py-16 px-4 lg:px-8 space-y-16">
+      {/* Sección de Sobre Nosotros */}
+      <div className="w-full flex flex-col items-center text-center space-y-6">
+        <div className="flex items-center justify-center mb-6">
           <img className="opacity-80 w-[60px] h-[60px] rounded-full mr-4" src={IconsDA?.icon_HGA_Url} alt="Icon" />
-          <p className="text-[#0d313f] text-[28px] sm:text-[35px] font-normal font-'Poppins' uppercase text-center">
+          <h2 className="text-[#0d313f] text-[28px] sm:text-[35px] font-bold font-'Poppins' uppercase">
             {title?.title_Text_Section}
+          </h2>
+        </div>
+        <div className="w-[10%] h-[3px] bg-[#0d313f] mx-auto mb-8"></div>
+        <p className="text-[#0d313f] text-lg font-normal font-'Poppins' max-w-4xl leading-relaxed">
+          {AboutUs?.subtitle_About_Us}
+        </p>
+      </div>
+
+      {/* Sección de Misión y Visión en dos columnas */}
+      <div className="w-full max-w-screen-lg grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+        {/* Misión */}
+        <div className="flex flex-col items-center justify-start text-center p-6 border border-[#0d313f] rounded-lg shadow-lg transition-shadow hover:shadow-xl group">
+          <div className="flex items-center space-x-4 mb-4">
+            <IconsComponent iconName="mission" size={40} color="#0d313f" />
+            <h3 className="text-3xl text-[#0d313f] font-bold">{AboutUs?.missionTitle_About_US}</h3>
+          </div>
+          <div className="w-[50px] h-[3px] bg-[#0d313f] mb-4 transition-all duration-300 ease-in-out group-hover:w-[120px]"></div>
+          <p className="text-[#0d313f] text-lg font-normal font-'Poppins' leading-relaxed">
+            {AboutUs?.missionDescription_About_US}
           </p>
         </div>
-        <div className="w-[70%] h-[2px] border-t-2 border-[#0d313f] mb-8"></div>
-        <div className="text-[#0d313f] text-lg font-normal font-'Poppins' text-center max-w-4xl mb-12">
-          <p>{AboutUs?.subtitle_About_Us}</p>
-         </div>
-        <div className="w-full bg-[#f3f3f3] flex flex-col items-center justify-center py-8 px-6">
-          <div className="w-full max-w-screen-xl flex flex-col items-center justify-center space-y-6 mb-12 px-6">
-            <div className="flex items-center justify-center space-x-4">
-              <IconsComponent iconName="mission" size={30} color="#0d313f" />
-              <h2 className="text-3xl text-[#0d313f] font-bold">{AboutUs?.missionTitle_About_US}</h2>
-            </div>
-            <div className="w-[70%] h-[2px] border-t-2 border-[#0d313f]"></div>
-            <div className="text-[#0d313f] text-lg font-normal font-'Poppins' text-center max-w-4xl mb-12">
-              <p>{AboutUs?.missionDescription_About_US}</p>
-            </div>
+
+        {/* Visión */}
+        <div className="flex flex-col items-center justify-start text-center p-6 border border-[#0d313f] rounded-lg shadow-lg transition-shadow hover:shadow-xl group">
+          <div className="flex items-center space-x-4 mb-4">
+            <IconsComponent iconName="vision" size={40} color="#0d313f" />
+            <h3 className="text-3xl text-[#0d313f] font-bold">{AboutUs?.visionTitle_About_US}</h3>
           </div>
-          <div className="w-full max-w-screen-xl flex flex-col items-center justify-center space-y-6 px-6">
-            <div className="flex items-center justify-center space-x-4">
-              <IconsComponent iconName="vision" size={30} color="#0d313f" />
-              <h2 className="text-3xl text-[#0d313f] font-bold">{AboutUs?.visionTitle_About_US}</h2>
-            </div>
-            <div className="w-[70%] h-[2px] border-t-2 border-[#0d313f]"></div>
-            <div className="text-[#0d313f] text-lg font-normal font-'Poppins' text-center max-w-4xl mb-12">
-              <p>{AboutUs?.visionDescription_About_US}</p>
-            </div>
-          </div>
+          <div className="w-[50px] h-[3px] bg-[#0d313f] mb-4 transition-all duration-300 ease-in-out group-hover:w-[120px]"></div>
+          <p className="text-[#0d313f] text-lg font-normal font-'Poppins' leading-relaxed">
+            {AboutUs?.visionDescription_About_US}
+          </p>
         </div>
       </div>
     </div>

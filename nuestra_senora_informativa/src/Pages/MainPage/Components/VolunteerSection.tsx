@@ -1,16 +1,18 @@
-import { useQuery } from 'react-query';
-import { getTitles, getButtonText, getVolunteerSection, getIcons } from '../../../Services/ServiceInformative';
 import Button from '../../../Components/Button';
 import { useToggleText } from '../Hooks/useToggleText';
+import { useSiteSettings } from '../../../Hooks/useSiteSettings';
+import useTitles from '../../../Hooks/useTitles';
+import useButtons from '../../../Hooks/useButtons';
+import useVolunteer from '../Hooks/useVolunteer';
 
 const VolunteerSection = () => {
-  const { data: siteSettingsDataArray } = useQuery('Icons', getIcons);
+  const { data: siteSettingsDataArray } = useSiteSettings();
   const siteSettingsData = siteSettingsDataArray ? siteSettingsDataArray[0] : null;
-  const { data: titleData } = useQuery(['title', 4], () => getTitles(4));
-  const { data: buttonMore } = useQuery(['button', 1], () => getButtonText(1));
-  const { data: buttonLess } = useQuery(['button', 3], () => getButtonText(3));
-  const { data: Subtitle } = useQuery(['Subtitle', 5], () => getTitles(5));
-  const { data: volunteerData } = useQuery('Volunteers', getVolunteerSection) as { data: any[] };
+  const { data: titleData } = useTitles(4);
+  const { data: buttonMore } = useButtons(1);
+  const { data: buttonLess } = useButtons(3);
+  const { data: Subtitle } = useTitles(5);
+  const { data: volunteerData } = useVolunteer();
   const fullText = titleData?.description_Section || '';
   const { expandedText, toggleText, getTextToShow } = useToggleText(fullText);
 

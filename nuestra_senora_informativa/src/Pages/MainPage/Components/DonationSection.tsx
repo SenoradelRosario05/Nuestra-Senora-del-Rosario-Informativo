@@ -1,17 +1,16 @@
-import { useQuery } from 'react-query';
-
 import { Link } from 'react-router-dom';
-import { getButtonText, getDonationsSection, getIcons, getTitles } from '../../../Services/ServiceInformative';
+import useTitles from '../../../Hooks/useTitles';
+import { useSiteSettings } from '../../../Hooks/useSiteSettings';
+import useDonation from '../Hooks/useDonation';
+import useButtons from '../../../Hooks/useButtons';
 
 export const DonationSection = () => {
-
-  const { data: donationsDataArray} = useQuery('donationsInfo', getDonationsSection);
-  const { data: siteSettingsDataArray } = useQuery('Icons', getIcons);
-  const { data: title} = useQuery(['title', 6], () => getTitles(6));
-  const { data: button } = useQuery(['button', 2], () => getButtonText(2));
-
-  const donationsData = donationsDataArray ? donationsDataArray[0] : null;
-  const siteSettingsData = siteSettingsDataArray ? siteSettingsDataArray[0] : null;
+  const { data: donationsData } = useDonation();
+  const donations = donationsData ? donationsData[0] : null;
+  const { data: siteSettings } = useSiteSettings();
+  const siteSettingsData = siteSettings ? siteSettings[0] : null;
+  const { data: title } = useTitles(6);
+  const { data: button } = useButtons(2);
 
   return (
     <div className="relative w-full min-h-screen bg-white flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8">
@@ -30,10 +29,10 @@ export const DonationSection = () => {
             {title?.description_Section || ""}   
           </p>
           <p className="relative z-10 text-[#0d313f] text-base sm:text-xl font-normal font-'Poppins' text-center mt-6">
-            {donationsData?.description_Donations || ""}
+            {donations?.description_Donations || ""}
           </p>
           <p className="relative z-10 text-[#0d313f] text-[20px] sm:text-[25px] font-bold font-['Poppins'] text-center mt-6">
-            {donationsData?.donations_MoreInfoPrompt || ""}
+            {donations?.donations_MoreInfoPrompt || ""}
           </p>
         </div>
       </div>
