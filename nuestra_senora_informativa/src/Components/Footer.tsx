@@ -1,18 +1,13 @@
-
-import { useQuery } from 'react-query';
 import useContact from "../Hooks/useContact";
-import { getTitles } from '../Services/ServiceInformative';
 import { iconMap } from '../Icons/IconsComponent';
-
-
+import useTitles from '../Hooks/useTitles';
 
 const Footer = () => {
   const { data: contacts, isLoading: isLoadingContacts, isError: isErrorContacts } = useContact();
-  const { data: title, isLoading: isLoadingTitle, isError: isErrorTitle } = useQuery(['title', 9], () => getTitles(9));
-
-
-  if (isLoadingContacts || isLoadingTitle) return <div>Loading...</div>;
-  if (isErrorContacts || isErrorTitle) return <div>Error fetching data.</div>;
+  const { data: title, isLoading, isError } = useTitles(9);
+  
+  if (isLoadingContacts || isLoading) return <div>Loading...</div>;
+  if (isErrorContacts || isError) return <div>Error fetching data.</div>;
 
   return (
     <div className="w-full h-auto bg-[#317591] flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8">

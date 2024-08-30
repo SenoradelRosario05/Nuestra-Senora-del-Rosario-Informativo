@@ -1,4 +1,3 @@
-// useToggleText.ts
 import { useState } from 'react';
 
 export const useToggleText = (fullText: string) => {
