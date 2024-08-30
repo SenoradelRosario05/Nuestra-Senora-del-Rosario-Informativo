@@ -1,34 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import { useContext } from 'react';
+import NavbarContext from '../Context/NavbarContextType'; 
 import { useNavbarItems } from '../Hooks/useNavbarItems';
 import { useSiteSettings } from '../Hooks/useSiteSettings';
-import { NavbarItem } from '../Types/informativeType'; // Asegúrate de importar tu tipo
+import { NavbarItem } from '../Types/informativeType';
 
 function Header() {
-  const [openDropdowns, setOpenDropdowns] = useState<Record<number, boolean>>({});
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const navbarContext = useContext(NavbarContext);
+
+  if (!navbarContext) {
+    throw new Error('NavbarContext must be used within a NavbarProvider');
+  }
+
+  const { 
+    openDropdowns, 
+    toggleDropdown, 
+    isMenuOpen, 
+    toggleMenu, 
+    isScrolled 
+  } = navbarContext;
 
   const { data: navbarItems, error: navbarError, isLoading: navbarLoading } = useNavbarItems();
   const { data: siteSettings, error: siteSettingsError, isLoading: siteSettingsLoading } = useSiteSettings();
-
-  const toggleDropdown = (id: number) => {
-    setOpenDropdowns((prev) => ({ ...prev, [id]: !prev[id] }));
-  };
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const handleScroll = () => {
-    setIsScrolled(window.scrollY > 50);
-  };
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
 
   if (navbarLoading || siteSettingsLoading) return <div>Loading...</div>;
   if (navbarError || siteSettingsError) return <div>Error loading data</div>;
@@ -49,7 +41,7 @@ function Header() {
           {/* Botón de Menú para dispositivos móviles */}
           <button
             onClick={toggleMenu}
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-white rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-white rounded-lg md:hidden hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-200"
           >
             <span className="sr-only">Open main menu</span>
             <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
