@@ -22,7 +22,7 @@ function Header() {
 
   const { data: navbarItems, error: navbarError, isLoading: navbarLoading } = useNavbarItems();
   const { data: siteSettings, error: siteSettingsError, isLoading: siteSettingsLoading } = useSiteSettings();
-  const{handleScroll} = useHandleScroll();
+  const { handleScroll } = useHandleScroll();
 
   if (navbarLoading || siteSettingsLoading) return <div>Loading...</div>;
   if (navbarError || siteSettingsError) return <div>Error loading data</div>;
@@ -60,7 +60,11 @@ function Header() {
                     <a 
                       href={item.urlNav} 
                       className="text-white hover:text-blue-500"
-                      onClick={(event) => handleScroll(event, item.urlNav)}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        toggleDropdown(item.id_Nav_It);
+                        handleScroll(event, item.urlNav);
+                      }}
                     >
                       {item.title_Nav}
                     </a>
@@ -118,7 +122,11 @@ function Header() {
                 <a 
                   href={item.urlNav} 
                   className="block text-lg font-medium hover:bg-gray-700 p-2 rounded"
-                  onClick={(event) => handleScroll(event, item.urlNav)}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    toggleDropdown(item.id_Nav_It);
+                    handleScroll(event, item.urlNav);
+                  }}
                 >
                   {item.title_Nav}
                 </a>
