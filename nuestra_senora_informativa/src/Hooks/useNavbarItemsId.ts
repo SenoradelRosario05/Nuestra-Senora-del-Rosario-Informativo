@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { getNavbarItemsId } from '../Services/ServiceInformative';
 import { useQuery } from 'react-query';
 
