@@ -1,8 +1,8 @@
 import {BrowserRouter as Router } from "react-router-dom"
 import Footer from "./Components/Footer"
-import MainPage from "./Pages/MainPage/MainPage"
 import './index.css'
 import Header from "./Components/Header"
+import AppRouter from "./Routes/AppRouter"
 
 function App() {
   
@@ -10,7 +10,7 @@ function App() {
     <>
     <Router>
       <Header />
-    <MainPage />
+    <AppRouter />
       <Footer />
     </Router>
     </>

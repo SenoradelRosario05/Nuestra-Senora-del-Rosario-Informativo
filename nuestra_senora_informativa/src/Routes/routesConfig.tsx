@@ -1,10 +1,25 @@
-import MainPage from "../Pages/MainPage/MainPage"
+import useNavbarRoutes from './useExtractRoutes';
+import { Donation, Galery, Main } from '.';
 
-const routesConfig = () => [
+const useRoutesConfig = () => {
+  const { routes, isLoading, isError } = useNavbarRoutes();
+
+  const mappedRoutes = [
     {
-        path: '/',
-        element: MainPage()
+      path: routes['Inicio'] || '/',
+      element: <Main />
+    },
+    {
+      path: routes['Donaciones'] || "",
+      element: <Donation />
+    },
+    {
+      path: routes['Galería'] || "",
+      element: <Galery />
     }
-]
+  ];
 
-export default routesConfig
+  return { isLoading, routes: mappedRoutes };
+};
+
+export default useRoutesConfig;

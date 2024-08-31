@@ -24,7 +24,6 @@ function Header() {
   const { data: siteSettings, error: siteSettingsError, isLoading: siteSettingsLoading } = useSiteSettings();
   const { handleScroll } = useHandleScroll();
 
-  if (navbarLoading || siteSettingsLoading) return <div>Loading...</div>;
   if (navbarError || siteSettingsError) return <div>Error loading data</div>;
 
   const siteTitle = siteSettings?.[0]?.siteTitle || 'Default Title';
