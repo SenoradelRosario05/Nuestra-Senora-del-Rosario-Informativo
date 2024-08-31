@@ -31,13 +31,13 @@ export const DonationSection = () => {
           <p className="relative z-10 text-[#0d313f] text-base sm:text-xl font-normal font-'Poppins' text-center mt-6">
             {donations?.description_Donations || ""}
           </p>
-          <p className="relative z-10 text-[#0d313f] text-[20px] sm:text-[25px] font-bold font-['Poppins'] text-center mt-6">
+          <p className="relative z-10 text-[#0d313f] text-[20px] sm:text-[25px] font-bold font-'Poppins' text-center mt-6">
             {donations?.donations_MoreInfoPrompt || ""}
           </p>
         </div>
       </div>
       <div className="relative z-10 mt-12 text-center">
-        <button className="bg-[#dab87d] text-[#0d313f] text-[20px] sm:text-[25px] font-bold font-['Poppins'] py-3 sm:py-4 px-6 sm:px-8 rounded-[20px] sm:rounded-[30px] shadow transition-all duration-300 hover:bg-[#c7a46d]">
+        <button className="bg-[#dab87d] text-[#0d313f] text-[20px] sm:text-[25px] font-bold font-'Poppins' py-3 sm:py-4 px-6 sm:px-8 rounded-[20px] sm:rounded-[30px] shadow transition-all duration-300 hover:bg-[#c7a46d]">
          <Link to="/">{button?.buttonText}</Link>
         </button>
       </div>

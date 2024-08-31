@@ -1,12 +1,13 @@
 import useContact from "../Hooks/useContact";
 import { iconMap } from '../Icons/IconsComponent';
 import useTitles from '../Hooks/useTitles';
+import LoadingSpinner from "./LoadingSpinner";
 
 const Footer = () => {
   const { data: contacts, isLoading: isLoadingContacts, isError: isErrorContacts } = useContact();
   const { data: title, isLoading, isError } = useTitles(9);
   
-  if (isLoadingContacts || isLoading) return <div>Loading...</div>;
+  if (isLoadingContacts || isLoading) return <LoadingSpinner />;
   if (isErrorContacts || isError) return <div>Error fetching data.</div>;
 
   return (
