@@ -8,19 +8,19 @@ const useRoutesConfig = () => {
   // Configuración de rutas mapeadas con componentes lazy loading
   const mappedRoutes = [
     {
-      path: routes['Inicio'] || '/',
+      path: routes['Inicio'] || '',
       element: <Main />
     },
     {
-      path: routes['Donaciones'] || "/solicitudes/donaciones",
+      path: routes['Donaciones'] || "",
       element: <Donation />
     },
     {
-        path: routes['Voluntariado'] || "/solicitudes/voluntariado",
+        path: routes['Voluntariado'] || "",
         element: <Volunteer />
     },
     {
-      path: routes['Galería'] || "/galeria",
+      path: routes['Galería'] || "",
       element: <Galery />
     }
   ];
