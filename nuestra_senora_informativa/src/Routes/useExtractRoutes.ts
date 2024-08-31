@@ -1,6 +1,7 @@
 import { useQuery } from 'react-query';
 import { getNavbarItems } from '../Services/ServiceInformative';
 
+// Función para extraer rutas específicas de los datos de navegación
 const extractRoutes = (navItems: any[], pathsToFind: string[]) => {
   const routes: { [key: string]: string } = {};
 
@@ -20,10 +21,11 @@ const extractRoutes = (navItems: any[], pathsToFind: string[]) => {
   return routes;
 };
 
+// Hook para obtener rutas específicas
 const useNavbarRoutes = () => {
   const { data, isLoading, isError } = useQuery('navbarItems', getNavbarItems);
 
-  const routes = data ? extractRoutes(data, ['Donaciones', 'Galería']) : {};
+  const routes = data ? extractRoutes(data, ['Donaciones', 'Galería', 'Voluntariado']) : {};
 
   return {
     routes,

@@ -1,20 +1,26 @@
+import React from 'react';
+import { Donation, Galery, Main, Volunteer } from '.';
 import useNavbarRoutes from './useExtractRoutes';
-import { Donation, Galery, Main } from '.';
 
 const useRoutesConfig = () => {
-  const { routes, isLoading, isError } = useNavbarRoutes();
+  const { routes, isLoading } = useNavbarRoutes();
 
+  // Configuración de rutas mapeadas con componentes lazy loading
   const mappedRoutes = [
     {
       path: routes['Inicio'] || '/',
       element: <Main />
     },
     {
-      path: routes['Donaciones'] || "",
+      path: routes['Donaciones'] || "/solicitudes/donaciones",
       element: <Donation />
     },
     {
-      path: routes['Galería'] || "",
+        path: routes['Voluntariado'] || "/solicitudes/voluntariado",
+        element: <Volunteer />
+    },
+    {
+      path: routes['Galería'] || "/galeria",
       element: <Galery />
     }
   ];

@@ -9,7 +9,7 @@ function Header() {
   const navbarContext = useContext(NavbarContext);
 
   if (!navbarContext) {
-    throw new Error('NavbarContext must be used within a NavbarProvider');
+    throw new Error('NavbarContext must be usado dentro de un NavbarProvider');
   }
 
   const { 
@@ -20,8 +20,8 @@ function Header() {
     isScrolled 
   } = navbarContext;
 
-  const { data: navbarItems, error: navbarError, isLoading: navbarLoading } = useNavbarItems();
-  const { data: siteSettings, error: siteSettingsError, isLoading: siteSettingsLoading } = useSiteSettings();
+  const { data: navbarItems, error: navbarError } = useNavbarItems();
+  const { data: siteSettings, error: siteSettingsError } = useSiteSettings();
   const { handleScroll } = useHandleScroll();
 
   if (navbarError || siteSettingsError) return <div>Error loading data</div>;
@@ -56,24 +56,15 @@ function Header() {
               {navbarItems?.map((item: NavbarItem) => (
                 <li key={item.id_Nav_It} className="relative group">
                   <div className="flex items-center">
-                    <a 
-                      href={item.urlNav} 
-                      className="text-white hover:text-blue-500"
-                      onClick={(event) => {
-                        event.preventDefault();
-                        toggleDropdown(item.id_Nav_It);
-                        handleScroll(event, item.urlNav);
-                      }}
-                    >
-                      {item.title_Nav}
-                    </a>
-                    {item.children && item.children.length > 0 && (
+                    {item.children && item.children.length > 0 ? (
+                      // Si el item tiene hijos, es decir, un dropdown
                       <button
                         onClick={() => toggleDropdown(item.id_Nav_It)}
-                        className="ml-2"
+                        className="text-white hover:text-blue-500 flex items-center"
                       >
+                        {item.title_Nav}
                         <svg
-                          className={`w-4 h-4 transform transition-transform ${openDropdowns[item.id_Nav_It] ? 'rotate-90' : ''}`}
+                          className={`w-4 h-4 ml-2 transform transition-transform ${openDropdowns[item.id_Nav_It] ? 'rotate-90' : ''}`}
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
                           viewBox="0 0 24 24"
@@ -82,6 +73,20 @@ function Header() {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
                         </svg>
                       </button>
+                    ) : (
+                      // Si no tiene hijos, es un enlace normal
+                      <a 
+                        href={item.urlNav} 
+                        className="text-white hover:text-blue-500"
+                        onClick={(event) => {
+                          if (item.urlNav.startsWith('#')) {
+                            event.preventDefault();
+                            handleScroll(event, item.urlNav);
+                          }
+                        }}
+                      >
+                        {item.title_Nav}
+                      </a>
                     )}
                   </div>
                   {item.children && item.children.length > 0 && (
@@ -118,21 +123,15 @@ function Header() {
           {navbarItems?.map((item: NavbarItem) => (
             <li key={item.id_Nav_It}>
               <div className="flex justify-between items-center">
-                <a 
-                  href={item.urlNav} 
-                  className="block text-lg font-medium hover:bg-gray-700 p-2 rounded"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    toggleDropdown(item.id_Nav_It);
-                    handleScroll(event, item.urlNav);
-                  }}
-                >
-                  {item.title_Nav}
-                </a>
-                {item.children && item.children.length > 0 && (
-                  <button onClick={() => toggleDropdown(item.id_Nav_It)}>
+                {item.children && item.children.length > 0 ? (
+                  // Si el item tiene hijos, es decir, un dropdown
+                  <button
+                    onClick={() => toggleDropdown(item.id_Nav_It)}
+                    className="block text-lg font-medium hover:bg-gray-700 p-2 rounded flex items-center"
+                  >
+                    {item.title_Nav}
                     <svg
-                      className={`w-5 h-5 transform transition-transform ${openDropdowns[item.id_Nav_It] ? 'rotate-90' : ''}`}
+                      className={`w-5 h-5 ml-2 transform transition-transform ${openDropdowns[item.id_Nav_It] ? 'rotate-90' : ''}`}
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -141,6 +140,14 @@ function Header() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
                     </svg>
                   </button>
+                ) : (
+                  // Si no tiene hijos, es un enlace normal
+                  <a 
+                    href={item.urlNav} 
+                    className="block text-lg font-medium hover:bg-gray-700 p-2 rounded"
+                  >
+                    {item.title_Nav}
+                  </a>
                 )}
               </div>
               {item.children && item.children.length > 0 && openDropdowns[item.id_Nav_It] && (
