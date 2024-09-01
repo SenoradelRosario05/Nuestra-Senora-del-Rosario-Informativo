@@ -4,6 +4,7 @@ import AboutUsSection from './Components/AboutUsSection';
 import HeroSection from './Components/HeroSection';
 import VolunteerSection from './Components/VolunteerSection';
 import MemberSection from './Components/MemberSecion';
+import GalerySection from './Components/GalerySection';
 
 const MainPage = () => {
   return (
@@ -13,6 +14,7 @@ const MainPage = () => {
     <MemberSection />
     <VolunteerSection />
     <DonationSection />
+    <GalerySection />
     <Map />
     </>
   )

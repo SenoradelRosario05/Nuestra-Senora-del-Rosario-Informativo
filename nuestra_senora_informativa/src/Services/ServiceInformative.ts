@@ -57,3 +57,9 @@ export const getMemberSection = async () => {
   const response = await axios.get(`${URLBase}/AssociatesSection`);
   return response.data;
 };
+
+
+export const getGalleryItem = async () => {
+  const response = await axios.get(`${URLBase}/GalleryItem`);
+  return response.data;
+};
