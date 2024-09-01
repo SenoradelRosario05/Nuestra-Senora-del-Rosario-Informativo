@@ -1,8 +1,9 @@
-import { Link } from 'react-router-dom';
 import useTitles from '../../../Hooks/useTitles';
 import { useSiteSettings } from '../../../Hooks/useSiteSettings';
 import useDonation from '../Hooks/useDonation';
 import useButtons from '../../../Hooks/useButtons';
+import useNavbarRoutes from '../../../Routes/useExtractRoutes';
+
 
 export const DonationSection = () => {
   const { data: donationsData } = useDonation();
@@ -11,6 +12,10 @@ export const DonationSection = () => {
   const siteSettingsData = siteSettings ? siteSettings[0] : null;
   const { data: title } = useTitles(6);
   const { data: button } = useButtons(2);
+
+  const { routes, isError } = useNavbarRoutes();
+
+  if (isError) return <div>Error loading navigation data</div>;
 
   return (
     <div className="relative w-full min-h-screen bg-white flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8">
@@ -38,7 +43,7 @@ export const DonationSection = () => {
       </div>
       <div className="relative z-10 mt-12 text-center">
         <button className="bg-[#dab87d] text-[#0d313f] text-[20px] sm:text-[25px] font-bold font-'Poppins' py-3 sm:py-4 px-6 sm:px-8 rounded-[20px] sm:rounded-[30px] shadow transition-all duration-300 hover:bg-[#c7a46d]">
-         <Link to="/">{button?.buttonText}</Link>
+          <a href={routes['Donaciones']}>{button?.buttonText || "Realiza tu donación ahora"}</a>
         </button>
       </div>
     </div>

@@ -52,3 +52,14 @@ export const getNavbarItemsId = async (id: number) => {
   const response = await axios.get(`${URLBase}/NavbarItem/${id}`);
   return response.data;
 };
+
+export const getMemberSection = async () => {
+  const response = await axios.get(`${URLBase}/AssociatesSection`);
+  return response.data;
+};
+
+
+export const getGalleryItem = async () => {
+  const response = await axios.get(`${URLBase}/GalleryItem`);
+  return response.data;
+};
