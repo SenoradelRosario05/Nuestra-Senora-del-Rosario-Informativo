@@ -1,19 +1,7 @@
 {
     "routes": [
       {
-        "src": "/",
-        "dest": "/index.html"
-      },
-      {
-        "src": "/donaciones",
-        "dest": "/index.html"
-      },
-      {
-        "src": "/voluntariado",
-        "dest": "/index.html"
-      },
-      {
-        "src": "/galeria",
+        "src": "/(.*)",
         "dest": "/index.html"
       }
     ]
