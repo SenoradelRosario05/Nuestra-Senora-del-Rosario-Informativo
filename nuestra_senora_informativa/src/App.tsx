@@ -1,20 +1,30 @@
-import {BrowserRouter as Router } from "react-router-dom"
-import Footer from "./Components/Footer"
+import {Route, BrowserRouter as Router, Routes } from "react-router-dom"
 import './index.css'
-import Header from "./Components/Header"
-import AppRouter from "./Routes/AppRouter"
+import useRoutesConfig from "./Routes/routesConfig"
+import { Suspense } from "react"
+import Header from "./Components/Header";
+import Footer from "./Components/Footer";
 
 function App() {
-  
- return (
-    <>
+  const { isLoading, routes } = useRoutesConfig();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  return (
     <Router>
       <Header />
-    <AppRouter />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          {routes.map((route) => (
+            <Route key={route.path} path={route.path} element={route.element} />
+          ))}
+        </Routes>
+      </Suspense>
       <Footer />
     </Router>
-    </>
-  )
+  );
 }
 
-export default App
+export default App;
