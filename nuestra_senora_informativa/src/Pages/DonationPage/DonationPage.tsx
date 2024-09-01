@@ -1,4 +1,3 @@
-import { Donation } from "../../Routes";
 
 const DonationPage = () => {
   return (
