@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ReactNode } from 'react';
+import { useState, useEffect, ReactNode } from 'react';
 import NavbarContext from './NavbarContextType';
 
 const NavbarProvider = ({ children }: { children: ReactNode }) => {
