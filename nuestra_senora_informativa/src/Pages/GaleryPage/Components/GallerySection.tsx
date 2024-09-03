@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import useGalleryCategory from '../Hooks/useGalleryCategory';
 import useGalery from '../../MainPage/Hooks/useGalery';
 import useTitles from '../../../Hooks/useTitles';
