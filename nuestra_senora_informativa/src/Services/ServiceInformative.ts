@@ -63,3 +63,8 @@ export const getGalleryItem = async () => {
   const response = await axios.get(`${URLBase}/GalleryItem`);
   return response.data;
 };
+
+export const getVolunteerProfile = async () => {
+  const response = await axios.get(`${URLBase}/VolunteerProfile`);
+  return response.data;
+}
