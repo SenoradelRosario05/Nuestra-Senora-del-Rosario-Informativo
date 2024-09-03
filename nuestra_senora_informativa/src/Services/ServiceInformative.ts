@@ -68,3 +68,9 @@ export const getVolunteerProfile = async () => {
   const response = await axios.get(`${URLBase}/VolunteerProfile`);
   return response.data;
 }
+
+
+export const getGalleryCatgory = async () => {
+  const response = await axios.get(`${URLBase}/GalleryCategory`);
+  return response.data;
+}
