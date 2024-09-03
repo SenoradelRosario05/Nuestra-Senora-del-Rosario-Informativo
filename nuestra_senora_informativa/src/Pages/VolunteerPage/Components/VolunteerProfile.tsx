@@ -17,7 +17,7 @@ const VolunteerProfile = () => {
       <h2 className="text-[#0d313f] text-[35px] font-semibold font-'Poppins' uppercase mb-4">{title?.title_Text_Section}</h2>
       <div className="flex items-center justify-center my-6 w-full max-w-lg">
         <div className="w-1/4 sm:w-1/3 md:w-1/2 border-t-2 border-[#0d313f]"></div>
-        <img className="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px] mx-4" src={IconsDA.icon_HGA_Url} alt="Logo de la institución" />
+        <img className="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px] mx-4" src={IconsDA?.icon_HGA_Url} alt="Logo de la institución" />
         <div className="w-1/4 sm:w-1/3 md:w-1/2 border-t-2 border-[#0d313f]"></div>
       </div>
 
