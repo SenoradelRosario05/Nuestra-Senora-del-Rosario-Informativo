@@ -68,3 +68,15 @@ export const getVolunteerProfile = async () => {
   const response = await axios.get(`${URLBase}/VolunteerProfile`);
   return response.data;
 }
+
+
+export const getRegistrationSection = async () => {
+  const response = await axios.get(`${URLBase}/RegistrationSection`);
+  console.log(response.data);
+  return response.data;
+}
+
+
+
+
+

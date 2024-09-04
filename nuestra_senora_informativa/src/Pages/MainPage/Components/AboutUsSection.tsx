@@ -12,7 +12,7 @@ const AboutUsSection = () => {
 
   return (
     <div id="about-us-section" className="relative w-full min-h-screen bg-white flex flex-col items-center py-16 px-4 lg:px-8 space-y-16">
-      {/* Sección de Sobre Nosotros */}
+      
       <div className="w-full flex flex-col items-center text-center space-y-6">
         <div className="flex items-center justify-center mb-6">
           <img className="opacity-80 w-[60px] h-[60px] rounded-full mr-4" src={IconsDA?.icon_HGA_Url} alt="Icon" />
