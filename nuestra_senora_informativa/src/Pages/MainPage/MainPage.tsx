@@ -6,6 +6,7 @@ import VolunteerSection from './Components/VolunteerSection';
 import MemberSection from './Components/MemberSecion';
 import GalerySection from './Components/GalerySection';
 import RegistrationSection from './Components/RegistrationSection';
+import ServiceSection from './Components/ServicesSection';
 
 const MainPage = () => {
   return (
@@ -13,6 +14,7 @@ const MainPage = () => {
     <HeroSection />
     <AboutUsSection />
     <MemberSection />
+    <ServiceSection />
     <RegistrationSection />
     <VolunteerSection />
     <DonationSection />
