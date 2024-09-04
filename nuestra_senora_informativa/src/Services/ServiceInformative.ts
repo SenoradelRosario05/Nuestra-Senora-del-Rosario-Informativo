@@ -84,5 +84,8 @@ export const getRegistrationSection = async () => {
 }
 
 
-
-
+export const getServicesSection = async () => {
+  const response = await axios.get(`${URLBase}/ServiceSection`);
+  console.log(response.data); 
+  return response.data;
+}
