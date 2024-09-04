@@ -28,13 +28,15 @@ const HeroSection = () => {
           <p>{heroDataArray?.subtitle_Hero}</p>
         </div>
         <a href={navbarItems?.urlNav}>
-          <button onClick={(event: any) => {
-                        handleScroll(event, navbarItems?.urlNav);
-                      }}
-          className="bg-[#dab87d] text-[#0d313f] text-[20px] sm:text-[25px] font-bold font-'Poppins' py-3 sm:py-4 px-6 sm:px-8 rounded-[20px] sm:rounded-[30px] shadow transition-all duration-300 hover:bg-[#c7a46d]">
-            {TitleSection?.title_Text_Section || "Sobre Nosotros"}
-          </button>
-        </a>
+  <button
+    onClick={(event: any) => {
+      handleScroll(event, navbarItems?.urlNav);
+    }}
+    className="bg-gray-100 bg-opacity-20 text-white text-[16px] sm:text-[20px] font-bold font-'Poppins' py-2 sm:py-3 px-4 sm:px-6 rounded-[10px] sm:rounded-[15px] shadow transition-all duration-300 hover:bg-white hover:text-[#0d313f]"
+  >
+    {TitleSection?.title_Text_Section || "Sobre Nosotros"}
+  </button>
+</a>
       </div>
     </div>
   );
