@@ -25,7 +25,7 @@ const extractRoutes = (navItems: any[], pathsToFind: string[]) => {
 const useNavbarRoutes = () => {
   const { data, isLoading, isError } = useQuery('navbarItems', getNavbarItems);
 
-  const routes = data ? extractRoutes(data, ['Donaciones', 'Galería', 'Voluntariado, Proceso de ingreso, Servicios']) : {};
+  const routes = data ? extractRoutes(data, ['Donaciones', 'Galería', 'Voluntariado', 'Proceso de ingreso', 'Servicios']) : {};
 
   return {
     routes,

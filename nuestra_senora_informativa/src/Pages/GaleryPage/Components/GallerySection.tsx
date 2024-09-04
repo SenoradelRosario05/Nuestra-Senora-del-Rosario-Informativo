@@ -43,8 +43,8 @@ const GallerySection = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {filteredImages.length > 0 ? (
-            filteredImages.map((image: any) => (
+          {filteredImages?.length > 0 ? (
+            filteredImages?.map((image: any) => (
               <img
                 key={image.id_GalleryItem}
                 src={image.gallery_Image_Url}
