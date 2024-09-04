@@ -1,5 +1,5 @@
 
-import { Donation, Galery, Main, Volunteer } from '.';
+import { Donation, Galery, Main,  Registration,  Volunteer } from '.';
 import useNavbarRoutes from './useExtractRoutes';
 
 const useRoutesConfig = () => {
@@ -21,7 +21,13 @@ const useRoutesConfig = () => {
     {
       path: routes['Galería'] || '/galeria',
       element: <Galery />
-    }
+    },
+    {
+      path: routes['Registro'] || '/registro',
+      element: <Registration />
+    },
+    
+   
   ];
 
   return { isLoading, routes: mappedRoutes };
