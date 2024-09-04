@@ -4,7 +4,6 @@ import useTitles from "../../../Hooks/useTitles";
 import IconsComponent from "../../../Icons/IconsComponent";
 import useImportantInformation from "../Hooks/useImportantInformation";
 import useRegistration from "../Hooks/useRegistration";
-import { Link } from "react-router-dom"; // Importamos Link para la navegación
 
 const Requeriments = () => {
   const { data: requirements, isError: isErrorRequirements } = useRegistration();
