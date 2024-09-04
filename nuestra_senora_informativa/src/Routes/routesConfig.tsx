@@ -23,7 +23,7 @@ const useRoutesConfig = () => {
       element: <Galery />
     },
     {
-      path: routes['registro'] || '/registro',
+      path: routes['Proceso_ingreso'] || '/proceso_ingreso',
       element: <Registration />
     },
    

@@ -55,7 +55,7 @@ export const RegistrationSection = () => {
 
         {/* Button */}
         <div className="mt-4">
-          <a href={routes['Registro']}>
+          <a href={routes['Proceso_ingreso']}>
             <button className="bg-[#dab87d] text-[#0d313f] text-[18px] sm:text-[22px] font-bold font-'Poppins' py-3 sm:py-4 px-8 sm:px-10 rounded-[20px] sm:rounded-[30px] shadow-lg transition-all duration-300 hover:bg-[#c7a46d] hover:scale-105">
               {button?.buttonText || "Ver más información"}
             </button>

@@ -1,4 +1,4 @@
-import { FaBinoculars, FaEnvelope, FaFacebookF, FaInfoCircle, FaLightbulb, FaMapMarkerAlt, FaPhoneAlt, FaHandHoldingHeart, FaUserFriends, FaComments, FaHandsHelping, FaHandshake, FaUsers } from "react-icons/fa";
+import { FaBinoculars, FaEnvelope, FaFacebookF, FaInfoCircle, FaLightbulb, FaMapMarkerAlt, FaPhoneAlt, FaHandHoldingHeart, FaUserFriends, FaComments, FaHandsHelping, FaHandshake, FaUsers, FaFileAlt } from "react-icons/fa";
 import { IconType } from "react-icons/lib";
 
 interface IconsComponentProps {
@@ -20,7 +20,8 @@ export const iconMap: { [key: string]: IconType } = {
   "comunicación": FaComments,
   "orientación al servicio": FaHandsHelping,
   "desarrollo de relaciones": FaHandshake,
-  "trabajo en equipo": FaUsers
+  "trabajo en equipo": FaUsers,
+  "check": FaFileAlt
 };
 
 const IconsComponent: React.FC<IconsComponentProps> = ({ size, color, iconName }) => {
