@@ -1,4 +1,3 @@
-
 import useButtons from "../../../Hooks/useButtons";
 import { useSiteSettings } from "../../../Hooks/useSiteSettings";
 import useTitles from "../../../Hooks/useTitles";
@@ -15,59 +14,59 @@ export const RegistrationSection = () => {
   const { routes } = useNavbarRoutes();  
   const { data: button } = useButtons(5);
 
-  
-
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center  px-4 sm:px-6 lg:px-6">
-      
-      <h2 className="text-center text-[#0d313f] text-[35px] font-normal font-'Poppins' mb-6">
-        {title?.title_Text_Section}
-      </h2>
-      
-      <div className="flex items-center justify-center my-6 w-full max-w-lg">
-        <hr className="w-1/4 sm:w-1/3 md:w-1/2 border-t-2 border-[#0d313f]" />
-        {siteSettingsData?.icon_HGA_Url && (
-          <img
-            className="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px] mx-4"
-            src={siteSettingsData?.icon_HGA_Url}
-            alt="Logo de la institución"
-          />
-        )}
-        <hr className="w-1/4 sm:w-1/3 md:w-1/2 border-t-2 border-[#0d313f]" />
+    <section className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-6 py-16">
+
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <img
+          className="w-full h-full object-cover"
+          src={registration?.registrationImage_Url}
+          alt="Imagen de fondo"
+        />
+        {/* Black Overlay */}
+        <div className="absolute inset-0 bg-black opacity-50"></div>
       </div>
-      
-     
-        <p className="text-center max-w-4xl text-[#0d313f] text-xl font-normal font-'Poppins' mb-4">
+
+      {/* Overlay Content */}
+      <div className="relative z-10 p-8 rounded-lg shadow-lg max-w-4xl text-center">
+        
+        {/* Title Section */}
+        <h2 className="text-white text-[35px] font-semibold font-'Poppins' mb-6">
+          {title?.title_Text_Section}
+        </h2>
+        
+        {/* Decorative Line with Icon */}
+        <div className="flex items-center justify-center my-6 w-full">
+          <div className="flex-grow border-t-2 border-white"></div>
+          <img className="mx-4 w-[40px] h-[40px] sm:w-[50px] sm:h-[50px]" src={siteSettingsData?.icon_HGA_Url} alt="Logo de la institución" />
+          <div className="flex-grow border-t-2 border-white"></div>
+        </div>
+        
+        {/* Description */}
+        <p className="text-white text-lg font-light font-'Poppins' mb-8">
           {title?.description_Section}
         </p>
-    
-      
-      
-        <h2 className="text-center max-w-4xl text-[#0d313f] text-[28px] font-normal font-'Poppins' mb-4">
+
+        {/* Call to Action */}
+        <h2 className="text-white text-[28px] font-normal font-'Poppins' mb-6">
           {registration?.registration_MoreInfoPrompt}
         </h2>
-     
-      
-     
-      <div className="relative z-10 mt-4 text-center">
-        <button className="bg-[#dab87d] text-[#0d313f] text-[15px] sm:text-[25px] font-bold font-'Poppins' py-3 sm:py-4 px-6 sm:px-8 rounded-[20px] sm:rounded-[30px] shadow transition-all duration-300 hover:bg-[#c7a46d]">
-          <a href={routes['Registro']}>{button?.buttonText || "Ver más información"}</a>
-        </button>
-      </div>
-      <br />
-      
-      
-        <p className="text-center max-w-4xl text-[#0d313f] text-xl font-normal font-'Poppins' mb-6">
+
+        {/* Button */}
+        <div className="mt-4">
+          <a href={routes['Registro']}>
+            <button className="bg-[#dab87d] text-[#0d313f] text-[18px] sm:text-[22px] font-bold font-'Poppins' py-3 sm:py-4 px-8 sm:px-10 rounded-[20px] sm:rounded-[30px] shadow-lg transition-all duration-300 hover:bg-[#c7a46d] hover:scale-105">
+              {button?.buttonText || "Ver más información"}
+            </button>
+          </a>
+        </div>
+
+        {/* Support Message */}
+        <p className="text-white text-lg font-light font-'Poppins' mt-6">
           {registration?.registration_SupportMessage}
         </p>
-     
-     
-        <img
-          className="max-w-full h-auto"
-          src={registration?.registrationImage_Url}
-          alt="Imagen de registro"
-        />
-     
+      </div>
     </section>
   );
 };
