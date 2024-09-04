@@ -84,5 +84,8 @@ export const getRegistrationSection = async () => {
 }
 
 
-
+export const getDonationType = async () => {
+  const response = await axios.get(`${URLBase}/DonationType`);
+  return response.data;
+}
 
