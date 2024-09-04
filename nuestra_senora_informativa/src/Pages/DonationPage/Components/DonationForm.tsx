@@ -54,7 +54,7 @@ const DonationForm = () => {
               type="text"
               className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.nombre ? 'border-red-500' : ''}`}
             />
-            {errors.nombre && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.nombre.message}</p>}
+            {errors.nombre && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.nombre.message?.toString()}</p>}
           </div>
           {/* Primer Apellido */}
           <div>
@@ -67,7 +67,7 @@ const DonationForm = () => {
               type="text"
               className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.primerApellido ? 'border-red-500' : ''}`}
             />
-            {errors.primerApellido && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.primerApellido.message}</p>}
+            {errors.primerApellido && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.primerApellido.message?.toString()}</p>}
           </div>
         </div>
 
@@ -83,7 +83,7 @@ const DonationForm = () => {
               type="text"
               className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.segundoApellido ? 'border-red-500' : ''}`}
             />
-            {errors.segundoApellido && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.segundoApellido.message}</p>}
+            {errors.segundoApellido && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.segundoApellido.message?.toString()}</p>}
           </div>
           {/* Cédula */}
           <div>
@@ -96,7 +96,7 @@ const DonationForm = () => {
               type="text"
               className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.cedula ? 'border-red-500' : ''}`}
             />
-            {errors.cedula && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.cedula.message}</p>}
+            {errors.cedula && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.cedula.message?.toString() ?? ''}</p>}
           </div>
         </div>
 
@@ -112,7 +112,7 @@ const DonationForm = () => {
               type="email"
               className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.correo ? 'border-red-500' : ''}`}
             />
-            {errors.correo && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.correo.message}</p>}
+            {errors.correo && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.correo.message?.toString()}</p>}
           </div>
           {/* Teléfono */}
           <div>
@@ -125,7 +125,7 @@ const DonationForm = () => {
               type="tel"
               className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.telefono ? 'border-red-500' : ''}`}
             />
-            {errors.telefono && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.telefono.message}</p>}
+            {errors.telefono && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.telefono.message?.toString()}</p>}
           </div>
         </div>
 
@@ -141,7 +141,7 @@ const DonationForm = () => {
               type="date"
               className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.fecha ? 'border-red-500' : ''}`}
             />
-            {errors.fecha && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.fecha.message}</p>}
+            {errors.fecha && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.fecha.message?.toString()}</p>}
           </div>
           {/* Tipo de Donación */}
           <div>
@@ -161,7 +161,7 @@ const DonationForm = () => {
                 </option>
               ))}
             </select>
-            {errors.tipoDonacion && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.tipoDonacion.message}</p>}
+            {errors.tipoDonacion && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.tipoDonacion.message?.toString()}</p>}
           </div>
         </div>
 
@@ -184,7 +184,7 @@ const DonationForm = () => {
                   </option>
                 ))}
               </select>
-              {errors.metodoDonacion && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.metodoDonacion.message}</p>}
+              {errors.metodoDonacion && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.metodoDonacion.message?.toString()}</p>}
             </div>
           </div>
         )}
