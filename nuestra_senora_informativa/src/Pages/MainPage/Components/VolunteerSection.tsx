@@ -4,6 +4,7 @@ import { useSiteSettings } from '../../../Hooks/useSiteSettings';
 import useTitles from '../../../Hooks/useTitles';
 import useButtons from '../../../Hooks/useButtons';
 import useVolunteer from '../Hooks/useVolunteer';
+import useNavbarRoutes from '../../../Routes/useExtractRoutes';
 
 const VolunteerSection = () => {
   const { data: siteSettingsDataArray } = useSiteSettings();
@@ -15,6 +16,7 @@ const VolunteerSection = () => {
   const { data: volunteerData } = useVolunteer();
   const fullText = titleData?.description_Section || '';
   const { expandedText, toggleText, getTextToShow } = useToggleText(fullText);
+  const { routes } = useNavbarRoutes();
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8">
@@ -66,11 +68,12 @@ const VolunteerSection = () => {
               <p className="text-lg font-normal font-'Poppins'">
                 {service.description_Card_VT.split('.')[0]}.
               </p>
-             <Button 
-               text={buttonMore?.buttonText || ''} 
-               onClick={() => {}} 
+             <a 
+               href={routes['Voluntariado']} 
                className="mt-4 px-4 py-2 border border-white rounded-md text-white text-sm transition-all duration-300 bg-transparent hover:bg-white hover:text-[#0d313f]" 
-             />
+             >
+               {buttonMore?.buttonText}
+             </a>
             </div>
           </div>
         ))}

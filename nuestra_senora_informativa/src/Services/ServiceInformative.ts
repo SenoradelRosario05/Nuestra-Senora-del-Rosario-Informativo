@@ -70,12 +70,18 @@ export const getVolunteerProfile = async () => {
 }
 
 
+export const getGalleryCatgory = async () => {
+  const response = await axios.get(`${URLBase}/GalleryCategory`);
+  return response.data;
+}
+
+
+
 export const getRegistrationSection = async () => {
   const response = await axios.get(`${URLBase}/RegistrationSection`);
   console.log(response.data);
   return response.data;
 }
-
 
 
 
