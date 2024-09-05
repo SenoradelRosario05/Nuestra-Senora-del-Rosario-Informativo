@@ -13,7 +13,7 @@ const Requeriments = () => {
   const { data: title } = useTitles(13);
   const { data: Subtitle } = useTitles(14);
   const { data: SubtitleInformation } = useTitles(15);
-  const { data: button } = useButtons(2);
+  const { data: button } = useButtons(4);
 
   if (isErrorRequirements || isErrorImportant) {
     return <div>Error al cargar los datos.</div>;

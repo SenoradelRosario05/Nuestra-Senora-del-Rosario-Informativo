@@ -1,5 +1,5 @@
 
-import { Donation, Galery, Main,  Registration,    Volunteer } from '.';
+import { Donation, Galery, Main,  Registration,    VoluntarieForm,    Volunteer } from '.';
 import useNavbarRoutes from './useExtractRoutes';
 
 const useRoutesConfig = () => {
@@ -26,7 +26,10 @@ const useRoutesConfig = () => {
       path: routes['Proceso_ingreso'] || '/proceso_ingreso',
       element: <Registration />
     },
-   
+    {
+      path: routes['Formulario_Voluntariado'] || '/formulario_voluntariado',
+      element: <VoluntarieForm/>
+    },
    
   ];
 
