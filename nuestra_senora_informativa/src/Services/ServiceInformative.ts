@@ -134,3 +134,8 @@ export const getVoluntarieType = async () => {
   const response = await axios.get(`${URLBase}/VoluntarieType`);
   return response.data;
 };
+
+export const getNursingRequirements = async () => {  
+  const response = await axios.get(`${URLBase}/NursingRequirements`);
+  return response.data;
+}
