@@ -94,3 +94,13 @@ export const getServicesSection = async () => {
   console.log(response.data); 
   return response.data;
 }
+
+export const getAdministrativeRequirements = async () => {
+  const response = await axios.get(`${URLBase}/AdministrativeRequirements`);
+  return response.data;
+}
+
+export const getImportantInformation = async () => {
+  const response = await axios.get(`${URLBase}/ImportantInformation`);
+  return response.data;
+}
