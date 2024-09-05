@@ -99,3 +99,8 @@ export type AboutUsSection = {
       Id_DonationType: number;
       Id_MethodDonation: number;
   };
+
+  export type ConfirmationModalProps = {
+    isOpen: boolean;
+    onClose: () => void;
+  }

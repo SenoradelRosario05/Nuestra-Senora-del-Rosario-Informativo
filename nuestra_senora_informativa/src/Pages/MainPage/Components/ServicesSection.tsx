@@ -39,7 +39,7 @@ const ServiceSection = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center px-2 sm:px-6 lg:px-8">
+    <div id="servicios" className="min-h-screen flex flex-col items-center px-2 sm:px-6 lg:px-8">
 <div className="w-full max-w-4xl text-[#0d313f] text-[32px] font-medium text-center mb-12">
   <p>{title?.title_Text_Section}</p>
   <br />

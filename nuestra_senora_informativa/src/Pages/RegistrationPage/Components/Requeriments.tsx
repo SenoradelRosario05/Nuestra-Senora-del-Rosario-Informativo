@@ -12,7 +12,7 @@ const Requeriments = () => {
   const siteSettingsData = siteSettings ? siteSettings[0] : null;
   const { data: title } = useTitles(13);
   const { data: Subtitle } = useTitles(14);
-  const { data: SubtitleInformation } = useTitles(14);
+  const { data: SubtitleInformation } = useTitles(15);
   const { data: button } = useButtons(2);
 
   if (isErrorRequirements || isErrorImportant) {

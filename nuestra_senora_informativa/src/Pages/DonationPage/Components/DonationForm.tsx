@@ -1,19 +1,22 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDonationType } from '../Hooks/useDonationType';
 import { useSiteSettings } from '../../../Hooks/useSiteSettings';
-
-import { FormDonationCreateDto } from '../../../Types/informativeType'; // Ajustamos el tipo
+import { FormDonationCreateDto } from '../../../Types/informativeType';
 import { usePostFormDonation } from '../Hooks/usePostFormDonation';
+import ConfirmationModal from '../../../Components/ConfirmationModal';
+import { useModal } from '../../../Hooks/useModal';
 
 const DonationForm = () => {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormDonationCreateDto>(); // Usamos el tipo adecuado
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormDonationCreateDto>();
   const [showOtherInput, setShowOtherInput] = useState(false);
   const [selectedMethods, setSelectedMethods] = useState([]);
+  const { isOpen, openModal, closeModal } = useModal();
   const { data: siteSettings } = useSiteSettings();
   const siteSettingsData = siteSettings ? siteSettings[0] : null;
   const { data: donationTypes, isLoading, isError } = useDonationType();
+  const navigate = useNavigate();
 
   // Mutación para enviar el formulario
   const mutation = usePostFormDonation();
@@ -22,17 +25,22 @@ const DonationForm = () => {
   const onSubmit = (data: FormDonationCreateDto) => {
     mutation.mutate(data, {
       onSuccess: () => {
-        reset(); // Resetea el formulario tras el envío exitoso
+        reset();
+        openModal();
+        setTimeout(() => {
+          closeModal(); 
+          navigate('/'); // Redirige al '/'
+        }, 3000);
       }
     });
   };
 
   // Maneja el cambio de tipo de donación y ajusta los métodos de donación
   const handleDonationTypeChange = (e: any) => {
-    const value = parseInt(e.target.value); // Cambia el valor a número
-    const selectedType = donationTypes.find((type: any) => type.id_DonationType === value); // Compara el ID, no el nombre
+    const value = parseInt(e.target.value);
+    const selectedType = donationTypes.find((type: any) => type.id_DonationType === value);
     if (selectedType) {
-      setSelectedMethods(selectedType.methodDonations); // Configura los métodos basados en el tipo de donación seleccionado
+      setSelectedMethods(selectedType.methodDonations);
     }
     setShowOtherInput(selectedType?.methodDonations.length > 0);
   };
@@ -105,7 +113,17 @@ const DonationForm = () => {
             </label>
             <input
               id="cedula"
-              {...register('Dn_Cedula', { required: 'La cédula es obligatoria' })}
+              {...register('Dn_Cedula', {
+                required: 'La cédula es obligatoria',
+                minLength: {
+                  value: 9,
+                  message: 'La cédula debe tener exactamente 9 caracteres',
+                },
+                maxLength: {
+                  value: 9,
+                  message: 'La cédula debe tener exactamente 9 caracteres',
+                },
+              })}
               type="text"
               className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.Dn_Cedula ? 'border-red-500' : ''}`}
             />
@@ -114,41 +132,39 @@ const DonationForm = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-  {/* Correo Electrónico */}
-  <div>
-    <label className="block text-[#317591] text-3xl font-normal font-Poppins mb-2" htmlFor="email">
-      Correo Electrónico
-    </label>
-    <input
-      id="email"
-      {...register('Dn_Email', { 
-        required: 'El correo es obligatorio',
-        pattern: {
-          value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-          message: 'Correo inválido'
-        }
-      })}
-      type="email"
-      className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.Dn_Email ? 'border-red-500' : ''}`}
-    />
-    {errors.Dn_Email && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.Dn_Email.message}</p>}
-  </div>
-
-  {/* Teléfono */}
-  <div>
-    <label className="block text-[#317591] text-3xl font-normal font-Poppins mb-2" htmlFor="telefono">
-      Teléfono
-    </label>
-    <input
-      id="telefono"
-      {...register('Dn_Phone', { required: 'El teléfono es obligatorio' })}
-      type="tel"
-      className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.Dn_Phone ? 'border-red-500' : ''}`}
-    />
-    {errors.Dn_Phone && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.Dn_Phone.message}</p>}
-  </div>
-</div>
-
+          {/* Correo Electrónico */}
+          <div>
+            <label className="block text-[#317591] text-3xl font-normal font-Poppins mb-2" htmlFor="email">
+              Correo Electrónico
+            </label>
+            <input
+              id="email"
+              {...register('Dn_Email', { 
+                required: 'El correo es obligatorio',
+                pattern: {
+                  value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+                  message: 'Correo inválido'
+                }
+              })}
+              type="email"
+              className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.Dn_Email ? 'border-red-500' : ''}`}
+            />
+            {errors.Dn_Email && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.Dn_Email.message}</p>}
+          </div>
+          {/* Teléfono */}
+          <div>
+            <label className="block text-[#317591] text-3xl font-normal font-Poppins mb-2" htmlFor="telefono">
+              Teléfono
+            </label>
+            <input
+              id="telefono"
+              {...register('Dn_Phone', { required: 'El teléfono es obligatorio' })}
+              type="tel"
+              className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.Dn_Phone ? 'border-red-500' : ''}`}
+            />
+            {errors.Dn_Phone && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.Dn_Phone.message}</p>}
+          </div>
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {/* Fecha de Entrega */}
@@ -211,7 +227,6 @@ const DonationForm = () => {
         )}
 
         {/* Estado del formulario */}
-        {mutation.isSuccess && <div className="text-green-500">Donación enviada con éxito.</div>}
         {mutation.isError && <div className="text-red-500">Error al enviar la donación.</div>}
         {mutation.isLoading && <div>Enviando datos...</div>}
 
@@ -232,6 +247,8 @@ const DonationForm = () => {
           </Link>
         </div>
       </form>
+
+      <ConfirmationModal isOpen={isOpen} onClose={closeModal} />
     </div>
   );
 };
