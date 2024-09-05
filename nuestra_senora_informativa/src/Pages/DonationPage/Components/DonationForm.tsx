@@ -4,27 +4,40 @@ import { useForm } from 'react-hook-form';
 import { useDonationType } from '../Hooks/useDonationType';
 import { useSiteSettings } from '../../../Hooks/useSiteSettings';
 
+import { FormDonationCreateDto } from '../../../Types/informativeType'; // Ajustamos el tipo
+import { usePostFormDonation } from '../Hooks/usePostFormDonation';
+
 const DonationForm = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormDonationCreateDto>(); // Usamos el tipo adecuado
   const [showOtherInput, setShowOtherInput] = useState(false);
   const [selectedMethods, setSelectedMethods] = useState([]);
   const { data: siteSettings } = useSiteSettings();
   const siteSettingsData = siteSettings ? siteSettings[0] : null;
   const { data: donationTypes, isLoading, isError } = useDonationType();
 
-  const onSubmit = (data: any) => {
-    console.log('Form Data:', data);
+  // Mutación para enviar el formulario
+  const mutation = usePostFormDonation();
+
+  // Función para manejar el envío del formulario
+  const onSubmit = (data: FormDonationCreateDto) => {
+    mutation.mutate(data, {
+      onSuccess: () => {
+        reset(); // Resetea el formulario tras el envío exitoso
+      }
+    });
   };
 
+  // Maneja el cambio de tipo de donación y ajusta los métodos de donación
   const handleDonationTypeChange = (e: any) => {
-    const value = e.target.value;
-    const selectedType = donationTypes.find((type: any) => type.name_DonationType === value);
+    const value = parseInt(e.target.value); // Cambia el valor a número
+    const selectedType = donationTypes.find((type: any) => type.id_DonationType === value); // Compara el ID, no el nombre
     if (selectedType) {
-      setSelectedMethods(selectedType.methodDonations);
+      setSelectedMethods(selectedType.methodDonations); // Configura los métodos basados en el tipo de donación seleccionado
     }
-    setShowOtherInput(selectedType.methodDonations.length > 0);
+    setShowOtherInput(selectedType?.methodDonations.length > 0);
   };
 
+  // Cargar mientras se obtienen los tipos de donación
   if (isLoading) return <div>Cargando...</div>;
   if (isError) return <div>Error al cargar los tipos de donación</div>;
 
@@ -50,11 +63,11 @@ const DonationForm = () => {
             </label>
             <input
               id="nombre"
-              {...register('nombre', { required: 'El nombre es obligatorio' })}
+              {...register('Dn_Name', { required: 'El nombre es obligatorio' })}
               type="text"
-              className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.nombre ? 'border-red-500' : ''}`}
+              className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.Dn_Name ? 'border-red-500' : ''}`}
             />
-            {errors.nombre && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.nombre.message?.toString()}</p>}
+            {errors.Dn_Name && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.Dn_Name.message}</p>}
           </div>
           {/* Primer Apellido */}
           <div>
@@ -63,11 +76,11 @@ const DonationForm = () => {
             </label>
             <input
               id="primerApellido"
-              {...register('primerApellido', { required: 'El primer apellido es obligatorio' })}
+              {...register('Dn_Lastname1', { required: 'El primer apellido es obligatorio' })}
               type="text"
-              className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.primerApellido ? 'border-red-500' : ''}`}
+              className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.Dn_Lastname1 ? 'border-red-500' : ''}`}
             />
-            {errors.primerApellido && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.primerApellido.message?.toString()}</p>}
+            {errors.Dn_Lastname1 && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.Dn_Lastname1.message}</p>}
           </div>
         </div>
 
@@ -79,11 +92,11 @@ const DonationForm = () => {
             </label>
             <input
               id="segundoApellido"
-              {...register('segundoApellido', { required: 'El segundo apellido es obligatorio' })}
+              {...register('Dn_Lastname2', { required: 'El segundo apellido es obligatorio' })}
               type="text"
-              className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.segundoApellido ? 'border-red-500' : ''}`}
+              className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.Dn_Lastname2 ? 'border-red-500' : ''}`}
             />
-            {errors.segundoApellido && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.segundoApellido.message?.toString()}</p>}
+            {errors.Dn_Lastname2 && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.Dn_Lastname2.message}</p>}
           </div>
           {/* Cédula */}
           <div>
@@ -92,42 +105,50 @@ const DonationForm = () => {
             </label>
             <input
               id="cedula"
-              {...register('cedula', { required: 'La cédula es obligatoria' })}
+              {...register('Dn_Cedula', { required: 'La cédula es obligatoria' })}
               type="text"
-              className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.cedula ? 'border-red-500' : ''}`}
+              className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.Dn_Cedula ? 'border-red-500' : ''}`}
             />
-            {errors.cedula && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.cedula.message?.toString() ?? ''}</p>}
+            {errors.Dn_Cedula && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.Dn_Cedula.message}</p>}
           </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {/* Correo */}
-          <div>
-            <label className="block text-[#317591] text-3xl font-normal font-Poppins mb-2" htmlFor="correo">
-              Correo Electrónico
-            </label>
-            <input
-              id="correo"
-              {...register('correo', { required: 'El correo es obligatorio', pattern: { value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, message: 'Correo inválido' } })}
-              type="email"
-              className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.correo ? 'border-red-500' : ''}`}
-            />
-            {errors.correo && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.correo.message?.toString()}</p>}
-          </div>
-          {/* Teléfono */}
-          <div>
-            <label className="block text-[#317591] text-3xl font-normal font-Poppins mb-2" htmlFor="telefono">
-              Teléfono
-            </label>
-            <input
-              id="telefono"
-              {...register('telefono', { required: 'El teléfono es obligatorio' })}
-              type="tel"
-              className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.telefono ? 'border-red-500' : ''}`}
-            />
-            {errors.telefono && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.telefono.message?.toString()}</p>}
-          </div>
-        </div>
+  {/* Correo Electrónico */}
+  <div>
+    <label className="block text-[#317591] text-3xl font-normal font-Poppins mb-2" htmlFor="email">
+      Correo Electrónico
+    </label>
+    <input
+      id="email"
+      {...register('Dn_Email', { 
+        required: 'El correo es obligatorio',
+        pattern: {
+          value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+          message: 'Correo inválido'
+        }
+      })}
+      type="email"
+      className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.Dn_Email ? 'border-red-500' : ''}`}
+    />
+    {errors.Dn_Email && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.Dn_Email.message}</p>}
+  </div>
+
+  {/* Teléfono */}
+  <div>
+    <label className="block text-[#317591] text-3xl font-normal font-Poppins mb-2" htmlFor="telefono">
+      Teléfono
+    </label>
+    <input
+      id="telefono"
+      {...register('Dn_Phone', { required: 'El teléfono es obligatorio' })}
+      type="tel"
+      className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.Dn_Phone ? 'border-red-500' : ''}`}
+    />
+    {errors.Dn_Phone && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.Dn_Phone.message}</p>}
+  </div>
+</div>
+
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {/* Fecha de Entrega */}
@@ -137,11 +158,11 @@ const DonationForm = () => {
             </label>
             <input
               id="fecha"
-              {...register('fecha', { required: 'La fecha es obligatoria' })}
+              {...register('Delivery_date', { required: 'La fecha es obligatoria' })}
               type="date"
-              className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.fecha ? 'border-red-500' : ''}`}
+              className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.Delivery_date ? 'border-red-500' : ''}`}
             />
-            {errors.fecha && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.fecha.message?.toString()}</p>}
+            {errors.Delivery_date && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.Delivery_date.message}</p>}
           </div>
           {/* Tipo de Donación */}
           <div>
@@ -150,18 +171,18 @@ const DonationForm = () => {
             </label>
             <select
               id="tipo-donacion"
-              {...register('tipoDonacion', { required: 'El tipo de donación es obligatorio' })}
-              className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.tipoDonacion ? 'border-red-500' : ''}`}
+              {...register('Id_DonationType', { required: 'El tipo de donación es obligatorio' })}
+              className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.Id_DonationType ? 'border-red-500' : ''}`}
               onChange={handleDonationTypeChange}
             >
               <option value="">Selecciona un tipo de donación</option>
               {donationTypes.map((type: any) => (
-                <option key={type.id_DonationType} value={type.name_DonationType}>
+                <option key={type.id_DonationType} value={type.id_DonationType}>
                   {type.name_DonationType}
                 </option>
               ))}
             </select>
-            {errors.tipoDonacion && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.tipoDonacion.message?.toString()}</p>}
+            {errors.Id_DonationType && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.Id_DonationType.message}</p>}
           </div>
         </div>
 
@@ -174,28 +195,34 @@ const DonationForm = () => {
               </label>
               <select
                 id="metodo-donacion"
-                {...register('metodoDonacion', { required: 'Por favor, seleccione el método de donación' })}
-                className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.metodoDonacion ? 'border-red-500' : ''}`}
+                {...register('Id_MethodDonation', { required: 'Por favor, seleccione el método de donación' })}
+                className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.Id_MethodDonation ? 'border-red-500' : ''}`}
               >
                 <option value="">Selecciona un método</option>
                 {selectedMethods.map((method: any) => (
-                  <option key={method.id_MethodDonation} value={method.name_MethodDonation}>
+                  <option key={method.id_MethodDonation} value={method.id_MethodDonation}>
                     {method.name_MethodDonation}
                   </option>
                 ))}
               </select>
-              {errors.metodoDonacion && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.metodoDonacion.message?.toString()}</p>}
+              {errors.Id_MethodDonation && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.Id_MethodDonation.message}</p>}
             </div>
           </div>
         )}
+
+        {/* Estado del formulario */}
+        {mutation.isSuccess && <div className="text-green-500">Donación enviada con éxito.</div>}
+        {mutation.isError && <div className="text-red-500">Error al enviar la donación.</div>}
+        {mutation.isLoading && <div>Enviando datos...</div>}
 
         {/* Enviar y Cancelar Buttons */}
         <div className="flex justify-center space-x-4">
           <button
             type="submit"
             className="mt-4 px-8 py-4 bg-[#317591] text-white text-xl font-bold rounded-md shadow-md hover:bg-[#27597a] transition-colors duration-300 font-Poppins"
+            disabled={mutation.isLoading}
           >
-            Enviar Solicitud
+            {mutation.isLoading ? 'Enviando...' : 'Enviar Solicitud'}
           </button>
           <Link
             to="/"
