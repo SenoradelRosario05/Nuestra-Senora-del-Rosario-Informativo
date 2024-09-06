@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FormDonationCreateDto, FormVolunteerCreateDto } from '../Types/informativeType';
+import { AplicationFormDTO ,  FormDonationCreateDto, FormVolunteerCreateDto } from '../Types/informativeType';
 
 
 const URLBase =  'http://localhost:5074/api';
@@ -139,3 +139,16 @@ export const getNursingRequirements = async () => {
   const response = await axios.get(`${URLBase}/NursingRequirements`);
   return response.data;
 }
+
+
+
+
+export const postFormAplication = async (applicationData: AplicationFormDTO): Promise<any> => {
+  try {
+    const response = await axios.post(`${URLBase}/ApplicationForm`, applicationData);
+    return response.data;
+  } catch (error) {
+    console.error('Error al enviar los datos de la solicitud:', error);
+    throw error;
+  }
+};

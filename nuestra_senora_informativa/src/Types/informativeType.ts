@@ -1,5 +1,4 @@
 
-
 export type AboutUsSection = {
 
     Id_About_Us: number,
@@ -116,3 +115,24 @@ Delivery_Date :Date;
   End_Date:Date;
 VoluntarieTypeId: number;
 };
+
+
+
+export type AplicationFormDTO = {
+  id_ApplicationForm: number;
+  id_Applicant: number;
+  name_AP: string;
+  lastname1_AP: string;
+  lastname2_AP: string;
+  age_AP: number;
+  cedula_AP: string;
+  id_Guardian: number;
+  name_GD: string;
+  lastname1_GD: string;
+  lastname2_GD: string;
+  cedula_GD: string;
+  phone_GD: string;
+  email_GD: string;
+  applicationDate: string;
+  status_Name: string;
+}
