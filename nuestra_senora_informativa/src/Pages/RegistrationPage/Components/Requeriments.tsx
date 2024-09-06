@@ -4,6 +4,7 @@ import useTitles from "../../../Hooks/useTitles";
 import IconsComponent from "../../../Icons/IconsComponent";
 import useImportantInformation from "../Hooks/useImportantInformation";
 import useRegistration from "../Hooks/useRegistration";
+import useNursingRequirements from "../Hooks/useNursingRequirements"; // Nuevo hook para los requisitos de enfermería
 
 const Requeriments = () => {
   const { data: requirements, isError: isErrorRequirements } = useRegistration();
@@ -13,31 +14,36 @@ const Requeriments = () => {
   const { data: title } = useTitles(13);
   const { data: Subtitle } = useTitles(14);
   const { data: SubtitleInformation } = useTitles(15);
-  const { data: button } = useButtons(2);
+  const { data: button } = useButtons(4);
+  const { data: nursingRequirements, isError: isErrorNursing } = useNursingRequirements(); // Hook para enfermería
 
-  if (isErrorRequirements || isErrorImportant) {
+  if (isErrorRequirements || isErrorImportant || isErrorNursing) {
     return <div>Error al cargar los datos.</div>;
   }
 
   return (
     <>
       <div className="h-auto bg-white p-10">
+        {/* Título principal */}
         <div className="flex justify-center">
           <h1 className="text-center text-[#0d313f] text-[35px] font-normal uppercase mb-8">
            {title?.title_Text_Section}
           </h1>
         </div>
 
+        {/* Logo y separación */}
         <div className="flex justify-center items-center mb-8">
           <div className="border-t-2 border-[#0d313f] w-1/3"></div>
           <img className="w-10 h-[40px] mx-4" src={siteSettingsData?.icon_HGA_Url} alt="Logo" />
           <div className="border-t-2 border-[#0d313f] w-1/3"></div>
         </div>
 
+        {/* Descripción */}
         <p className="text-[#0d313f] text-lg mb-10 text-center">
           {title?.description_Section}
         </p>
 
+        {/* Requisitos Administrativos */}
         <h2 className="text-[#0d313f] text-[35px] font-normal uppercase mb-6 text-center">
           {Subtitle?.title_Text_Section}
         </h2>
@@ -45,8 +51,22 @@ const Requeriments = () => {
         <ul className="list-none space-y-4 text-center">
           {requirements?.map((req: any) => (
             <li key={req.id_AdministrativeRequirement} className="text-[#0d313f] text-lg font-normal flex items-center gap-4 justify-center">
-             <IconsComponent size={24} color="#0d313f" iconName="check" />
+              <IconsComponent size={24} color="#0d313f" iconName="check" />
               <span className="max-w-3xl text-justify">{req.description_AR}</span>
+            </li>
+          ))}
+        </ul>
+
+        {/* Requisitos de Enfermería */}
+        <h2 className="text-[#0d313f] text-[35px] font-normal uppercase mb-6 text-center mt-10">
+          Requisitos de Enfermería
+        </h2>
+
+        <ul className="list-none space-y-4 text-center">
+          {nursingRequirements?.map((nursingReq: any) => (
+            <li key={nursingReq.id_NursingRequirement} className="text-[#0d313f] text-lg font-normal flex items-center gap-4 justify-center">
+              <IconsComponent size={24} color="#0d313f" iconName="check" />
+              <span className="max-w-3xl text-justify">{nursingReq.description_NR}</span>
             </li>
           ))}
         </ul>

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FormDonationCreateDto } from '../Types/informativeType';
+import { FormDonationCreateDto, FormVolunteerCreateDto } from '../Types/informativeType';
 
 
 const URLBase =  'http://localhost:5074/api';
@@ -119,13 +119,23 @@ export const postFormDonation = async (donationData: FormDonationCreateDto): Pro
   }
 };
 
-export const postFormVolunteer = async (donationData: FormDonationCreateDto): Promise<any> => {
+export const postFormVolunteer = async (donationData: FormVolunteerCreateDto): Promise<any> => {
   try {
     // Hacemos la solicitud POST enviando el objeto tipado FormDonationCreateDto
-    const response = await axios.post(`${URLBase}/FormDonation`, donationData);
+    const response = await axios.post(`${URLBase}/FormVoluntarie`, donationData);
     return response.data; // Retorna la respuesta del backend
   } catch (error) {
     console.error('Error al enviar los datos de donación:', error);
     throw error;  // Lanza el error para que pueda ser manejado por React Query u otros mecanismos
   }
 };
+
+export const getVoluntarieType = async () => {
+  const response = await axios.get(`${URLBase}/VoluntarieType`);
+  return response.data;
+};
+
+export const getNursingRequirements = async () => {  
+  const response = await axios.get(`${URLBase}/NursingRequirements`);
+  return response.data;
+}

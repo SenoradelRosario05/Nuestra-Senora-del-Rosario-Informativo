@@ -97,7 +97,7 @@ const ServiceSection = () => {
                   {service.description_Card_SV.split(".")[0]}.
                 </div>
                 <div className="mt-auto mb-4">
-                  <button className="bg-[#dab87d] text-[#0d313f] text-[12px] sm:text-[14px] font-bold py-2 px-6 rounded-[10px] sm:rounded-[15px] shadow transition-all duration-300 hover:bg-[#c7a46d]">
+                  <button className="bg-[#dab87d] text-[#0d313f] text-[12px] sm:text-[14px] font-bold py-2 px-6 rounded-[10px] sm:rounded-[15px] shadow-lg transition-all duration-300 hover:bg-[#c7a46d] hover:scale-105">
                     {service.buttonText || "Ver más"}
                   </button>
                 </div>
