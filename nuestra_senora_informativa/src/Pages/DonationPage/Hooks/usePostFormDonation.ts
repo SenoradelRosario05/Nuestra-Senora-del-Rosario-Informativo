@@ -1,6 +1,6 @@
 import { useMutation, UseMutationResult, } from "react-query";
 import { postFormDonation } from "../../../Services/ServiceInformative";
-import { FormDonationCreateDto } from "../../../Types/informativeType";
+import { FormDonationCreateDto } from "../../../Types/TypesConfirmationModal";
 
 
 export const usePostFormDonation = (): UseMutationResult<any, Error, FormDonationCreateDto> => {

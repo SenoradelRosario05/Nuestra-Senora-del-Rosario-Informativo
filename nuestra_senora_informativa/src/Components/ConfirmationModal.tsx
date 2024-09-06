@@ -1,6 +1,6 @@
 // src/components/ConfirmationModal.tsx
 import React from 'react';
-import { ConfirmationModalProps } from '../Types/informativeType';
+import { ConfirmationModalProps } from '../Types/TypesConfirmationModal';
 
 const ConfirmationModal: React.FC<ConfirmationModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null; 

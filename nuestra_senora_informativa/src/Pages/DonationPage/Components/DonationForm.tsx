@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDonationType } from '../Hooks/useDonationType';
 import { useSiteSettings } from '../../../Hooks/useSiteSettings';
-import { FormDonationCreateDto } from '../../../Types/informativeType';
+import { FormDonationCreateDto } from '../../../Types/TypesConfirmationModal';
 import { usePostFormDonation } from '../Hooks/usePostFormDonation';
 import ConfirmationModal from '../../../Components/ConfirmationModal';
 import { useModal } from '../../../Hooks/useModal';

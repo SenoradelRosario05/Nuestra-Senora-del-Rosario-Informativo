@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import NavbarContext from '../Context/NavbarContextType'; 
 import { useNavbarItems } from '../Hooks/useNavbarItems';
 import { useSiteSettings } from '../Hooks/useSiteSettings';
-import { NavbarItem } from '../Types/informativeType';
+import { NavbarItem } from '../Types/TypesConfirmationModal';
 import useHandleScroll from '../Hooks/useHandleScroll';
 
 function Header() {

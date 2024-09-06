@@ -1,6 +1,6 @@
 import { useMutation, UseMutationResult } from 'react-query';
 import { postFormVolunteer } from '../../../Services/ServiceInformative';
-import { FormVolunteerCreateDto } from '../../../Types/informativeType';
+import { FormVolunteerCreateDto } from '../../../Types/TypesConfirmationModal';
 
 
 export const usePostFormVolunteer = (): UseMutationResult<any, Error, FormVolunteerCreateDto> => {

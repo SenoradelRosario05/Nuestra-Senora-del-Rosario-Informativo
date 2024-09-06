@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useSiteSettings } from '../../../Hooks/useSiteSettings';
-import { FormVolunteerCreateDto } from '../../../Types/informativeType';
+import { FormVolunteerCreateDto } from '../../../Types/TypesConfirmationModal';
 import { useVoluntarieType } from '../Hooks/useVoluntarieType';
 import { usePostFormVolunteer } from '../Hooks/usePostVolunteerFrm';
 
