@@ -23,11 +23,11 @@ const Requeriments = () => {
 
   return (
     <>
-      <div className="h-auto bg-white p-10">
+      <div className="h-auto bg-white p-10 px-6 sm:px-16 lg:px-32">
         {/* Título principal */}
         <div className="flex justify-center">
-          <h1 className="text-center text-[#0d313f] text-[35px] font-normal uppercase mb-8">
-           {title?.title_Text_Section}
+          <h1 className="text-center text-[#0d313f] text-[30px] font-normal uppercase mb-8">
+            {title?.title_Text_Section}
           </h1>
         </div>
 
@@ -44,43 +44,64 @@ const Requeriments = () => {
         </p>
 
         {/* Requisitos Administrativos */}
-        <h2 className="text-[#0d313f] text-[35px] font-normal uppercase mb-6 text-center">
+        <h2 className="text-[#0d313f] text-[30px] font-normal uppercase mb-6 text-center">
           {Subtitle?.title_Text_Section}
         </h2>
 
         <ul className="list-none space-y-4 text-center">
           {requirements?.map((req: any) => (
-            <li key={req.id_AdministrativeRequirement} className="text-[#0d313f] text-lg font-normal flex items-center gap-4 justify-center">
-              <IconsComponent size={24} color="#0d313f" iconName="check" />
-              <span className="max-w-3xl text-justify">{req.description_AR}</span>
+            <li
+              key={req.id_AdministrativeRequirement}
+              className="text-[#0d313f] text-lg font-normal flex items-start gap-4 justify-start max-w-4xl mx-auto"
+            >
+              <div className="flex-shrink-0">
+                <IconsComponent size={24} color="#0d313f" iconName="check" />
+              </div>
+              <div className="flex-grow text-left">
+                <span>{req.description_AR}</span>
+              </div>
             </li>
           ))}
         </ul>
 
         {/* Requisitos de Enfermería */}
-        <h2 className="text-[#0d313f] text-[35px] font-normal uppercase mb-6 text-center mt-10">
+        <h2 className="text-[#0d313f] text-[30px] font-normal uppercase mb-6 text-center mt-10">
           Requisitos de Enfermería
         </h2>
 
         <ul className="list-none space-y-4 text-center">
           {nursingRequirements?.map((nursingReq: any) => (
-            <li key={nursingReq.id_NursingRequirement} className="text-[#0d313f] text-lg font-normal flex items-center gap-4 justify-center">
-              <IconsComponent size={24} color="#0d313f" iconName="check" />
-              <span className="max-w-3xl text-justify">{nursingReq.description_NR}</span>
+            <li
+              key={nursingReq.id_NursingRequirement}
+              className="text-[#0d313f] text-lg font-normal flex items-start gap-4 justify-start max-w-4xl mx-auto"
+            >
+              <div className="flex-shrink-0">
+                <IconsComponent size={24} color="#0d313f" iconName="check" />
+              </div>
+              <div className="flex-grow text-left">
+                <span>{nursingReq.description_NR}</span>
+              </div>
             </li>
           ))}
         </ul>
 
         {/* Sección de Información Importante */}
-        <h2 className="text-[#0d313f] text-[35px] font-normal uppercase mb-6 text-center mt-10">
-         {SubtitleInformation?.title_Text_Section}
+        <h2 className="text-[#0d313f] text-[30px] font-normal uppercase mb-6 text-center mt-10">
+          {SubtitleInformation?.title_Text_Section}
         </h2>
 
         <ul className="list-none space-y-4 text-center">
           {importantInformation?.map((info: any) => (
-            <li key={info.id_ImportantInformation} className="text-[#0d313f] text-lg font-normal flex items-center gap-4 justify-center">
-              <IconsComponent size={24} color="#0d313f" iconName="check" />
-              <span className="max-w-3xl text-justify">{info.description_ImportantInformation}</span>
+            <li
+              key={info.id_ImportantInformation}
+              className="text-[#0d313f] text-lg font-normal flex items-start gap-4 justify-start max-w-4xl mx-auto"
+            >
+              <div className="flex-shrink-0">
+                <IconsComponent size={24} color="#0d313f" iconName="check" />
+              </div>
+              <div className="flex-grow text-left">
+                <span>{info.description_ImportantInformation}</span>
+              </div>
             </li>
           ))}
         </ul>
@@ -89,7 +110,7 @@ const Requeriments = () => {
         <div className="flex justify-center mt-10">
           <a href="/solicitud-formulario">
             <button className="bg-[#dab87d] text-[#0d313f] text-[18px] sm:text-[22px] font-bold font-'Poppins' py-3 sm:py-4 px-8 sm:px-10 rounded-[20px] sm:rounded-[30px] shadow-lg transition-all duration-300 hover:bg-[#c7a46d] hover:scale-105">
-             {button?.buttonText}
+              {button?.buttonText}
             </button>
           </a>
         </div>
