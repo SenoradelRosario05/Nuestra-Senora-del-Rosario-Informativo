@@ -3,6 +3,7 @@ import { useSiteSettings } from '../../../Hooks/useSiteSettings';
 import { FormVolunteerCreateDto } from '../../../Types/informativeType';
 import { useVoluntarieType } from '../Hooks/useVoluntarieType';
 import { usePostFormVolunteer } from '../Hooks/usePostVolunteerFrm';
+import { Link } from 'react-router-dom';
 
 
 
@@ -44,7 +45,7 @@ const VolunteerForm = () => {
       </h3>
 
       <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-4xl space-y-6">
-        {/* Nombre y Primer Apellido */}
+        
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
             <label className="block text-[#317591] text-3xl font-normal font-Poppins mb-2" htmlFor="nombre">
@@ -199,12 +200,12 @@ const VolunteerForm = () => {
           >
             {mutation.isLoading ? 'Enviando...' : 'Enviar Solicitud'}
           </button>
-          <button
-            type="button"
+          <Link
+            to="/"
             className="mt-4 px-8 py-4 bg-red-600 text-white text-xl font-bold rounded-md shadow-md hover:bg-red-700 transition-colors duration-300 font-Poppins"
           >
             Cancelar
-          </button>
+          </Link>
         </div>
       </form>
     </div>

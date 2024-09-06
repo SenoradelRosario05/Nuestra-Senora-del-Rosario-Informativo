@@ -1,6 +1,10 @@
+// src/routes/useRoutesConfig.tsx
 
-import { Donation, Galery, Main,  Registration,    VoluntarieForm,    Volunteer } from '.';
+
+import { Donation, Galery, Main, Registration, VoluntarieForm, Volunteer } from '.';
 import useNavbarRoutes from './useExtractRoutes';
+
+import AplicationForm from '../Pages/Inscription/components/AplicationForm';
 
 const useRoutesConfig = () => {
   const { routes, isLoading } = useNavbarRoutes();
@@ -28,9 +32,12 @@ const useRoutesConfig = () => {
     },
     {
       path: routes['Formulario_Voluntariado'] || '/formulario_voluntariado',
-      element: <VoluntarieForm/>
+      element: <VoluntarieForm />
     },
-   
+    {
+      path: routes['proceso-ingreso'] || '/solicitud-formulario',
+      element: <AplicationForm/>
+    },
   ];
 
   return { isLoading, routes: mappedRoutes };
