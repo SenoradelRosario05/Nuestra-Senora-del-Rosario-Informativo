@@ -10,9 +10,6 @@ interface ServiceCardProps {
 }
 
 const ServiceCard: React.FC<ServiceCardProps> = ({ index, service, isFlipped, handleFlip }) => {
- 
-
-
   const getShortDescription = (description: string) => {
     const firstPeriod = description.indexOf('.');
     return firstPeriod !== -1 ? description.substring(0, firstPeriod + 1) : description;
@@ -20,9 +17,8 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ index, service, isFlipped, ha
 
   return (
     <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
-      
       <div
-        className="w-[278px] h-[327px] relative bg-[#d9d9d9] rounded-[15px] shadow cursor-pointer"
+        className="w-[278px] h-[327px] relative bg-[#d9d9d9] rounded-[15px] shadow cursor-pointer overflow-hidden"
         onClick={() => handleFlip(index)}
       >
         <div className="left-[89px] top-[7px] absolute text-[#0d313f] text-xl font-normal font-'Poppins'">
@@ -36,8 +32,6 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ index, service, isFlipped, ha
         <div className="w-[201px] left-[44px] top-[203px] absolute text-center text-[#0d313f] text-sm font-normal font-'Poppins'">
           {getShortDescription(service.description_Card_SV)}
         </div>
-        
-       
         <div className="absolute inset-x-0 bottom-4 flex justify-center">
           <Button
             text={service.buttonText || "Ver más"}
@@ -47,9 +41,8 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ index, service, isFlipped, ha
         </div>
       </div>
 
-      
       <div
-        className="w-[278px] h-[327px] relative bg-[#d9d9d9]  text-[#0d313f] rounded-[15px] shadow flex flex-col justify-center items-center p-4 cursor-pointer"
+        className="w-[278px] h-[327px] relative bg-[#d9d9d9] text-[#0d313f] rounded-[15px] shadow flex flex-col justify-center items-center p-4 cursor-pointer overflow-hidden"
         onClick={() => handleFlip(index)}
       >
         <p className="text-sm mb-6 text-center">

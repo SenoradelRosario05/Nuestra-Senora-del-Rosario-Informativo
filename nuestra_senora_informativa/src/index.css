@@ -14,3 +14,12 @@
 .animate-scroll {
     animation: scroll 15s linear infinite;
   }
+
+rollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none; 
+  scrollbar-width: none;
+}
