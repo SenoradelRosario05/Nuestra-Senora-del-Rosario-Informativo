@@ -5,10 +5,10 @@ import { FormVolunteerCreateDto } from '../../../Types/informativeType';
 export const usePostAplication = (): UseMutationResult<any, Error, FormVolunteerCreateDto> => {
     return useMutation(postFormVolunteer, {
         onSuccess: (data) => {
-            console.log('Voluntariado enviado con éxito:', data);
+            console.log('Solicitud enviado con éxito:', data);
         },
         onError: (error) => {
-            console.error('Error al enviar voluntariado:', error);
+            console.error('Error al enviar la solicitud:', error);
         }
     });
 };
