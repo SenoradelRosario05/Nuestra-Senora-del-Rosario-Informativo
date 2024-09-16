@@ -211,18 +211,20 @@ const AplicationForm: React.FC = () => {
         {/* Botones de Enviar y Cancelar */}
         <div className="flex justify-center space-x-4">
           <div className="flex justify-center space-x-4">
-          <button
-            type="submit"
-            className="mt-4 px-8 py-4 bg-[#317591] text-white text-xl font-bold rounded-md shadow-md hover:bg-[#27597a] transition-colors duration-300 font-Poppins"
-          >
-            Enviar Solicitud
-          </button>
           <Link
             to="/"
             className="mt-4 px-8 py-4 bg-red-600 text-white text-xl font-bold rounded-md shadow-md hover:bg-red-700 transition-colors duration-300 font-Poppins"
+          tabIndex={1}
           >
             Cancelar
           </Link>
+          <button
+            type="submit"
+            className="mt-4 px-8 py-4 bg-[#317591] text-white text-xl font-bold rounded-md shadow-md hover:bg-[#27597a] transition-colors duration-300 font-Poppins"
+          tabIndex={0}
+          >
+            Enviar Solicitud
+          </button>
         </div>
         </div>
       </form>
