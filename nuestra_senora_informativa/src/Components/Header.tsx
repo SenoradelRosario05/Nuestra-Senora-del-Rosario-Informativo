@@ -27,7 +27,7 @@ function Header() {
   if (navbarError || siteSettingsError) return <div>Error loading data</div>;
 
   const siteTitle = siteSettings?.[0]?.siteTitle || 'Default Title';
-  const siteIconUrl = siteSettings?.[0]?.icon_HGA_Url || 'https://via.placeholder.com/53x52';
+  const siteIconUrl = siteSettings?.[0]?.icon_HGA_Url || 'https://i.ibb.co/D5xXgD5/Icon-whitout-fondo.png';
 
   return (
     <>
