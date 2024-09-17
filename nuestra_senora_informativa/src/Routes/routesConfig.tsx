@@ -1,7 +1,7 @@
 // src/routes/useRoutesConfig.tsx
 
 
-import { Donation, Galery, Main, Registration, VoluntarieForm, Volunteer } from '.';
+import { DonarionRequeriments, Donation, Galery, Main, Registration, VoluntarieForm, Volunteer } from '.';
 import useNavbarRoutes from './useExtractRoutes';
 
 import AplicationForm from '../Pages/Inscription/components/AplicationForm';
@@ -38,6 +38,10 @@ const useRoutesConfig = () => {
       path: routes['proceso-ingreso'] || '/solicitud-formulario',
       element: <AplicationForm/>
     },
+    {
+      path : '/donaciones',
+      element: <DonarionRequeriments/>
+    }
   ];
 
   return { isLoading, routes: mappedRoutes };
