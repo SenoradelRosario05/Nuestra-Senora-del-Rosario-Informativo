@@ -13,7 +13,7 @@ export const DonationSection = () => {
   const { data: title } = useTitles(6);
   const { data: button } = useButtons(2);
 
-  const { routes, isError } = useNavbarRoutes();
+  const { isError } = useNavbarRoutes();
 
   if (isError) return <div>Error loading navigation data</div>;
 
