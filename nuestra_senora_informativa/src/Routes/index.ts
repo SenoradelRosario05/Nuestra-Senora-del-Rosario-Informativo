@@ -9,3 +9,4 @@ export const Volunteer = React.lazy(() => import('../Pages/VolunteerPage/Volunte
 export const Registration = React.lazy(() => import('../Pages/RegistrationPage/Registration'));
 export const VoluntarieForm = React.lazy(() => import('../Pages/VolunteerRequest/VolunteerRequest'));
 export const AplicationForm = React.lazy(() => import('../Pages/Inscription/components/AplicationForm'));
+export const DonarionRequeriments = React.lazy(() => import('../Pages/DonationRequeriments/DonationRequeriments'));

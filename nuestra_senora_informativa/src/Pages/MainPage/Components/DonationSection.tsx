@@ -13,7 +13,7 @@ export const DonationSection = () => {
   const { data: title } = useTitles(6);
   const { data: button } = useButtons(2);
 
-  const { routes, isError } = useNavbarRoutes();
+  const { isError } = useNavbarRoutes();
 
   if (isError) return <div>Error loading navigation data</div>;
 
@@ -43,7 +43,7 @@ export const DonationSection = () => {
       </div>
       <div className="relative z-10 mt-12 text-center">
         <button className="bg-[#dab87d] text-[#0d313f] text-[18px] sm:text-[22px] font-bold font-'Poppins' py-3 sm:py-4 px-8 sm:px-10 rounded-[20px] sm:rounded-[30px] shadow-lg transition-all duration-300 hover:bg-[#c7a46d] hover:scale-105">
-          <a href={routes['Donaciones']}>{button?.buttonText || "Realiza tu donación ahora"}</a>
+          <a href='/donaciones'>{button?.buttonText || "Realiza tu donación ahora"}</a>
         </button>
       </div>
     </div>
