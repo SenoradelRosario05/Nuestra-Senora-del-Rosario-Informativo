@@ -7,6 +7,7 @@ import { FormDonationCreateDto } from '../../../Types/informativeType';
 import { usePostFormDonation } from '../Hooks/usePostFormDonation';
 import ConfirmationModal from '../../../Components/ConfirmationModal';
 import { useModal } from '../../../Hooks/useModal';
+import LoadingSpinner from '../../../Components/LoadingSpinner';
 
 const DonationForm = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormDonationCreateDto>();
@@ -46,7 +47,7 @@ const DonationForm = () => {
   };
 
   // Cargar mientras se obtienen los tipos de donación
-  if (isLoading) return <div>Cargando...</div>;
+  if (isLoading) return <LoadingSpinner/>;
   if (isError) return <div>Error al cargar los tipos de donación</div>;
 
   return (
