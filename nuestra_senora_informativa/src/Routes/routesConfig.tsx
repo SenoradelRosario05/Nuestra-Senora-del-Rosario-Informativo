@@ -1,10 +1,11 @@
 // src/routes/useRoutesConfig.tsx
 
 
-import { DonarionRequeriments, Donation, Galery, Main, Registration, VoluntarieForm, Volunteer } from '.';
+import { Donation, Galery, Main, Registration, VoluntarieForm, Volunteer } from '.';
 import useNavbarRoutes from './useExtractRoutes';
 
 import AplicationForm from '../Pages/Inscription/components/AplicationForm';
+import DonationRequeriments from '../Pages/DonationRequeriments/DonationRequeriments';
 
 const useRoutesConfig = () => {
   const { routes, isLoading } = useNavbarRoutes();
@@ -16,7 +17,7 @@ const useRoutesConfig = () => {
     },
     {
       path: routes['Donaciones'] || '/donaciones',
-      element: <Donation />
+      element: <DonationRequeriments />
     },
     {
       path: routes['Voluntariado'] || '/voluntariado',
@@ -37,10 +38,9 @@ const useRoutesConfig = () => {
     {
       path: routes['proceso-ingreso'] || '/solicitud-formulario',
       element: <AplicationForm/>
-    },
-    {
-      path : '/donaciones',
-      element: <DonarionRequeriments/>
+    },{
+      path: '/solicitudes/donaciones',
+      element: <Donation />
     }
   ];
 
