@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { useLocation } from 'react-router-dom'; // Importa useLocation para detectar la ruta actual
 import NavbarContext from '../Context/NavbarContextType'; 
 import { useNavbarItems } from '../Hooks/useNavbarItems';
 import { useSiteSettings } from '../Hooks/useSiteSettings';
@@ -6,6 +7,7 @@ import { NavbarItem } from '../Types/informativeType';
 import useHandleScroll from '../Hooks/useHandleScroll';
 
 function Header() {
+  const location = useLocation(); // Obtiene la ruta actual
   const navbarContext = useContext(NavbarContext);
 
   if (!navbarContext) {
@@ -28,6 +30,15 @@ function Header() {
 
   const siteTitle = siteSettings?.[0]?.siteTitle || 'Default Title';
   const siteIconUrl = siteSettings?.[0]?.icon_HGA_Url || 'https://i.ibb.co/D5xXgD5/Icon-whitout-fondo.png';
+
+  // Filtrar items basados en la ruta actual
+  const filteredNavbarItems = navbarItems?.filter((item: NavbarItem) => {
+    // Muestra "Sobre Nosotros" y "Servicios" solo en la página principal
+    if (location.pathname !== '/') {
+      return item.urlNav !== '#about-us-section' && item.urlNav !== '#servicios';
+    }
+    return true;
+  });
 
   return (
     <>
@@ -53,7 +64,7 @@ function Header() {
           {/* Menú de Navegación para pantallas grandes */}
           <nav className="hidden lg:flex space-x-6 mr-3 ">
             <ul className="flex space-x-5 text-sm font-medium">
-              {navbarItems?.map((item: NavbarItem) => (
+              {filteredNavbarItems?.map((item: NavbarItem) => (
                 <li key={item.id_Nav_It} className="relative group">
                   <div className="flex items-center">
                     {item.children && item.children.length > 0 ? (
@@ -120,7 +131,7 @@ function Header() {
           </button>
         </div>
         <ul className="space-y-2 p-4">
-          {navbarItems?.map((item: NavbarItem) => (
+          {filteredNavbarItems?.map((item: NavbarItem) => (
             <li key={item.id_Nav_It}>
               <div className="flex justify-between items-center">
                 {item.children && item.children.length > 0 ? (
