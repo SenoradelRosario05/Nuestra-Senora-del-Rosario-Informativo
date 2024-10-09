@@ -110,6 +110,19 @@ const AplicationForm: React.FC = () => {
           </div>
         </div>
 
+        <div>
+            <label className="block text-[#317591] text-2xl font-normal font-Poppins mb-2" htmlFor="location">
+             Domicilio
+            </label>
+            <input
+              id="location"
+              {...register('location', { required: 'Domicilio Requerido' })}
+              type="text"
+              className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.location ? 'border-red-500' : ''}`}
+            />
+            {errors.location && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.location.message}</p>}
+          </div>
+
         {/* Encargado */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
