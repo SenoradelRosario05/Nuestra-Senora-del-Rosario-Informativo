@@ -24,17 +24,27 @@ const DonationForm = () => {
 
   // Función para manejar el envío del formulario
   const onSubmit = (data: FormDonationCreateDto) => {
-    mutation.mutate(data, {
+    // Convertimos la fecha a un objeto Date completo
+    const deliveryDate = new Date(`${data.Delivery_date}T00:00:00`);
+  
+    // Preparamos el payload con la fecha corregida
+    const payload: FormDonationCreateDto = {
+      ...data,
+      Delivery_date: deliveryDate, // Ensure Delivery_date is of type Date
+    };
+  
+    mutation.mutate(payload, {
       onSuccess: () => {
         reset();
         openModal();
         setTimeout(() => {
-          closeModal(); 
-          navigate('/'); // Redirige al '/'
+          closeModal();
+          navigate('/'); // Redirige al inicio
         }, 3000);
-      }
+      },
     });
   };
+  
 
   // Maneja el cambio de tipo de donación y ajusta los métodos de donación
   const handleDonationTypeChange = (e: any) => {
