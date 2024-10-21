@@ -126,6 +126,7 @@ export type AplicationFormDTO = {
   lastname2_AP: string;
   age_AP: number;
   cedula_AP: string;
+  location: string;
   id_Guardian: number;
   name_GD: string;
   lastname1_GD: string;
