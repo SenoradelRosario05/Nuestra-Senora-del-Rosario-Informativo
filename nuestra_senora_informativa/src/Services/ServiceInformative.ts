@@ -2,7 +2,7 @@ import axios from 'axios';
 import { AplicationFormDTO ,  FormDonationCreateDto, FormVolunteerCreateDto } from '../Types/informativeType';
 
 
-const URLBase =  'http://localhost:5074/api';
+const URLBase =  'https://localhost:7066/api';
 
 export const getAboutUsSection = async () => {
   const response = await axios.get(`${URLBase}/AboutUsSection`);
