@@ -2,7 +2,7 @@ import axios from 'axios';
 import { AplicationFormDTO ,  FormDonationCreateDto, FormVolunteerCreateDto } from '../Types/informativeType';
 
 
-const URLBase =  'https://localhost:7066/api';
+const URLBase =  'https://nuestra-senora-del-rosario-backend-2.onrender.com/api';
 
 export const getAboutUsSection = async () => {
   const response = await axios.get(`${URLBase}/AboutUsSection`);
