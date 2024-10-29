@@ -43,11 +43,11 @@ function Header() {
   return (
     <>
       <header className={`fixed w-full z-20 transition-colors duration-300 top-0 left-0 ${isScrolled ? 'bg-[#317591]' : 'bg-transparent'}`}>
-        <div className="w-full p-4 flex items-center justify-between">
+        <div className="w-full p-4 flex items-center justify-between gap-6">
           {/* Logo y Título */}
           <a href="#" className="flex items-center space-x-3 ml-3">
             <img src={siteIconUrl} className="h-8 w-8" alt="Logo" />
-            <span className="text-xl font-semibold text-white whitespace-nowrap">{siteTitle}</span>
+            <span className="text-lg sm:text-xl font-semibold text-white whitespace-nowrap">{siteTitle}</span>
           </a>
 
           {/* Botón de Menú para dispositivos móviles y pantallas medianas */}
@@ -88,7 +88,7 @@ function Header() {
                       // Si no tiene hijos, es un enlace normal
                       <a 
                         href={item.urlNav} 
-                        className="text-white hover:text-blue-500"
+                        className="text-white hover:text-blue-500 "
                         onClick={(event) => {
                           if (item.urlNav.startsWith('#')) {
                             event.preventDefault();
