@@ -15,8 +15,9 @@ const GallerySection = () => {
     }
   }, [categories]);
 
-  if (isErrorCategories || isErrorImages) return <div className="text-center text-red-500">Error al cargar la galería.</div>;
-
+  if (isErrorCategories || isErrorImages) {
+    return <div className="text-center text-red-500">Error al cargar la galería.</div>;
+  }
 
   const filteredImages = selectedCategory
     ? galleryItems?.filter((item: any) => item.id_GalleryCategory === selectedCategory)
@@ -24,7 +25,8 @@ const GallerySection = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <div className="max-w-7xl mx-auto p-6 flex-grow">
+      {/* Contenedor principal con margen superior */}
+      <div className="max-w-7xl mx-auto p-6 mt-20 flex-grow"> 
         <div className="text-center mb-6">
           <h2 className="text-3xl font-semibold">{title?.title_Text_Section}</h2>
           <div className="mt-4">
@@ -42,6 +44,7 @@ const GallerySection = () => {
           </div>
         </div>
 
+        {/* Galería de imágenes */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {filteredImages?.length > 0 ? (
             filteredImages?.map((image: any) => (
@@ -53,7 +56,9 @@ const GallerySection = () => {
               />
             ))
           ) : (
-            <p className="text-center text-gray-500 col-span-full">{title?.description_Section}</p>
+            <p className="text-center text-gray-500 col-span-full">
+              {title?.description_Section}
+            </p>
           )}
         </div>
       </div>
