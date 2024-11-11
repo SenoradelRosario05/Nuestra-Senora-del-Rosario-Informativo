@@ -23,7 +23,7 @@ const Requeriments = () => {
 
   return (
     <>
-      <div className="h-auto bg-white p-10 px-6 sm:px-16 lg:px-32">
+      <div className="h-auto bg-white p-10 pt-20 px-6 sm:px-16 lg:px-32">
         {/* Título principal */}
         <div className="flex justify-center">
           <h1 className="text-center text-[#0d313f] text-[30px] font-normal uppercase mb-8">

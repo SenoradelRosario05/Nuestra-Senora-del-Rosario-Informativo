@@ -5,10 +5,13 @@ import { postFormAplication } from '../../../Services/ServiceInformative';
 import ConfirmationModal from '../../../Components/ConfirmationModal';
 import { useModal } from '../../../Hooks/useModal';
 import { Link } from 'react-router-dom';
+import { useSiteSettings } from '../../../Hooks/useSiteSettings';
 
 const AplicationForm: React.FC = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<AplicationFormDTO>();
   const { isOpen, openModal, closeModal } = useModal();
+  const { data: siteSettings } = useSiteSettings();
+  const siteSettingsData = siteSettings ? siteSettings[0] : null;
 
   const onSubmit: SubmitHandler<AplicationFormDTO> = async (data) => {
     try {
@@ -24,10 +27,15 @@ const AplicationForm: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8">
-      <h2 className="text-[#0d313f] text-[24px] sm:text-[30px] font-normal font-Poppins uppercase text-center">
+    <div className="min-h-screen bg-white flex flex-col items-center pt-20 py-12 px-4 sm:px-6 lg:px-8">
+      <h2 className="text-[#0d313f] text-[28px] sm:text-[35px] font-normal font-Poppins uppercase text-center">
         Solicitud de Ingreso
       </h2>
+      <div className="flex items-center justify-center my-6 w-full max-w-lg">
+        <div className="w-1/4 sm:w-1/3 md:w-1/2 border-t-2 border-[#0d313f]"></div>
+        <img className="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px] mx-4" src={siteSettingsData?.icon_HGA_Url} alt="Logo de la institución" />
+        <div className="w-1/4 sm:w-1/3 md:w-1/2 border-t-2 border-[#0d313f]"></div>
+      </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-4xl space-y-6">
         {/* Nombre y Apellidos */}
