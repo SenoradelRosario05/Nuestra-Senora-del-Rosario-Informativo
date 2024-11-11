@@ -3,7 +3,9 @@ import { useSiteSettings } from '../../../Hooks/useSiteSettings';
 import { FormVolunteerCreateDto } from '../../../Types/informativeType';
 import { useVoluntarieType } from '../Hooks/useVoluntarieType';
 import { usePostFormVolunteer } from '../Hooks/usePostVolunteerFrm';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useModal } from '../../../Hooks/useModal';
+import ConfirmationModal from '../../../Components/ConfirmationModal';
 
 
 
@@ -12,6 +14,8 @@ const VolunteerForm = () => {
   const { data: siteSettings } = useSiteSettings();
   const siteSettingsData = siteSettings ? siteSettings[0] : null;
   const { data: voluntarieTypes, isLoading, isError } = useVoluntarieType(); // Hook para obtener los tipos de voluntariado
+  const { isOpen, openModal, closeModal } = useModal();
+  const navigate = useNavigate();
 
   // Mutación para enviar el formulario
   const mutation = usePostFormVolunteer();
@@ -21,6 +25,11 @@ const VolunteerForm = () => {
     mutation.mutate(data, {
       onSuccess: () => {
         reset(); // Resetea el formulario tras el envío exitoso
+        openModal(); // Abre el modal de confirmación
+        setTimeout(() => {
+          closeModal();
+          navigate('/'); // Redirige al inicio
+        }, 3000);
       }
     });
   };
@@ -210,6 +219,7 @@ const VolunteerForm = () => {
           </button>
         </div>
       </form>
+      <ConfirmationModal isOpen={isOpen} onClose={closeModal} />
     </div>
   );
 };
