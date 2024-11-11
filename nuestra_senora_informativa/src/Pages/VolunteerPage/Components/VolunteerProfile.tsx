@@ -13,7 +13,7 @@ const VolunteerProfile = () => {
   const IconsDA = IconsDataArray ? IconsDataArray[0] : null;
   
   return (
-    <div className="flex flex-col items-center py-12 px-0 bg-white w-full">
+    <div className="flex flex-col items-center pt-20 py-12 px-0 bg-white w-full">
       <h2 className="text-[#0d313f] text-[35px] font-semibold font-'Poppins' uppercase mb-4">{title?.title_Text_Section}</h2>
       <div className="flex items-center justify-center my-6 w-full max-w-lg">
         <div className="w-1/4 sm:w-1/3 md:w-1/2 border-t-2 border-[#0d313f]"></div>

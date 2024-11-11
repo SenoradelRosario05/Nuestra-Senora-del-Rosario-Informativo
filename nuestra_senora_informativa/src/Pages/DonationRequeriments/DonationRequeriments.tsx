@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function DonationRequeriments() {
   return (
-    <div className="relative max-w-5xl mx-auto py-16 font-Poppins px-6">
+    <div className="h-auto bg-white p-10 pt-20 px-6 sm:px-16 lg:px-32">
       {/* Logo de fondo */}
       <div className="absolute inset-0 opacity-10 flex justify-center">
         <img

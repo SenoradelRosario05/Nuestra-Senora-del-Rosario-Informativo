@@ -40,9 +40,12 @@ function Header() {
     return true;
   });
 
+  // Define el fondo del header según la ruta actual y si la página está desplazada
+  const headerBackground = location.pathname === '/' && !isScrolled ? 'bg-transparent' : 'bg-[#317591]';
+
   return (
     <>
-      <header className={`fixed w-full z-20 transition-colors duration-300 top-0 left-0 ${isScrolled ? 'bg-[#317591]' : 'bg-transparent'}`}>
+      <header className={`fixed w-full z-20 transition-colors duration-300 top-0 left-0 ${headerBackground}`}>
         <div className="w-full p-4 flex items-center justify-between gap-6">
           {/* Logo y Título */}
           <a href="#" className="flex items-center space-x-3 ml-3">
@@ -62,7 +65,7 @@ function Header() {
           </button>
 
           {/* Menú de Navegación para pantallas grandes */}
-          <nav className="hidden lg:flex space-x-6 mr-3 ">
+          <nav className="hidden lg:flex space-x-6 mr-3">
             <ul className="flex space-x-5 text-sm font-medium">
               {filteredNavbarItems?.map((item: NavbarItem) => (
                 <li key={item.id_Nav_It} className="relative group">
@@ -88,7 +91,7 @@ function Header() {
                       // Si no tiene hijos, es un enlace normal
                       <a 
                         href={item.urlNav} 
-                        className="text-white hover:text-blue-500 "
+                        className="text-white hover:text-blue-500"
                         onClick={(event) => {
                           if (item.urlNav.startsWith('#')) {
                             event.preventDefault();

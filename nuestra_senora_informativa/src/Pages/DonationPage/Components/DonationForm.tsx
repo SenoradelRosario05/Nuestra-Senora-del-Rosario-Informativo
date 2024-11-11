@@ -61,7 +61,7 @@ const DonationForm = () => {
   if (isError) return <div>Error al cargar los tipos de donación</div>;
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-white flex flex-col items-center pt-20 py-12 px-4 sm:px-6 lg:px-8">
       <h2 className="text-[#0d313f] text-[28px] sm:text-[35px] font-normal font-Poppins uppercase text-center">
         Donaciones
       </h2>
