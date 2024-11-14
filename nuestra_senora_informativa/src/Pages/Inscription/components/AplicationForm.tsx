@@ -1,11 +1,10 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { AplicationFormDTO } from '../../../Types/informativeType';
-import ConfirmationModal from '../../../Components/ConfirmationModal';
 import { useModal } from '../../../Hooks/useModal';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSiteSettings } from '../../../Hooks/useSiteSettings';
-import InputForm from '../../../Components/InputForm';
 import { usePostAplication } from '../Hooks/usePostAplication';
+import { ConfirmationModal, InputForm } from '../../../Components';
 
 const AplicationForm: React.FC = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<AplicationFormDTO>();
