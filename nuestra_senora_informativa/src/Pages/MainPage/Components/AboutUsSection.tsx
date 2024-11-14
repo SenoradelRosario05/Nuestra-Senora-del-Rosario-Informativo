@@ -16,7 +16,7 @@ const AboutUsSection = () => {
       <div className="w-full flex flex-col items-center text-center space-y-6">
         <div className="flex items-center justify-center mb-6">
           <img className="opacity-80 w-[60px] h-[60px] rounded-full mr-4" src={IconsDA?.icon_HGA_Url} alt="Icon" />
-          <h2 className="text-[#0d313f] text-[28px] sm:text-[35px] font-bold font-'Poppins' uppercase">
+          <h2 className="text-[#0d313f] text-[28px] sm:text-[35px] font-normal font-'Poppins' uppercase text-center">
             {title?.title_Text_Section}
           </h2>
         </div>
@@ -32,7 +32,7 @@ const AboutUsSection = () => {
         <div className="flex flex-col items-center justify-start text-center p-6 border border-[#0d313f] rounded-lg shadow-lg transition-shadow hover:shadow-xl group">
           <div className="flex items-center space-x-4 mb-4">
             <IconsComponent iconName="mission" size={40} color="#0d313f" />
-            <h3 className="text-3xl text-[#0d313f] font-bold">{AboutUs?.missionTitle_About_US}</h3>
+            <h3 className="text-3xl text-[#0d313f] font-normal">{AboutUs?.missionTitle_About_US}</h3>
           </div>
           <div className="w-[50px] h-[3px] bg-[#0d313f] mb-4 transition-all duration-300 ease-in-out group-hover:w-[120px]"></div>
           <p className="text-[#0d313f] text-lg font-normal font-'Poppins' leading-relaxed">
@@ -44,7 +44,7 @@ const AboutUsSection = () => {
         <div className="flex flex-col items-center justify-start text-center p-6 border border-[#0d313f] rounded-lg shadow-lg transition-shadow hover:shadow-xl group">
           <div className="flex items-center space-x-4 mb-4">
             <IconsComponent iconName="vision" size={40} color="#0d313f" />
-            <h3 className="text-3xl text-[#0d313f] font-bold">{AboutUs?.visionTitle_About_US}</h3>
+            <h3 className="text-3xl text-[#0d313f] font-normal">{AboutUs?.visionTitle_About_US}</h3>
           </div>
           <div className="w-[50px] h-[3px] bg-[#0d313f] mb-4 transition-all duration-300 ease-in-out group-hover:w-[120px]"></div>
           <p className="text-[#0d313f] text-lg font-normal font-'Poppins' leading-relaxed">

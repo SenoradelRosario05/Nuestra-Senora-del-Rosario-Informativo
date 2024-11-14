@@ -32,7 +32,7 @@ export const RegistrationSection = () => {
       <div className="relative z-10 p-8 rounded-lg shadow-lg max-w-4xl text-center">
         
         {/* Title Section */}
-        <h2 className="text-white text-[35px] font-semibold font-'Poppins' mb-6">
+        <h2 className="text-white text-[35px] font-normal font-'Poppins' mb-6">
           {title?.title_Text_Section}
         </h2>
         
