@@ -6,35 +6,32 @@ import { usePostFormVolunteer } from '../Hooks/usePostVolunteerFrm';
 import { Link, useNavigate } from 'react-router-dom';
 import { useModal } from '../../../Hooks/useModal';
 import ConfirmationModal from '../../../Components/ConfirmationModal';
-
-
+import InputForm from '../../../Components/InputForm';
+import CustomSelect from '../../../Components/CustomSelect';
 
 const VolunteerForm = () => {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormVolunteerCreateDto>(); // Usamos el tipo adecuado
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormVolunteerCreateDto>();
   const { data: siteSettings } = useSiteSettings();
   const siteSettingsData = siteSettings ? siteSettings[0] : null;
-  const { data: voluntarieTypes, isLoading, isError } = useVoluntarieType(); // Hook para obtener los tipos de voluntariado
+  const { data: voluntarieTypes, isLoading, isError } = useVoluntarieType();
   const { isOpen, openModal, closeModal } = useModal();
   const navigate = useNavigate();
 
-  // Mutación para enviar el formulario
   const mutation = usePostFormVolunteer();
 
-  // Función para manejar el envío del formulario
   const onSubmit = (data: FormVolunteerCreateDto) => {
     mutation.mutate(data, {
       onSuccess: () => {
-        reset(); // Resetea el formulario tras el envío exitoso
-        openModal(); // Abre el modal de confirmación
+        reset();
+        openModal();
         setTimeout(() => {
           closeModal();
-          navigate('/'); // Redirige al inicio
-        }, 3000);
+          navigate('/');
+        }, 4000);
       }
     });
   };
 
-  // Cargar mientras se obtienen los tipos de voluntariado
   if (isLoading) return <div>Cargando...</div>;
   if (isError) return <div>Error al cargar los tipos de voluntariado</div>;
 
@@ -54,159 +51,105 @@ const VolunteerForm = () => {
       </h3>
 
       <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-4xl space-y-6">
-        
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div>
-            <label className="block text-[#317591] text-3xl font-normal font-Poppins mb-2" htmlFor="nombre">
-              Nombre
-            </label>
-            <input
-              id="nombre"
-              {...register('Vn_Name', { required: 'El nombre es obligatorio' })}
-              type="text"
-              className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.Vn_Name ? 'border-red-500' : ''}`}
-            />
-            {errors.Vn_Name && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.Vn_Name.message}</p>}
-          </div>
-
-          <div>
-            <label className="block text-[#317591] text-3xl font-normal font-Poppins mb-2" htmlFor="primerApellido">
-              Primer Apellido
-            </label>
-            <input
-              id="primerApellido"
-              {...register('Vn_Lastname1', { required: 'El primer apellido es obligatorio' })}
-              type="text"
-              className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.Vn_Lastname2 ? 'border-red-500' : ''}`}
-            />
-            {errors.Vn_Lastname1 && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.Vn_Lastname1.message}</p>}
-          </div>
+          <InputForm
+            label="Nombre"
+            id="nombre"
+            error={errors.Vn_Name?.message}
+            {...register('Vn_Name', { required: 'El nombre es obligatorio' })}
+          />
+          <InputForm
+            label="Primer Apellido"
+            id="primerApellido"
+            error={errors.Vn_Lastname1?.message}
+            {...register('Vn_Lastname1', { required: 'El primer apellido es obligatorio' })}
+          />
         </div>
 
-        {/* Segundo Apellido y Cédula */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div>
-            <label className="block text-[#317591] text-3xl font-normal font-Poppins mb-2" htmlFor="segundoApellido">
-              Segundo Apellido
-            </label>
-            <input
-              id="segundoApellido"
-              {...register('Vn_Lastname2', { required: 'El segundo apellido es obligatorio' })}
-              type="text"
-              className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.Vn_Lastname2 ? 'border-red-500' : ''}`}
-            />
-            {errors.Vn_Lastname2 && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.Vn_Lastname2.message}</p>}
-          </div>
-
-          <div>
-            <label className="block text-[#317591] text-3xl font-normal font-Poppins mb-2" htmlFor="cedula">
-              Cédula
-            </label>
-            <input
-              id="cedula"
-              {...register('Vn_Cedula', {
-                required: 'La cédula es obligatoria',
-                minLength: {
-                  value: 9,
-                  message: 'La cédula debe tener exactamente 9 caracteres',
-                },
-                maxLength: {
-                  value: 9,
-                  message: 'La cédula debe tener exactamente 9 caracteres',
-                },
-              })}
-              type="text"
-              className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.Vn_Cedula ? 'border-red-500' : ''}`}
-            />
-            {errors.Vn_Cedula && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.Vn_Cedula.message}</p>}
-          </div>
+          <InputForm
+            label="Segundo Apellido"
+            id="segundoApellido"
+            error={errors.Vn_Lastname2?.message}
+            {...register('Vn_Lastname2', { required: 'El segundo apellido es obligatorio' })}
+          />
+          <InputForm
+            label="Cédula"
+            id="cedula"
+            error={errors.Vn_Cedula?.message}
+            {...register('Vn_Cedula', {
+              required: 'La cédula es obligatoria',
+              minLength: {
+                value: 9,
+                message: 'La cédula debe tener exactamente 9 caracteres',
+              },
+              maxLength: {
+                value: 9,
+                message: 'La cédula debe tener exactamente 9 caracteres',
+              },
+            })}
+          />
         </div>
 
-        {/* Correo Electrónico y Teléfono */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div>
-            <label className="block text-[#317591] text-3xl font-normal font-Poppins mb-2" htmlFor="correo">
-              Correo Electrónico
-            </label>
-            <input
-              id="correo"
-              {...register('Vn_Email', { required: 'El correo es obligatorio', pattern: { value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, message: 'Correo inválido' } })}
-              type="email"
-              className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.Vn_Email ? 'border-red-500' : ''}`}
-            />
-            {errors.Vn_Email && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.Vn_Email.message}</p>}
-          </div>
-
-          <div>
-            <label className="block text-[#317591] text-3xl font-normal font-Poppins mb-2" htmlFor="telefono">
-              Teléfono
-            </label>
-            <input
-              id="telefono"
-              {...register('Vn_Phone', { required: 'El teléfono es obligatorio' })}
-              type="tel"
-              className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.Vn_Phone ? 'border-red-500' : ''}`}
-            />
-            {errors.Vn_Phone && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.Vn_Phone.message}</p>}
-          </div>
+          <InputForm
+            label="Correo Electrónico"
+            id="correo"
+            type="email"
+            error={errors.Vn_Email?.message}
+            {...register('Vn_Email', {
+              required: 'El correo es obligatorio',
+              pattern: {
+                value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+                message: 'Correo inválido',
+              },
+            })}
+          />
+          <InputForm
+            label="Teléfono"
+            id="telefono"
+            type="tel"
+            error={errors.Vn_Phone?.message}
+            {...register('Vn_Phone', { required: 'El teléfono es obligatorio' })}
+          />
         </div>
 
-        {/* Fecha de Inicio y Fecha de Fin */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div>
-            <label className="block text-[#317591] text-3xl font-normal font-Poppins mb-2" htmlFor="fechaInicio">
-              Fecha de Inicio
-            </label>
-            <input
-              id="fechaInicio"
-              {...register('Delivery_Date', { required: 'La fecha de inicio es obligatoria' })}
-              type="date"
-              className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.Delivery_Date ? 'border-red-500' : ''}`}
-            />
-            {errors.Delivery_Date && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.Delivery_Date.message}</p>}
-          </div>
-
-          <div>
-            <label className="block text-[#317591] text-3xl font-normal font-Poppins mb-2" htmlFor="fechaFin">
-              Fecha de Fin
-            </label>
-            <input
-              id="fechaFin"
-              {...register('End_Date', { required: 'La fecha de fin es obligatoria' })}
-              type="date"
-              className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins ${errors.End_Date ? 'border-red-500' : ''}`}
-            />
-            {errors.End_Date && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.End_Date.message}</p>}
-          </div>
+          <InputForm
+            label="Fecha de Inicio"
+            id="fechaInicio"
+            type="date"
+            error={errors.Delivery_Date?.message}
+            {...register('Delivery_Date', { required: 'La fecha de inicio es obligatoria' })}
+          />
+          <InputForm
+            label="Fecha de Fin"
+            id="fechaFin"
+            type="date"
+            error={errors.End_Date?.message}
+            {...register('End_Date', { required: 'La fecha de fin es obligatoria' })}
+          />
         </div>
 
-        {/* Tipo de Voluntariado */}
         <div>
-          <label className="block text-[#317591] text-3xl font-normal font-Poppins mb-2" htmlFor="tipoVoluntariado">
-            Tipo de Voluntariado
-          </label>
-          <select
+          <CustomSelect
+            label="Tipo de Voluntariado"
             id="tipoVoluntariado"
+            error={errors.VoluntarieTypeId?.message}
+            options={voluntarieTypes.map((type: any) => ({
+              value: type.id_VoluntarieType,
+              label: type.name_voluntarieType,
+            }))}
             {...register('VoluntarieTypeId', { required: 'El tipo de voluntariado es obligatorio' })}
-            className={`w-full h-[60px] px-4 bg-white shadow border-2 border-[#317591] rounded-md text-lg font-Poppins`}
-          >
-            <option value="">Selecciona un tipo de voluntariado</option>
-            {voluntarieTypes.map((type: any) => (
-              <option key={type.id_VoluntarieType} value={type.id_VoluntarieType}>
-                {type.name_voluntarieType}
-              </option>
-            ))}
-          </select>
-          {errors.VoluntarieTypeId && <p className="text-red-500 text-sm mt-1 font-Poppins">{errors.VoluntarieTypeId.message}</p>}
+          />
         </div>
 
-        {/* Botones de Enviar y Cancelar */}
         <div className="flex justify-center space-x-4">
-        <Link
+          <Link
             to="/"
             className="mt-4 px-8 py-4 bg-red-600 text-white text-xl font-bold rounded-md shadow-md hover:bg-red-700 transition-colors duration-300 font-Poppins"
-         tabIndex={1}
-         >
+            tabIndex={1}
+          >
             Cancelar
           </Link>
           <button
