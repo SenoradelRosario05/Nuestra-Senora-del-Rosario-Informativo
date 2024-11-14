@@ -16,7 +16,7 @@ const MemberSection = () => {
         />
 
         <div className="flex-1 lg:max-w-xl">
-          <h2 className="text-[#0d313f] text-4xl font-bold font-'Poppins' mt-4 mb-6">
+          <h2 className="text-[#0d313f] text-[28px] sm:text-[35px] font-normal font-'Poppins' uppercase">
             {memberSectionData?.questionTitle_AS}
           </h2>
           <p className="text-[#0d313f] text-lg font-normal font-'Poppins' text-center max-w-4xl mb-12 text-justify">
