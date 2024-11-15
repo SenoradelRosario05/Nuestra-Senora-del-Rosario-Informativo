@@ -1,13 +1,11 @@
 import { useForm } from 'react-hook-form';
-import { useSiteSettings } from '../../../Hooks/useSiteSettings';
+import { Link, useNavigate } from 'react-router-dom';
 import { FormVolunteerCreateDto } from '../../../Types/informativeType';
+import { useSiteSettings } from '../../../Hooks/useSiteSettings';
+import { useModal } from '../../../Hooks/useModal';
 import { useVoluntarieType } from '../Hooks/useVoluntarieType';
 import { usePostFormVolunteer } from '../Hooks/usePostVolunteerFrm';
-import { Link, useNavigate } from 'react-router-dom';
-import { useModal } from '../../../Hooks/useModal';
-import ConfirmationModal from '../../../Components/ConfirmationModal';
-import InputForm from '../../../Components/InputForm';
-import CustomSelect from '../../../Components/CustomSelect';
+import {InputForm, CustomSelect, ConfirmationModal} from '../../../Components';
 
 const VolunteerForm = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormVolunteerCreateDto>();

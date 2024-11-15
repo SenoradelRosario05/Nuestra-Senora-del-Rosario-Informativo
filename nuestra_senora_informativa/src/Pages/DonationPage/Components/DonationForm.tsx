@@ -1,15 +1,12 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useDonationType } from '../Hooks/useDonationType';
-import { useSiteSettings } from '../../../Hooks/useSiteSettings';
 import { FormDonationCreateDto } from '../../../Types/informativeType';
+import { useSiteSettings } from '../../../Hooks/useSiteSettings';
+import { useDonationType } from '../Hooks/useDonationType';
 import { usePostFormDonation } from '../Hooks/usePostFormDonation';
-import ConfirmationModal from '../../../Components/ConfirmationModal';
 import { useModal } from '../../../Hooks/useModal';
-import LoadingSpinner from '../../../Components/LoadingSpinner';
-import CustomSelect from '../../../Components/CustomSelect';
-import InputForm from '../../../Components/InputForm';
+import {InputForm, ConfirmationModal, CustomSelect, LoadingSpinner} from '../../../Components';
 
 const DonationForm = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormDonationCreateDto>();
