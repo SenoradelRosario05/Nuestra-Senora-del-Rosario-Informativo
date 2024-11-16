@@ -34,6 +34,7 @@ const GalerySection = () => {
               className="w-[200px] sm:w-[250px] lg:w-[325px] h-[150px] sm:h-[180px] lg:h-[200px]"
               src={image?.gallery_Image_Url} 
               alt={`Instalación ${index + 1}`}
+              loading='lazy'
             />
           ))}
         </div>

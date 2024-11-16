@@ -15,21 +15,21 @@ const AboutUsSection = () => {
       
       <div className="w-full flex flex-col items-center text-center space-y-6">
         <div className="flex items-center justify-center mb-6">
-          <img className="opacity-80 w-[60px] h-[60px] rounded-full mr-4" src={IconsDA?.icon_HGA_Url} alt="Icon" />
+          <img className="opacity-80 w-[60px] h-[60px] rounded-full mr-4" src={IconsDA?.icon_HGA_Url} alt="Icon" loading='lazy'/>
           <h2 className="text-[#0d313f] text-[28px] sm:text-[35px] font-normal font-'Poppins' uppercase text-center">
-            {title?.title_Text_Section}
+            {title?.title_Text_Section || 'Cargando...'}
           </h2>
         </div>
         <div className="w-[10%] h-[3px] bg-[#0d313f] mx-auto mb-8"></div>
         <p className="text-[#0d313f] text-lg font-normal font-'Poppins' max-w-4xl leading-relaxed">
-          {AboutUs?.subtitle_About_Us}
+          {AboutUs?.subtitle_About_Us || 'Estamos preparando la información, por favor espere...'}  
         </p>
       </div>
 
       {/* Sección de Misión y Visión en dos columnas */}
       <div className="w-full max-w-screen-lg grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
         {/* Misión */}
-        <div className="flex flex-col items-center justify-start text-center p-6 border border-[#0d313f] rounded-lg shadow-lg transition-shadow hover:shadow-xl group">
+        <div className="flex flex-col items-center justify-start text-center p-6 border border-[#0d313f] rounded-lg shadow-lg transition-shadow hover:shadow-xl group min-h-[250px]">
           <div className="flex items-center space-x-4 mb-4">
             <IconsComponent iconName="mission" size={40} color="#0d313f" />
             <h3 className="text-3xl text-[#0d313f] font-normal">{AboutUs?.missionTitle_About_US}</h3>
@@ -41,7 +41,7 @@ const AboutUsSection = () => {
         </div>
 
         {/* Visión */}
-        <div className="flex flex-col items-center justify-start text-center p-6 border border-[#0d313f] rounded-lg shadow-lg transition-shadow hover:shadow-xl group">
+        <div className="flex flex-col items-center justify-start text-center p-6 border border-[#0d313f] rounded-lg shadow-lg transition-shadow hover:shadow-xl group min-h-[250px]">
           <div className="flex items-center space-x-4 mb-4">
             <IconsComponent iconName="vision" size={40} color="#0d313f" />
             <h3 className="text-3xl text-[#0d313f] font-normal">{AboutUs?.visionTitle_About_US}</h3>

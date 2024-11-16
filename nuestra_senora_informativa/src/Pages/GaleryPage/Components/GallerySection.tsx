@@ -53,6 +53,7 @@ const GallerySection = () => {
                 src={image.gallery_Image_Url}
                 alt="Galería"
                 className="w-full h-64 object-cover rounded-lg shadow-lg"
+                loading='lazy'
               />
             ))
           ) : (

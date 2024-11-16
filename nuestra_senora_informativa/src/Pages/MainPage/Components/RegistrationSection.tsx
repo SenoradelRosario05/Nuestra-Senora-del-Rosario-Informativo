@@ -39,7 +39,8 @@ export const RegistrationSection = () => {
         {/* Decorative Line with Icon */}
         <div className="flex items-center justify-center my-6 w-full">
           <div className="flex-grow border-t-2 border-white"></div>
-          <img className="mx-4 w-[40px] h-[40px] sm:w-[50px] sm:h-[50px]" src={siteSettingsData?.icon_HGA_Url} alt="Logo de la institución" />
+          <img className="mx-4 w-[40px] h-[40px] sm:w-[50px] sm:h-[50px]" loading='lazy'
+           src={siteSettingsData?.icon_HGA_Url} alt="Logo de la institución" />
           <div className="flex-grow border-t-2 border-white"></div>
         </div>
         
