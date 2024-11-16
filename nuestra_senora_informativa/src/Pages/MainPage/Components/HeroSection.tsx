@@ -19,6 +19,7 @@ const HeroSection = () => {
         className="w-full h-full object-cover object-center"
         src={heroDataArray?.heroImage_Url}
         alt="Hero Image"
+        loading='lazy'
       />
       <div className="absolute inset-0 bg-black bg-opacity-30 flex flex-col items-center justify-center">
         <div className="text-center text-white text-5xl font-bold font-'Poppins' mb-6">
