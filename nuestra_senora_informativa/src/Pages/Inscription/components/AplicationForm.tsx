@@ -4,7 +4,7 @@ import { useModal } from '../../../Hooks/useModal';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSiteSettings } from '../../../Hooks/useSiteSettings';
 import { usePostAplication } from '../Hooks/usePostAplication';
-import { ConfirmationModal, InputForm } from '../../../Components';
+import { ConfirmationModal, InputForm, RateLimitModal } from '../../../Components';
 
 const AplicationForm: React.FC = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<AplicationFormDTO>();
@@ -12,7 +12,7 @@ const AplicationForm: React.FC = () => {
   const { data: siteSettings } = useSiteSettings();
   const siteSettingsData = siteSettings ? siteSettings[0] : null;
   const navigate = useNavigate();
-  const mutation = usePostAplication();
+  const {mutation,rateLimitExceeded, setRateLimitExceeded } = usePostAplication();
 
   const onSubmit: SubmitHandler<AplicationFormDTO> = async (data) => {
     mutation.mutate(data, {
@@ -173,6 +173,10 @@ const AplicationForm: React.FC = () => {
       </form>
 
       <ConfirmationModal isOpen={isOpen} onClose={closeModal} />
+      <RateLimitModal
+        isOpen={rateLimitExceeded}
+        onClose={() => setRateLimitExceeded(false)}
+      />
     </div>
   );
 };

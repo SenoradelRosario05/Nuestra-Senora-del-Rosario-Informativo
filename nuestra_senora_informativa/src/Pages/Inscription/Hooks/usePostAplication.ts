@@ -1,16 +1,27 @@
 import { useMutation, UseMutationResult } from 'react-query';
 import { postFormAplication } from '../../../Services/ServiceInformative';
 import { AplicationFormDTO } from '../../../Types/informativeType';
+import { useState } from 'react';
 
-export const usePostAplication = (): UseMutationResult<any, Error, AplicationFormDTO> => {
-  return useMutation<any, Error, AplicationFormDTO>(postFormAplication, {
+export const usePostAplication = (): {
+  mutation: UseMutationResult<any, Error, AplicationFormDTO>;
+  rateLimitExceeded: boolean;
+  setRateLimitExceeded: React.Dispatch<React.SetStateAction<boolean>>;
+} => {
+  const [rateLimitExceeded, setRateLimitExceeded] = useState(false);
+
+  const mutation = useMutation<any, Error, AplicationFormDTO>(postFormAplication, {
     onSuccess: (data) => {
       console.log('Solicitud de aplicación enviada con éxito:', data);
-      // Aquí puedes agregar lógica adicional en caso de éxito
     },
-    onError: (error) => {
-      console.error('Error al enviar la solicitud de aplicación:', error);
-      // Aquí puedes manejar el error, como mostrar un mensaje al usuario
-    }
+    onError: (error: any) => {
+      if (error.response?.status === 429) {
+        setRateLimitExceeded(true);
+      } else {
+        console.error('Error al enviar la solicitud de aplicación:', error);
+      }
+    },
   });
+
+  return { mutation, rateLimitExceeded, setRateLimitExceeded };
 };

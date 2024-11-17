@@ -6,7 +6,7 @@ import { useSiteSettings } from '../../../Hooks/useSiteSettings';
 import { useDonationType } from '../Hooks/useDonationType';
 import { usePostFormDonation } from '../Hooks/usePostFormDonation';
 import { useModal } from '../../../Hooks/useModal';
-import {InputForm, ConfirmationModal, CustomSelect, LoadingSpinner} from '../../../Components';
+import {InputForm, ConfirmationModal, CustomSelect, LoadingSpinner, RateLimitModal} from '../../../Components';
 
 const DonationForm = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormDonationCreateDto>();
@@ -18,7 +18,7 @@ const DonationForm = () => {
   const { data: donationTypes, isLoading, isError } = useDonationType();
   const navigate = useNavigate();
 
-  const mutation = usePostFormDonation();
+  const {mutation, setRateLimitExceeded, rateLimitExceeded} = usePostFormDonation();
 
   const onSubmit = (data: FormDonationCreateDto) => {
     const deliveryDate = new Date(`${data.Delivery_date}T00:00:00`);
@@ -173,6 +173,7 @@ const DonationForm = () => {
       </form>
 
       <ConfirmationModal isOpen={isOpen} onClose={closeModal} />
+      <RateLimitModal isOpen={rateLimitExceeded} onClose={() => setRateLimitExceeded(false)} />
     </div>
   );
 };
