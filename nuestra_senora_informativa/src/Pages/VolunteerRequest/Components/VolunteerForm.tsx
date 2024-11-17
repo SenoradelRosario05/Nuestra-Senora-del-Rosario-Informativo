@@ -5,7 +5,7 @@ import { useSiteSettings } from '../../../Hooks/useSiteSettings';
 import { useModal } from '../../../Hooks/useModal';
 import { useVoluntarieType } from '../Hooks/useVoluntarieType';
 import { usePostFormVolunteer } from '../Hooks/usePostVolunteerFrm';
-import {InputForm, CustomSelect, ConfirmationModal} from '../../../Components';
+import {InputForm, CustomSelect, ConfirmationModal, RateLimitModal} from '../../../Components';
 
 const VolunteerForm = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormVolunteerCreateDto>();
@@ -15,7 +15,7 @@ const VolunteerForm = () => {
   const { isOpen, openModal, closeModal } = useModal();
   const navigate = useNavigate();
 
-  const mutation = usePostFormVolunteer();
+  const {mutation, setRateLimitExceeded, rateLimitExceeded} = usePostFormVolunteer();
 
   const onSubmit = (data: FormVolunteerCreateDto) => {
     mutation.mutate(data, {
@@ -161,6 +161,7 @@ const VolunteerForm = () => {
         </div>
       </form>
       <ConfirmationModal isOpen={isOpen} onClose={closeModal} />
+      <RateLimitModal isOpen={rateLimitExceeded} onClose={() => setRateLimitExceeded(false)} />
     </div>
   );
 };
