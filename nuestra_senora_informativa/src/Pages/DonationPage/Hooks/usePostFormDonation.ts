@@ -11,8 +11,8 @@ export const usePostFormDonation = (): {
   const [rateLimitExceeded, setRateLimitExceeded] = useState(false);
 
   const mutation = useMutation<any, Error, FormDonationCreateDto>(postFormDonation, {
-    onSuccess: (data) => {
-      console.log('Solicitud de donación enviada con éxito:', data);
+    onSuccess: () => {
+      //console.log('Solicitud de donación enviada con éxito:', data);
     },
     onError: (error: any) => {
       if (error.response?.status === 429) {

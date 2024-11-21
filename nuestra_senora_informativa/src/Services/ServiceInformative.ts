@@ -81,7 +81,6 @@ export const getGalleryCatgory = async () => {
 
 export const getRegistrationSection = async () => {
   const response = await axios.get(`${URLBase}/RegistrationSection`);
-  console.log(response.data);
   return response.data;
 }
 
@@ -93,7 +92,6 @@ export const getDonationType = async () => {
 
 export const getServicesSection = async () => {
   const response = await axios.get(`${URLBase}/ServiceSection`);
-  console.log(response.data); 
   return response.data;
 }
 
