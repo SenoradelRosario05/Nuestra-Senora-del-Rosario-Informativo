@@ -11,8 +11,8 @@ export const usePostAplication = (): {
   const [rateLimitExceeded, setRateLimitExceeded] = useState(false);
 
   const mutation = useMutation<any, Error, AplicationFormDTO>(postFormAplication, {
-    onSuccess: (data) => {
-      console.log('Solicitud de aplicación enviada con éxito:', data);
+    onSuccess: () => {
+      //console.log('Solicitud de aplicación enviada con éxito:', data);
     },
     onError: (error: any) => {
       if (error.response?.status === 429) {
