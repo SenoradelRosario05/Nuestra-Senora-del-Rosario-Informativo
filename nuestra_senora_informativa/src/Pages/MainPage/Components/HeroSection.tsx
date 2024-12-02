@@ -5,6 +5,7 @@ import {
 } from "../../../Services/ServiceInformative";
 import useNavbarItemsId from "../../../Hooks/useNavbarItemsId";
 import useHandleScroll from "../../../Hooks/useHandleScroll";
+import { LoadingSpinner } from "../../../Components";
 
 const HeroSection = () => {
   const { data: TitleSection, isLoading: isTitleLoading } = useQuery(
@@ -18,7 +19,7 @@ const HeroSection = () => {
   const { data: navbarItems } = useNavbarItemsId(2);
   const { handleScroll } = useHandleScroll();
 
-  if (isTitleLoading || isHeroLoading) return <div>Loading...</div>;
+  if (isTitleLoading || isHeroLoading) return <LoadingSpinner/>;
 
   const heroDataArray = HeroSection ? HeroSection[0] : null;
   if (!TitleSection || !heroDataArray) return null;

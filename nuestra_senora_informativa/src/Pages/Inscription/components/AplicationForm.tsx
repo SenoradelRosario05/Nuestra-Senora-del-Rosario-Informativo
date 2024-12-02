@@ -43,22 +43,25 @@ const AplicationForm: React.FC = () => {
 
       <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-4xl space-y-6">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          <InputForm
+        <InputForm
             label="Nombre"
             id="name_AP"
             error={errors.name_AP?.message}
+            placeholder='Nombre del adulto mayor'
             {...register('name_AP', { required: 'El nombre es obligatorio' })}
           />
           <InputForm
             label="Primer Apellido"
             id="lastname1_AP"
             error={errors.lastname1_AP?.message}
+            placeholder='Primer apellido adulto mayor'
             {...register('lastname1_AP', { required: 'El primer apellido es obligatorio' })}
           />
           <InputForm
             label="Segundo Apellido"
             id="lastname2_AP"
             error={errors.lastname2_AP?.message}
+            placeholder='Segundo apellido adulto mayor'
             {...register('lastname2_AP', { required: 'El segundo apellido es obligatorio' })}
           />
         </div>
@@ -68,6 +71,7 @@ const AplicationForm: React.FC = () => {
             label="Edad"
             id="age_AP"
             type="number"
+            placeholder='Edad adulto mayor'
             error={errors.age_AP?.message}
             {...register('age_AP', {
               required: 'La edad es obligatoria',
@@ -79,6 +83,7 @@ const AplicationForm: React.FC = () => {
             label="Cédula"
             id="cedula_AP"
             error={errors.cedula_AP?.message}
+            placeholder='Ejemplo: 102340567'
             {...register('cedula_AP', {
               required: 'La cédula es obligatoria',
               minLength: { value: 9, message: 'La cédula debe tener exactamente 9 caracteres' },
@@ -92,6 +97,7 @@ const AplicationForm: React.FC = () => {
           label="Domicilio"
           id="location"
           error={errors.location?.message}
+          placeholder='Domicilio del adulto mayor'
           {...register('location', { required: 'Domicilio Requerido' })}
         />
 
@@ -99,12 +105,14 @@ const AplicationForm: React.FC = () => {
           <InputForm
             label="Nombre del Encargado"
             id="name_GD"
+            placeholder='Nombre del encargado del adulto mayor'
             error={errors.name_GD?.message}
             {...register('name_GD', { required: 'El nombre del encargado es obligatorio' })}
           />
           <InputForm
             label="Primer Apellido del Encargado"
             id="lastname1_GD"
+            placeholder='Primer apellido del encargado del adulto mayor'
             error={errors.lastname1_GD?.message}
             {...register('lastname1_GD', { required: 'El primer apellido del encargado es obligatorio' })}
           />
@@ -114,6 +122,7 @@ const AplicationForm: React.FC = () => {
           <InputForm
             label="Segundo Apellido del Encargado"
             id="lastname2_GD"
+            placeholder='Segundo apellido del encargado del adulto mayor'
             error={errors.lastname2_GD?.message}
             {...register('lastname2_GD', { required: 'El segundo apellido del encargado es obligatorio' })}
           />
@@ -121,6 +130,7 @@ const AplicationForm: React.FC = () => {
             label="Cédula del Encargado"
             id="cedula_GD"
             error={errors.cedula_GD?.message}
+            placeholder='Ejemplo: 102340567' 
             {...register('cedula_GD', {
               required: 'La cédula del encargado es obligatoria',
               minLength: { value: 9, message: 'La cédula debe tener exactamente 9 caracteres' },
@@ -135,6 +145,7 @@ const AplicationForm: React.FC = () => {
             label="Teléfono del Encargado"
             id="phone_GD"
             type="tel"
+            placeholder='Ejemplo: 88888888'
             error={errors.phone_GD?.message}
             {...register('phone_GD', {
               required: 'El teléfono del encargado es obligatorio',
@@ -146,6 +157,7 @@ const AplicationForm: React.FC = () => {
             id="email_GD"
             type="email"
             error={errors.email_GD?.message}
+            placeholder='Ejemplo: correo@dominio.com'
             {...register('email_GD', {
               required: 'El correo electrónico del encargado es obligatorio',
               pattern: { value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/, message: 'Correo inválido' },
