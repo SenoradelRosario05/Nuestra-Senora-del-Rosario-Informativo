@@ -63,79 +63,78 @@ const DonationForm = () => {
       </h3>
       <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-4xl space-y-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <InputForm
-            label="Nombre"
-            id="nombre"
-            error={errors.Dn_Name?.message}
-            {...register('Dn_Name', { required: 'El nombre es obligatorio' })}
-          />
-          <InputForm
-            label="Primer Apellido"
-            id="primerApellido"
-            error={errors.Dn_Lastname1?.message}
-            {...register('Dn_Lastname1', { required: 'El primer apellido es obligatorio' })}
-          />
-        </div>
+        <InputForm
+  label="Nombre"
+  id="nombre"
+  error={errors.Dn_Name?.message}
+  placeholder="Ingrese su nombre"
+  {...register('Dn_Name', { required: 'El nombre es obligatorio' })}
+/>
+<InputForm
+  label="Primer Apellido"
+  id="primerApellido"
+  error={errors.Dn_Lastname1?.message}
+  placeholder="Ingrese su primer apellido"
+  {...register('Dn_Lastname1', { required: 'El primer apellido es obligatorio' })}
+/>
+<InputForm
+  label="Segundo Apellido"
+  id="segundoApellido"
+  error={errors.Dn_Lastname2?.message}
+  placeholder="Ingrese su segundo apellido"
+  {...register('Dn_Lastname2', { required: 'El segundo apellido es obligatorio' })}
+/>
+<InputForm
+  label="Cédula"
+  id="cedula"
+  error={errors.Dn_Cedula?.message}
+  placeholder="Ejemplo: 102340567"
+  {...register('Dn_Cedula', {
+    required: 'La cédula es obligatoria',
+    minLength: { value: 9, message: 'La cédula debe tener exactamente 9 caracteres' },
+    maxLength: { value: 9, message: 'La cédula debe tener exactamente 9 caracteres' },
+  })}
+/>
+<InputForm
+  label="Correo Electrónico"
+  id="email"
+  error={errors.Dn_Email?.message}
+  placeholder="Ejemplo: correo@dominio.com"
+  {...register('Dn_Email', {
+    required: 'El correo es obligatorio',
+    pattern: {
+      value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+      message: 'Correo inválido',
+    },
+  })}
+/>
+<InputForm
+  label="Teléfono"
+  id="telefono"
+  error={errors.Dn_Phone?.message}
+  placeholder="Ejemplo: 88888888"
+  {...register('Dn_Phone', { required: 'El teléfono es obligatorio' })}
+/>
+<InputForm
+  label="Fecha de Entrega"
+  id="fecha"
+  type="date"
+  error={errors.Delivery_date?.message}
+  placeholder="Seleccione una fecha"
+  {...register('Delivery_date', { required: 'La fecha es obligatoria' })}
+/>
+<CustomSelect
+  label="Tipo de Donación"
+  id="tipo-donacion"
+  error={errors.Id_DonationType?.message}
+  options={donationTypes.map((type: any) => ({
+    value: type.id_DonationType,
+    label: type.name_DonationType,
+  }))}
+  {...register('Id_DonationType', { required: 'El tipo de donación es obligatorio' })}
+  onChange={handleDonationTypeChange}
+/>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <InputForm
-            label="Segundo Apellido"
-            id="segundoApellido"
-            error={errors.Dn_Lastname2?.message}
-            {...register('Dn_Lastname2', { required: 'El segundo apellido es obligatorio' })}
-          />
-          <InputForm
-            label="Cédula"
-            id="cedula"
-            error={errors.Dn_Cedula?.message}
-            {...register('Dn_Cedula', {
-              required: 'La cédula es obligatoria',
-              minLength: { value: 9, message: 'La cédula debe tener exactamente 9 caracteres' },
-              maxLength: { value: 9, message: 'La cédula debe tener exactamente 9 caracteres' },
-            })}
-          />
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <InputForm
-            label="Correo Electrónico"
-            id="email"
-            error={errors.Dn_Email?.message}
-            {...register('Dn_Email', { 
-              required: 'El correo es obligatorio',
-              pattern: {
-                value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-                message: 'Correo inválido'
-              }
-            })}
-          />
-          <InputForm
-            label="Teléfono"
-            id="telefono"
-            error={errors.Dn_Phone?.message}
-            {...register('Dn_Phone', { required: 'El teléfono es obligatorio' })}
-          />
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <InputForm
-            label="Fecha de Entrega"
-            id="fecha"
-            type="date"
-            error={errors.Delivery_date?.message}
-            {...register('Delivery_date', { required: 'La fecha es obligatoria' })}
-          />
-          <CustomSelect
-            label="Tipo de Donación"
-            id="tipo-donacion"
-            error={errors.Id_DonationType?.message}
-            options={donationTypes.map((type: any) => ({
-              value: type.id_DonationType,
-              label: type.name_DonationType,
-            }))}
-            {...register('Id_DonationType', { required: 'El tipo de donación es obligatorio' })}
-            onChange={handleDonationTypeChange}
-          />
         </div>
 
         {showOtherInput && selectedMethods.length > 0 && (

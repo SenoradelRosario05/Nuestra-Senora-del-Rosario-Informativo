@@ -5,7 +5,7 @@ import { useSiteSettings } from '../../../Hooks/useSiteSettings';
 import { useModal } from '../../../Hooks/useModal';
 import { useVoluntarieType } from '../Hooks/useVoluntarieType';
 import { usePostFormVolunteer } from '../Hooks/usePostVolunteerFrm';
-import {InputForm, CustomSelect, ConfirmationModal, RateLimitModal} from '../../../Components';
+import {InputForm, CustomSelect, ConfirmationModal, RateLimitModal, LoadingSpinner} from '../../../Components';
 
 const VolunteerForm = () => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormVolunteerCreateDto>();
@@ -30,7 +30,7 @@ const VolunteerForm = () => {
     });
   };
 
-  if (isLoading) return <div>Cargando...</div>;
+  if (isLoading) return <LoadingSpinner />;
   if (isError) return <div>Error al cargar los tipos de voluntariado</div>;
 
   return (
@@ -53,12 +53,14 @@ const VolunteerForm = () => {
           <InputForm
             label="Nombre"
             id="nombre"
+            placeholder='Nombre del voluntario'
             error={errors.Vn_Name?.message}
             {...register('Vn_Name', { required: 'El nombre es obligatorio' })}
           />
           <InputForm
             label="Primer Apellido"
             id="primerApellido"
+            placeholder='Primer apellido del voluntario'
             error={errors.Vn_Lastname1?.message}
             {...register('Vn_Lastname1', { required: 'El primer apellido es obligatorio' })}
           />
@@ -68,12 +70,14 @@ const VolunteerForm = () => {
           <InputForm
             label="Segundo Apellido"
             id="segundoApellido"
+            placeholder='Segundo apellido del voluntario'
             error={errors.Vn_Lastname2?.message}
             {...register('Vn_Lastname2', { required: 'El segundo apellido es obligatorio' })}
           />
           <InputForm
             label="Cédula"
             id="cedula"
+            placeholder='Ejem: 102340567'
             error={errors.Vn_Cedula?.message}
             {...register('Vn_Cedula', {
               required: 'La cédula es obligatoria',
@@ -93,6 +97,7 @@ const VolunteerForm = () => {
           <InputForm
             label="Correo Electrónico"
             id="correo"
+            placeholder='Ejemplo: correo@dominio.com'
             type="email"
             error={errors.Vn_Email?.message}
             {...register('Vn_Email', {
@@ -106,6 +111,7 @@ const VolunteerForm = () => {
           <InputForm
             label="Teléfono"
             id="telefono"
+            placeholder='Ejemplo: 88888888'
             type="tel"
             error={errors.Vn_Phone?.message}
             {...register('Vn_Phone', { required: 'El teléfono es obligatorio' })}
