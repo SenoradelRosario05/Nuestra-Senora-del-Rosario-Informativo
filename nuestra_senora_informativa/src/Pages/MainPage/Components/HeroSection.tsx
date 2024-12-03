@@ -6,7 +6,6 @@ import {
 import useNavbarItemsId from "../../../Hooks/useNavbarItemsId";
 import useHandleScroll from "../../../Hooks/useHandleScroll";
 import { LoadingSpinner } from "../../../Components";
-import { TbH1 } from "react-icons/tb";
 
 const HeroSection = () => {
   const { data: TitleSection, isLoading: isTitleLoading } = useQuery(
