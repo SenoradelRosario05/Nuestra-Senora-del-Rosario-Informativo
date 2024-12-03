@@ -6,6 +6,7 @@ import {
 import useNavbarItemsId from "../../../Hooks/useNavbarItemsId";
 import useHandleScroll from "../../../Hooks/useHandleScroll";
 import { LoadingSpinner } from "../../../Components";
+import { TbH1 } from "react-icons/tb";
 
 const HeroSection = () => {
   const { data: TitleSection, isLoading: isTitleLoading } = useQuery(
@@ -34,10 +35,10 @@ const HeroSection = () => {
       />
       <div className="absolute inset-0 bg-black bg-opacity-30 flex flex-col items-center justify-center">
         <div className="text-center text-white text-5xl font-bold font-'Poppins' mb-6">
-          <p>
+          <h1>
             {heroDataArray?.hero_Title ||
               "Hogar de Ancianos Nuestra Señora del Rosario"}
-          </p>
+          </h1>
         </div>
         <div className="text-center text-white text-2xl font-medium font-'Poppins' mb-12">
           <p>{heroDataArray?.subtitle_Hero}</p>
