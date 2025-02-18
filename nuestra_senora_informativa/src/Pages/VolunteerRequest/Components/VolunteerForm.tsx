@@ -139,12 +139,12 @@ const VolunteerForm = () => {
           <CustomSelect
             label="Tipo de Voluntariado"
             id="tipoVoluntariado"
-            error={errors.VoluntarieTypeId?.message}
+            error={errors.Id_VoluntarieType?.message}
             options={voluntarieTypes.map((type: any) => ({
               value: type.id_VoluntarieType,
               label: type.name_voluntarieType,
             }))}
-            {...register('VoluntarieTypeId', { required: 'El tipo de voluntariado es obligatorio' })}
+            {...register('Id_VoluntarieType', { required: 'El tipo de voluntariado es obligatorio' })}
           />
         </div>
 

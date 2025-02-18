@@ -113,7 +113,7 @@ Vn_Cedula : string;
 Vn_Email : string;
 Delivery_Date :Date;
   End_Date:Date;
-VoluntarieTypeId: number;
+  Id_VoluntarieType: number;
 };
 
 
