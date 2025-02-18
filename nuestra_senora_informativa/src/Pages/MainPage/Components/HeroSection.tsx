@@ -1,3 +1,4 @@
+
 import { useQuery } from "react-query";
 import {
   getHeroSection,
@@ -19,23 +20,19 @@ const HeroSection = () => {
   const { data: navbarItems } = useNavbarItemsId(2);
   const { handleScroll } = useHandleScroll();
 
-  if (isTitleLoading || isHeroLoading) return <LoadingSpinner />;
+  if (isTitleLoading || isHeroLoading) return <LoadingSpinner/>;
 
   const heroDataArray = HeroSection ? HeroSection[0] : null;
   if (!TitleSection || !heroDataArray) return null;
 
   return (
     <div className="relative w-full h-screen">
-      <picture>
-        <source srcSet={`${heroDataArray?.heroImage_Url}.avif`} type="image/avif" />
-        <source srcSet={`${heroDataArray?.heroImage_Url}.webp`} type="image/webp" />
-        <img
-          className="w-full h-full object-cover object-center"
-          src={`${heroDataArray?.heroImage_Url}.jpg`}
-          alt="Hero Image"
-          loading="lazy"
-        />
-      </picture>
+      <img
+        className="w-full h-full object-cover object-center"
+        src={`${heroDataArray?.heroImage_Url}.avif`} 
+        alt="Hero Image"
+        loading="lazy"
+      />
       <div className="absolute inset-0 bg-black bg-opacity-30 flex flex-col items-center justify-center">
         <div className="text-center text-white text-5xl font-bold font-'Poppins' mb-6">
           <h1>
