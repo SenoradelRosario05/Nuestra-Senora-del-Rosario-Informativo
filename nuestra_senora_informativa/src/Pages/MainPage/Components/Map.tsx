@@ -1,56 +1,67 @@
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { LatLngTuple, Icon } from "leaflet";
-import "leaflet/dist/leaflet.css";
+
+import { useState } from "react";
+import { Map, Marker, Overlay } from "pigeon-maps";
 import useTitles from "../../../Hooks/useTitles";
 
-// Importa el ícono de marcador manualmente
-import markerIcon from "leaflet/dist/images/marker-icon.png";
-import markerShadow from "leaflet/dist/images/marker-shadow.png";
+const PigeonMap = () => {
+  // Latitud/Longitud
+  const position: [number, number] = [10.25669, -85.590225];
 
-// Crear un nuevo icono para Leaflet
-const customIcon = new Icon({
-  iconUrl: markerIcon,
-  shadowUrl: markerShadow,
-  iconSize: [25, 41], // Tamaño estándar del icono
-  iconAnchor: [12, 41], // Punto de anclaje
-  popupAnchor: [1, -34], // Ajusta la posición del popup
-  shadowSize: [41, 41],
-});
+  // Estado para controlar la visibilidad del Overlay
+  const [showOverlay, setShowOverlay] = useState(false);
 
-const Map = () => {
-  const position: LatLngTuple = [10.25669, -85.590225];
+  // Hooks para título
   const { data: title, isError } = useTitles(8);
 
+  // Maneja el clic en el marcador (alternar Overlay)
+  const handleMarkerClick = () => {
+    setShowOverlay((prev) => !prev);
+  };
+
+
   return (
-    <>
+    <div className="min-h-screen bg-white flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8 mt-16 relative">
       {isError && <div>Error fetching data.</div>}
-      <div
-        className="min-h-screen bg-white flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8 mt-16 relative"
-        style={{ zIndex: 1 }}
-      >
-        <h2 className="text-[#0d313f] text-[28px] sm:text-[35px] font-normal font-'Poppins' uppercase text-center">
-          {title ? title.title_Text_Section : ""}
-        </h2>
-        <div className="w-full h-[400px] max-w-6xl mt-8">
-          <MapContainer
-            center={position}
-            zoom={13}
-            scrollWheelZoom={false}
-            className="h-full w-full"
-            style={{ zIndex: 0 }}
-          >
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <Marker position={position} icon={customIcon}>
-              <Popup>Hogar de Ancianos Nuestra Señora del Rosario</Popup>
-            </Marker>
-          </MapContainer>
-        </div>
+
+      <h2 className="text-[#0d313f] text-[28px] sm:text-[35px] font-normal font-Poppins uppercase text-center">
+        {title ? title.title_Text_Section : "Ubicación"}
+      </h2>
+
+      {/* Contenedor para el mapa */}
+      <div className="w-full h-[400px] max-w-6xl mt-8">
+        <Map
+          defaultCenter={position}
+          defaultZoom={13}
+          metaWheelZoom={false}
+          height={400}
+        >
+          {/* Marcador con onClick para mostrar/ocultar la tarjeta */}
+          <Marker
+            width={50}
+            anchor={position}
+            onClick={handleMarkerClick}
+          />
+
+          {/* Overlay que aparece sólo si showOverlay es true */}
+          {showOverlay && (
+            <Overlay anchor={position} offset={[15, 30]}>
+              <div className="bg-white p-2 rounded-md shadow-md">
+                <p className="text-[#0d313f] text-sm font-semibold">
+                  Hogar de Ancianos Nuestra Señora del Rosario
+                </p>
+                <p className="text-[#0d313f] text-xs">
+                  Santa Cruz, Guanacaste
+                </p>
+              </div>
+            </Overlay>
+          )}
+        </Map>
+
       </div>
-    </>
+    </div>
   );
 };
 
-export default Map;
+
+export default PigeonMap;
+
