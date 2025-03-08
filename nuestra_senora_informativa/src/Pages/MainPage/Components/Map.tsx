@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Map, Marker, Overlay } from "pigeon-maps";
 import useTitles from "../../../Hooks/useTitles";
@@ -16,6 +17,7 @@ const PigeonMap = () => {
   const handleMarkerClick = () => {
     setShowOverlay((prev) => !prev);
   };
+
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8 mt-16 relative">
@@ -54,9 +56,12 @@ const PigeonMap = () => {
             </Overlay>
           )}
         </Map>
+
       </div>
     </div>
   );
 };
 
+
 export default PigeonMap;
+
