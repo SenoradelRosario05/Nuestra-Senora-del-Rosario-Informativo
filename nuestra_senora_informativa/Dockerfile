@@ -23,10 +23,10 @@
     # ----------------------------
     FROM nginx:alpine
     
-    # Crea la configuración de Nginx directamente, configurado para usar el puerto 8080
+    # Crea la configuración de Nginx directamente, configurado para usar el puerto 9876
     RUN echo 'server { \
-        listen 8080; \
-        listen [::]:8080 ipv6only=off; \
+        listen 9876; \
+        listen [::]:9876 ipv6only=off; \
         server_name localhost; \
         \
         location / { \
@@ -44,13 +44,12 @@
     # Copia los archivos compilados (dist) desde la etapa anterior
     COPY --from=build /app/dist /usr/share/nginx/html
     
-    # Expone el puerto 8080 dentro del contenedor
-    EXPOSE 8080
+    # Expone el puerto 9876 dentro del contenedor
+    EXPOSE 9876
     
-    # Configura el healthcheck para Coolify usando wget en el puerto 8080
+    # Configura el healthcheck para Coolify usando wget en el puerto 9876
     HEALTHCHECK --interval=30s --timeout=3s --start-period=15s --retries=3 \
-      CMD wget -qO- http://localhost:8080/ || exit 1
+      CMD wget -qO- http://localhost:9876/ || exit 1
     
     # Inicia Nginx en primer plano
     CMD ["nginx", "-g", "daemon off;"]
-    
