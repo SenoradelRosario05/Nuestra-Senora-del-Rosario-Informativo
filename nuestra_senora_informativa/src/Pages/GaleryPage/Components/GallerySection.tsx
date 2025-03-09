@@ -4,6 +4,7 @@ import useGalery from "../../MainPage/Hooks/useGalery";
 import useTitles from "../../../Hooks/useTitles";
 import { FaImages } from "react-icons/fa";
 import { useSiteSettings } from "../../../Hooks/useSiteSettings";
+import React from "react";
 
 const GallerySection = () => {
   const { data: categories, isError: isErrorCategories } = useGalleryCategory();
