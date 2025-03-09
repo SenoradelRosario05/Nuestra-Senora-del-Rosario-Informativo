@@ -44,6 +44,7 @@ const GallerySection = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
+
       {/* Contenedor principal con margen superior */}
       <div className="max-w-7xl mx-auto p-6 mt-20 flex-grow">
         {/* Título estático "Galería" */}
@@ -144,6 +145,7 @@ const GallerySection = () => {
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 };
