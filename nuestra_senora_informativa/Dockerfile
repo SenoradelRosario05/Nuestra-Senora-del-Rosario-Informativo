@@ -25,8 +25,10 @@
     FROM nginx:alpine
     
     # Crea la configuración de Nginx directamente
+    # OJO: Aquí agregamos la directiva para IPv6
     RUN echo 'server { \
-        listen       80; \
+        listen 80; \
+        listen [::]:80 ipv6only=off; \
         server_name  localhost; \
         \
         location / { \
@@ -47,9 +49,10 @@
     # Expone el puerto 80 dentro del contenedor
     EXPOSE 80
     
-    # Configurar health check para Coolify
+    # Configurar healthcheck para Coolify (usa wget)
     HEALTHCHECK --interval=30s --timeout=3s --start-period=15s --retries=3 \
       CMD wget -qO- http://localhost/ || exit 1
     
     # Inicia Nginx en primer plano
     CMD ["nginx", "-g", "daemon off;"]
+    
