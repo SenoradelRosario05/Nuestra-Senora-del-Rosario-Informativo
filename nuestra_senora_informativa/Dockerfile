@@ -14,7 +14,7 @@
     RUN npm install
     
     # Copia el resto del código
-    COPY . .
+    COPY nuestra_senora_informativa/. .
     
     # Construye el proyecto (genera la carpeta dist)
     RUN npm run build
