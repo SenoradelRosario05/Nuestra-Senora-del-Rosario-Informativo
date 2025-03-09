@@ -19,7 +19,6 @@
     # Construye el proyecto (genera la carpeta dist)
     RUN npm run build
     
-    
     # ----------------------------
     # 2) RUN STAGE (Nginx)
     # ----------------------------
@@ -35,6 +34,9 @@
     # Expone el puerto 80 dentro del contenedor
     EXPOSE 80
     
+    # Configurar health check para Coolify
+    HEALTHCHECK --interval=30s --timeout=3s --start-period=15s --retries=3 \
+      CMD wget -qO- http://localhost/ || exit 1
+    
     # Inicia Nginx en primer plano
     CMD ["nginx", "-g", "daemon off;"]
-    
