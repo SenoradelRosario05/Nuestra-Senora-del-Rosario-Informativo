@@ -7,13 +7,13 @@
     WORKDIR /app
     
     # Copia los archivos de dependencias para aprovechar la caché
-    COPY package*.json ./
+    COPY nuestra_senora_informativa/package*.json ./
     
     # Instala las dependencias (incluyendo devDependencies, pues Vite está en devDependencies)
     RUN npm install
     
     # Copia el resto del código
-    COPY . .
+    COPY nuestra_senora_informativa/. .
     
     # Construye el proyecto (genera la carpeta dist)
     RUN npm run build
