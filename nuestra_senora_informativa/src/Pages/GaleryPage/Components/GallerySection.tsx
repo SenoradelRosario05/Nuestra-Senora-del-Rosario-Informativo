@@ -62,7 +62,6 @@ const GallerySection = () => {
     />
     <div className="flex-grow border-t-2 border-[#0d313f]" />
   </div>
-</div>
 
         </div>
 
