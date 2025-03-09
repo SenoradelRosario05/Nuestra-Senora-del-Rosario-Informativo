@@ -25,10 +25,10 @@
     FROM nginx:alpine
     
     # Crea la configuración de Nginx directamente
-    # OJO: Aquí agregamos la directiva para IPv6
+    # Ajustamos para que escuche en el puerto 3000 (IPv4 e IPv6).
     RUN echo 'server { \
-        listen 80; \
-        listen [::]:80 ipv6only=off; \
+        listen 3000; \
+        listen [::]:3000 ipv6only=off; \
         server_name  localhost; \
         \
         location / { \
@@ -46,12 +46,12 @@
     # Copia los archivos compilados (dist) desde la etapa anterior
     COPY --from=build /app/dist /usr/share/nginx/html
     
-    # Expone el puerto 80 dentro del contenedor
-    EXPOSE 80
+    # Expone el puerto 3000 dentro del contenedor
+    EXPOSE 3000
     
-    # Configurar healthcheck para Coolify (usa wget)
+    # Configurar healthcheck para Coolify (usa wget en el puerto 3000)
     HEALTHCHECK --interval=30s --timeout=3s --start-period=15s --retries=3 \
-      CMD wget -qO- http://localhost/ || exit 1
+      CMD wget -qO- http://localhost:3000/ || exit 1
     
     # Inicia Nginx en primer plano
     CMD ["nginx", "-g", "daemon off;"]
