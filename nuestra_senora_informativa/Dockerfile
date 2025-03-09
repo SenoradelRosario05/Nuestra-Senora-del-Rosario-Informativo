@@ -9,8 +9,7 @@ WORKDIR /app
 # Copia los archivos de dependencias para aprovechar la caché
 COPY nuestra_senora_informativa/package*.json ./
 
-# Instala las dependencias (incluyendo devDependencies, 
-# pues Vite está en devDependencies)
+# Instala las dependencias (incluyendo devDependencies, pues Vite está en devDependencies)
 RUN npm install
 
 # Copia el resto del código
@@ -24,34 +23,33 @@ RUN npm run build
 # ----------------------------
 FROM nginx:alpine
 
-# Crea la configuración de Nginx directamente
-# Ajustamos para que escuche en el puerto 3000 (IPv4 e IPv6).
+# Crea la configuración de Nginx directamente, configurado para usar el puerto 8080
 RUN echo 'server { \
-    listen 3000; \
-    listen [::]:3000 ipv6only=off; \
-    server_name  localhost; \
+    listen 8080; \
+    listen [::]:8080 ipv6only=off; \
+    server_name localhost; \
     \
     location / { \
-        root   /usr/share/nginx/html; \
-        index  index.html index.htm; \
+        root /usr/share/nginx/html; \
+        index index.html index.htm; \
         try_files $uri $uri/ /index.html; \
     } \
     \
-    error_page   500 502 503 504  /50x.html; \
+    error_page 500 502 503 504 /50x.html; \
     location = /50x.html { \
-        root   /usr/share/nginx/html; \
+        root /usr/share/nginx/html; \
     } \
 }' > /etc/nginx/conf.d/default.conf
 
 # Copia los archivos compilados (dist) desde la etapa anterior
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Expone el puerto 3000 dentro del contenedor
-EXPOSE 3000
+# Expone el puerto 8080 dentro del contenedor
+EXPOSE 8080
 
-# Configurar healthcheck para Coolify (usa wget en el puerto 3000)
+# Configura el healthcheck para Coolify usando wget en el puerto 8080
 HEALTHCHECK --interval=30s --timeout=3s --start-period=15s --retries=3 \
-  CMD wget -qO- http://localhost:3000/ || exit 1
+  CMD wget -qO- http://localhost:8080/ || exit 1
 
 # Inicia Nginx en primer plano
 CMD ["nginx", "-g", "daemon off;"]
