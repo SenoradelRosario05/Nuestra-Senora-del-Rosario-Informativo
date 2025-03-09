@@ -62,34 +62,47 @@ const GallerySection = () => {
     />
     <div className="flex-grow border-t-2 border-[#0d313f]" />
   </div>
+
+        </div>
+
+        <div
+  className="
+    mb-6
+    grid
+    grid-cols-2
+    gap-3
+    justify-items-center
+
+    /* A partir de sm (640px) se activan estas clases */
+    sm:flex
+    sm:flex-wrap
+    sm:justify-center
+    sm:gap-3
+  "
+>
+  {categories?.map((category: any) => {
+    const icon = 
+      categoryIcons[category.name_Gallery_Category] ?? categoryIcons["default"];
+
+    return (
+      <button
+        key={category.id_GalleryCategory}
+        className={`
+          px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 
+          ${
+            selectedCategory === category.id_GalleryCategory
+              ? "bg-[#317591] text-white shadow-md"
+              : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+          }`}
+        onClick={() => setSelectedCategory(category.id_GalleryCategory)}
+      >
+        {icon}
+        {category.name_Gallery_Category}
+      </button>
+    );
+  })}
 </div>
 
-        </div>
-
-        {/* Botones de categorías con iconos */}
-        <div className="mt-4 flex flex-wrap justify-center gap-3 mb-6">
-          {categories?.map((category: any) => {
-            // Verificamos si existe un ícono para la categoría, de lo contrario usamos "default"
-            const icon =
-              categoryIcons[category.name_Gallery_Category] ?? categoryIcons["default"];
-
-            return (
-              <button
-                key={category.id_GalleryCategory}
-                className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 
-                  ${
-                    selectedCategory === category.id_GalleryCategory
-                      ? "bg-[#317591] text-white shadow-md"
-                      : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                  }`}
-                onClick={() => setSelectedCategory(category.id_GalleryCategory)}
-              >
-                {icon}
-                {category.name_Gallery_Category}
-              </button>
-            );
-          })}
-        </div>
 
         {/* Galería de imágenes */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 transition-opacity duration-500 ease-in-out">
