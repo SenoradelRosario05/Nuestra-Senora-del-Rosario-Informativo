@@ -48,7 +48,7 @@ function Header() {
       <header className={`fixed w-full z-20 transition-colors duration-300 top-0 left-0 ${headerBackground}`}>
         <div className="w-full p-4 flex items-center justify-between gap-6">
           {/* Logo y Título */}
-          <a href="#" className="flex items-center space-x-3 ml-3">
+          <a href="/" className="flex items-center space-x-3 ml-3">
             <img src={siteIconUrl} className="h-8 w-8" alt="Logo" />
             <span className="text-lg sm:text-xl font-semibold text-white whitespace-nowrap">{siteTitle}</span>
           </a>
