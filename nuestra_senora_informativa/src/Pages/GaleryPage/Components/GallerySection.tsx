@@ -4,6 +4,7 @@ import useGalery from "../../MainPage/Hooks/useGalery";
 import useTitles from "../../../Hooks/useTitles";
 import { FaImages } from "react-icons/fa";
 import { useSiteSettings } from "../../../Hooks/useSiteSettings";
+import React from "react";
 
 const GallerySection = () => {
   const { data: categories, isError: isErrorCategories } = useGalleryCategory();
@@ -43,6 +44,7 @@ const GallerySection = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
+
       {/* Contenedor principal con margen superior */}
       <div className="max-w-7xl mx-auto p-6 mt-20 flex-grow">
         {/* Título estático "Galería" */}
@@ -143,6 +145,7 @@ const GallerySection = () => {
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 };
