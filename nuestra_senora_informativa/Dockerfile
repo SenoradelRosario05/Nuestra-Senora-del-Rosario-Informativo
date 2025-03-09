@@ -3,19 +3,20 @@
 # ----------------------------
     FROM node:18-alpine AS build
 
-    # Create app directory
+    # Crea el directorio de la app
     WORKDIR /app
     
-    # Copy only package files first for caching
+    # Copia los archivos de dependencias para aprovechar la caché
     COPY package*.json ./
     
-    # Install dependencies
+    # Instala las dependencias (incluyendo devDependencies, 
+    # pues Vite está en devDependencies)
     RUN npm install
     
-    # Copy the rest of the project
+    # Copia el resto del código
     COPY . .
     
-    # Build the project
+    # Construye el proyecto (genera la carpeta dist)
     RUN npm run build
     
     
@@ -24,15 +25,16 @@
     # ----------------------------
     FROM nginx:alpine
     
-    # Copy our custom Nginx config (see below) to handle SPA routes
+    # Copia tu configuración personalizada de Nginx 
+    # para redirigir rutas a index.html (SPA fallback)
     COPY nginx.conf /etc/nginx/conf.d/default.conf
     
-    # Copy the compiled dist folder from the build stage
+    # Copia los archivos compilados (dist) desde la etapa anterior
     COPY --from=build /app/dist /usr/share/nginx/html
     
-    # Expose port 80 (container-internal)
+    # Expone el puerto 80 dentro del contenedor
     EXPOSE 80
     
-    # Run Nginx in foreground
+    # Inicia Nginx en primer plano
     CMD ["nginx", "-g", "daemon off;"]
     
