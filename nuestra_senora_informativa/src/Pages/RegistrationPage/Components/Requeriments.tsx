@@ -109,7 +109,7 @@ const Requeriments = () => {
         {/* Botón para realizar la solicitud */}
         <div className="flex justify-center mt-10">
           <a href="/solicitud-formulario">
-            <button className="bg-[#dab87d] text-[#0d313f] text-[18px] sm:text-[22px] font-bold font-'Poppins' py-3 sm:py-4 px-8 sm:px-10 rounded-[20px] sm:rounded-[30px] shadow-lg transition-all duration-300 hover:bg-[#c7a46d] hover:scale-105">
+            <button className="bg-[#dab87d] text-[#0d313f] text-[18px] sm:text-[22px] font-bold font-'Poppins' py-3 sm:py-4 px-6 sm:px-6 rounded-[20px] sm:rounded-[30px] shadow-lg transition-all duration-300 hover:bg-[#c7a46d] hover:scale-105">
               {button?.buttonText}
             </button>
           </a>

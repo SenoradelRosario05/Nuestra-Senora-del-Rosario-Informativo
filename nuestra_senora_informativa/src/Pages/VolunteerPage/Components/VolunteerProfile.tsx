@@ -50,7 +50,7 @@ const VolunteerProfile = () => {
 
       <div className="mt-12 flex justify-center">
         <a href="/formulario_voluntariado">
-        <button className="bg-[#dab87d] text-[#0d313f] text-[18px] sm:text-[22px] font-bold font-'Poppins' py-3 sm:py-4 px-8 sm:px-10 rounded-[20px] sm:rounded-[30px] shadow-lg transition-all duration-300 hover:bg-[#c7a46d] hover:scale-105" type="button">
+        <button className="bg-[#dab87d] text-[#0d313f] text-[18px] sm:text-[22px] font-bold font-'Poppins' py-3 sm:py-3 px-6 sm:px-6 rounded-[20px] sm:rounded-[30px] shadow-lg transition-all duration-300 hover:bg-[#c7a46d] hover:scale-105" type="button">
           {button?.buttonText}
         </button>
         </a>

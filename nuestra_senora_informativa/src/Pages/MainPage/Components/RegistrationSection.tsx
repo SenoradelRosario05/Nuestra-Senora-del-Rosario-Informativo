@@ -29,7 +29,7 @@ export const RegistrationSection = () => {
       </div>
 
       {/* Overlay Content */}
-      <div className="relative z-10 p-8 rounded-lg shadow-lg max-w-4xl text-center">
+      <div className="relative z-10 p-8 rounded-lg  max-w-4xl text-center">
         
         {/* Title Section */}
         <h2 className="text-white text-[35px] font-normal font-'Poppins' mb-6">
