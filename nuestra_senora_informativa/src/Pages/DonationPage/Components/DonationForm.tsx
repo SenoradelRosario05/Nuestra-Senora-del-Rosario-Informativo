@@ -9,7 +9,7 @@ import { useModal } from '../../../Hooks/useModal';
 import {InputForm, ConfirmationModal, CustomSelect, LoadingSpinner, RateLimitModal} from '../../../Components';
 
 const DonationForm = () => {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormDonationCreateDto>();
+  const { register, handleSubmit, formState: { errors }, reset, watch } = useForm<FormDonationCreateDto>();
   const [showOtherInput, setShowOtherInput] = useState(false);
   const [selectedMethods, setSelectedMethods] = useState([]);
   const { isOpen, openModal, closeModal } = useModal();
@@ -47,6 +47,8 @@ const DonationForm = () => {
 
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <div>Error al cargar los tipos de donación</div>;
+
+  
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center pt-20 py-12 px-4 sm:px-6 lg:px-8">
@@ -121,8 +123,18 @@ const DonationForm = () => {
   type="date"
   error={errors.Delivery_date?.message}
   placeholder="Seleccione una fecha"
-  {...register('Delivery_date', { required: 'La fecha es obligatoria' })}
+  min={new Date().toISOString().split('T')[0]} // 🔹 Evita fechas pasadas
+  className={`${
+    errors.Delivery_date || (watch('Delivery_date') && new Date(watch('Delivery_date')) < new Date()) 
+      ? 'border-red-500 bg-red-100' // 🔹 Resalta en rojo si la fecha es inválida
+      : ''
+  }`}
+  {...register('Delivery_date', { 
+    required: 'La fecha es obligatoria',
+    validate: value => new Date(value) >= new Date() || 'No puedes seleccionar una fecha pasada'
+  })}
 />
+
 <CustomSelect
   label="Tipo de Donación"
   id="tipo-donacion"

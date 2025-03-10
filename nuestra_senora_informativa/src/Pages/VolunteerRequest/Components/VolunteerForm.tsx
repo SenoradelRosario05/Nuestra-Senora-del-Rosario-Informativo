@@ -30,6 +30,8 @@ const VolunteerForm = () => {
     });
   };
 
+  const today = new Date().toISOString().split('T')[0];
+
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <div>Error al cargar los tipos de voluntariado</div>;
 
@@ -119,11 +121,15 @@ const VolunteerForm = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <InputForm
+        <InputForm
             label="Fecha de Inicio"
             id="fechaInicio"
             type="date"
+            min={today} // 🔹 Bloquea fechas pasadas
             error={errors.Delivery_Date?.message}
+            className={`${
+              errors.Delivery_Date ? 'border-red-500 bg-red-100' : ''
+            }`}
             {...register('Delivery_Date', { required: 'La fecha de inicio es obligatoria' })}
           />
           <InputForm

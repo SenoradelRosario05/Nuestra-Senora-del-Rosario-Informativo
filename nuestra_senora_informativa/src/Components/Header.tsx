@@ -69,7 +69,7 @@ function Header() {
             <ul className="flex space-x-5 text-sm font-medium">
               {filteredNavbarItems?.map((item: NavbarItem) => (
                 <li key={item.id_Nav_It} className="relative group">
-                  <div className="flex items-center">
+                  <div className="flex items-center ">
                     {item.children && item.children.length > 0 ? (
                       // Si el item tiene hijos, es decir, un dropdown
                       <button
@@ -107,7 +107,7 @@ function Header() {
                     <ul className={`absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg ${openDropdowns[item.id_Nav_It] ? 'block' : 'hidden'}`}>
                       {item.children.map((child: NavbarItem) => (
                         <li key={child.id_Nav_It}>
-                          <a href={child.urlNav} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                          <a href={child.urlNav} className="block px-4 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
                             {child.title_Nav}
                           </a>
                         </li>
