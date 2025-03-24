@@ -1,3 +1,5 @@
+
+import Marquee from 'react-fast-marquee';
 import useGalery from '../Hooks/useGalery';
 import useTitles from '../../../Hooks/useTitles';
 import { useSiteSettings } from '../../../Hooks/useSiteSettings';
@@ -14,10 +16,17 @@ const GalerySection = () => {
 
   if (isError) return <p>Error al cargar los datos</p>;
 
+  // Validar si galleryImages es un arreglo y obtener las primeras 10 imágenes
+  const imagesToDisplay = Array.isArray(galleryImages) ? galleryImages.slice(0, 10) : [];
+
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-start py-12 px-4 sm:px-6 lg:px-8">
       <div className="flex items-center justify-center mb-6">
-        <img className="opacity-80 w-[60px] h-[60px] rounded-full mr-4" src={siteSettingsData?.icon_HGA_Url} alt="Icon" />
+        <img
+          className="opacity-80 w-[60px] h-[60px] rounded-full mr-4"
+          src={siteSettingsData?.icon_HGA_Url}
+          alt="Icon"
+        />
         <h2 className="text-[#0d313f] text-[28px] sm:text-[35px] font-normal font-'Poppins' uppercase text-center">
           {title?.title_Text_Section}
         </h2>
@@ -27,17 +36,17 @@ const GalerySection = () => {
       </p>
 
       <div className="relative overflow-hidden w-full max-w-full sm:max-w-5xl lg:max-w-6xl mt-12">
-        <div className="flex justify-start items-center gap-[10px] sm:gap-[20px] animate-scroll">
-          {galleryImages?.slice(0, 10).map((image: any, index: number) => ( // Solo trae las primeras 10 imágenes
+        <Marquee gradient={false} speed={50} pauseOnHover>
+          {imagesToDisplay.map((image: any, index: number) => (
             <img
               key={index}
-              className="w-[200px] sm:w-[250px] lg:w-[325px] h-[150px] sm:h-[180px] lg:h-[200px]"
-              src={image?.gallery_Image_Url} 
+              className="gallery-item w-[200px] sm:w-[250px] lg:w-[325px] h-[150px] sm:h-[180px] lg:h-[200px] mx-2"
+              src={image?.gallery_Image_Url}
               alt={`Instalación ${index + 1}`}
-              loading='lazy'
+              loading="lazy"
             />
           ))}
-        </div>
+        </Marquee>
       </div>
 
       <div className="mt-12">
