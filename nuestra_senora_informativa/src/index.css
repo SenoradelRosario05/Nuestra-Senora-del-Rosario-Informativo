@@ -3,19 +3,19 @@
 @tailwind utilities;
 
 @keyframes scroll {
-    0% {
-      transform: translateX(0%);
-    }
-    100% {
-      transform: translateX(-100%);
-    }
+  0% {
+    transform: translateX(0%);
   }
-  
-.animate-scroll {
-    animation: scroll 15s linear infinite;
+  100% {
+    transform: translateX(-50%);
   }
+}
 
-rollbar-hide::-webkit-scrollbar {
+.animate-scroll {
+  animation: scroll 15s linear infinite;
+}
+
+.rollbar-hide::-webkit-scrollbar {
   display: none;
 }
 
