@@ -18,11 +18,10 @@ const VolunteerForm = () => {
 
   const { mutation, setRateLimitExceeded, rateLimitExceeded } = usePostFormVolunteer();
 
-  const today = new Date().toISOString().split('T')[0];
-
   // Usamos watch para obtener el valor de la fecha de inicio
   const startDate = watch('Delivery_Date');
 
+  const today = new Date().toISOString().split('T')[0];
   // Calculamos la fecha mínima para la fecha de fin (start date + 1 día)
   const minEndDate = startDate 
     ? new Date(new Date(startDate).getTime() + 86400000).toISOString().split('T')[0]
@@ -48,7 +47,6 @@ const VolunteerForm = () => {
     });
   };
 
-  const today = new Date().toISOString().split('T')[0];
 
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <div>Error al cargar los tipos de voluntariado</div>;
@@ -134,20 +132,15 @@ const VolunteerForm = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <InputForm
-            label="Fecha de Inicio"
-            id="fechaInicio"
-            type="date"
+  label="Fecha de Inicio"
+  id="fechaInicio"
+  type="date"
+  min={today}
+  error={errors.Delivery_Date?.message}
+  className={`${errors.Delivery_Date ? 'border-red-500 bg-red-100' : ''}`}
+  {...register('Delivery_Date', { required: 'La fecha de inicio es obligatoria' })}
+/>
 
-            min={today}
-            error={errors.Delivery_Date?.message}
-            className={`${errors.Delivery_Date ? 'border-red-500 bg-red-100' : ''}`}
-          min={today} // 🔹 Bloquea fechas pasadas
-            error={errors.Delivery_Date?.message}
-            className={`${
-              errors.Delivery_Date ? 'border-red-500 bg-red-100' : ''
-            }`}
-            {...register('Delivery_Date', { required: 'La fecha de inicio es obligatoria' })}
-          />
           <InputForm
             label="Fecha de Fin"
             id="fechaFin"
