@@ -3,7 +3,7 @@
 # ----------------------------
     FROM node:18-alpine AS build
 
-    # Establece el directorio de la app
+    # Establece el directorio de la appaa
     WORKDIR /app
     
     # Copia los archivos de dependencias para aprovechar la caché
