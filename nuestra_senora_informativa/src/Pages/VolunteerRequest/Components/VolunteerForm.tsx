@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { FormVolunteerCreateDto } from '../../../Types/informativeType';
@@ -5,16 +6,10 @@ import { useSiteSettings } from '../../../Hooks/useSiteSettings';
 import { useModal } from '../../../Hooks/useModal';
 import { useVoluntarieType } from '../Hooks/useVoluntarieType';
 import { usePostFormVolunteer } from '../Hooks/usePostVolunteerFrm';
-import {
-  InputForm,
-  CustomSelect,
-  ConfirmationModal,
-  RateLimitModal,
-  LoadingSpinner,
-} from '../../../Components';
+import { InputForm, CustomSelect, ConfirmationModal, RateLimitModal, LoadingSpinner } from '../../../Components';
 
 const VolunteerForm = () => {
-  const { register, handleSubmit, formState: { errors }, reset, watch } = useForm<FormVolunteerCreateDto>();
+  const { register, handleSubmit, setValue, watch, formState: { errors }, reset } = useForm<FormVolunteerCreateDto>();
   const { data: siteSettings } = useSiteSettings();
   const siteSettingsData = siteSettings ? siteSettings[0] : null;
   const { data: voluntarieTypes, isLoading, isError } = useVoluntarieType();
@@ -22,6 +17,22 @@ const VolunteerForm = () => {
   const navigate = useNavigate();
 
   const { mutation, setRateLimitExceeded, rateLimitExceeded } = usePostFormVolunteer();
+
+  // Obtenemos el valor de la fecha de inicio
+  const startDate = watch('Delivery_Date');
+
+  const today = new Date().toISOString().split('T')[0];
+  // Calculamos la fecha mínima para la fecha de fin (startDate + 1 día)
+  const minEndDate = startDate 
+    ? new Date(new Date(startDate).getTime() + 86400000).toISOString().split('T')[0]
+    : today;
+
+  // Actualizamos la fecha de fin cuando cambie la fecha de inicio
+  useEffect(() => {
+    if (startDate) {
+      setValue('End_Date', new Date(minEndDate));
+    }
+  }, [startDate, minEndDate, setValue]);
 
   const onSubmit = (data: FormVolunteerCreateDto) => {
     mutation.mutate(data, {
@@ -35,9 +46,6 @@ const VolunteerForm = () => {
       },
     });
   };
-
-  const today = new Date().toISOString().split('T')[0];
-  const startDate = watch('Delivery_Date');
 
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <div>Error al cargar los tipos de voluntariado</div>;
@@ -94,14 +102,8 @@ const VolunteerForm = () => {
             error={errors.Vn_Cedula?.message}
             {...register('Vn_Cedula', {
               required: 'La cédula es obligatoria',
-              minLength: {
-                value: 9,
-                message: 'La cédula debe tener exactamente 9 caracteres',
-              },
-              maxLength: {
-                value: 9,
-                message: 'La cédula debe tener exactamente 9 caracteres',
-              },
+              minLength: { value: 9, message: 'La cédula debe tener exactamente 9 caracteres' },
+              maxLength: { value: 9, message: 'La cédula debe tener exactamente 9 caracteres' },
             })}
           />
         </div>
@@ -138,15 +140,14 @@ const VolunteerForm = () => {
             type="date"
             min={today}
             error={errors.Delivery_Date?.message}
-            {...register('Delivery_Date', {
-              required: 'La fecha de inicio es obligatoria',
-            })}
+            className={`${errors.Delivery_Date ? 'border-red-500 bg-red-100' : ''}`}
+            {...register('Delivery_Date', { required: 'La fecha de inicio es obligatoria' })}
           />
           <InputForm
             label="Fecha de Fin"
             id="fechaFin"
             type="date"
-            min={startDate ? new Date(startDate).toISOString().split('T')[0] : undefined}
+            min={minEndDate} // Deshabilita días anteriores a la fecha de inicio + 1 día
             error={errors.End_Date?.message}
             {...register('End_Date', {
               required: 'La fecha de fin es obligatoria',
