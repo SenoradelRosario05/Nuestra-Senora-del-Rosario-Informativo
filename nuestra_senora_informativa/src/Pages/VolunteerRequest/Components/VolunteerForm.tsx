@@ -18,16 +18,16 @@ const VolunteerForm = () => {
 
   const { mutation, setRateLimitExceeded, rateLimitExceeded } = usePostFormVolunteer();
 
-  // Usamos watch para obtener el valor de la fecha de inicio
+  // Obtenemos el valor de la fecha de inicio
   const startDate = watch('Delivery_Date');
 
   const today = new Date().toISOString().split('T')[0];
-  // Calculamos la fecha mínima para la fecha de fin (start date + 1 día)
+  // Calculamos la fecha mínima para la fecha de fin (startDate + 1 día)
   const minEndDate = startDate 
     ? new Date(new Date(startDate).getTime() + 86400000).toISOString().split('T')[0]
     : today;
 
-  // Cuando cambie la fecha de inicio, actualizamos la fecha de fin automáticamente
+  // Actualizamos la fecha de fin cuando cambie la fecha de inicio
   useEffect(() => {
     if (startDate) {
       setValue('End_Date', new Date(minEndDate));
@@ -43,10 +43,9 @@ const VolunteerForm = () => {
           closeModal();
           navigate('/');
         }, 4000);
-      }
+      },
     });
   };
-
 
   if (isLoading) return <LoadingSpinner />;
   if (isError) return <div>Error al cargar los tipos de voluntariado</div>;
@@ -58,7 +57,11 @@ const VolunteerForm = () => {
       </h2>
       <div className="flex items-center justify-center my-6 w-full max-w-lg">
         <div className="w-1/4 sm:w-1/3 md:w-1/2 border-t-2 border-[#0d313f]"></div>
-        <img className="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px] mx-4" src={siteSettingsData?.icon_HGA_Url} alt="Logo de la institución" />
+        <img
+          className="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px] mx-4"
+          src={siteSettingsData?.icon_HGA_Url}
+          alt="Logo de la institución"
+        />
         <div className="w-1/4 sm:w-1/3 md:w-1/2 border-t-2 border-[#0d313f]"></div>
       </div>
 
@@ -131,23 +134,24 @@ const VolunteerForm = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        <InputForm
-  label="Fecha de Inicio"
-  id="fechaInicio"
-  type="date"
-  min={today}
-  error={errors.Delivery_Date?.message}
-  className={`${errors.Delivery_Date ? 'border-red-500 bg-red-100' : ''}`}
-  {...register('Delivery_Date', { required: 'La fecha de inicio es obligatoria' })}
-/>
-
+          <InputForm
+            label="Fecha de Inicio"
+            id="fechaInicio"
+            type="date"
+            min={today}
+            error={errors.Delivery_Date?.message}
+            className={`${errors.Delivery_Date ? 'border-red-500 bg-red-100' : ''}`}
+            {...register('Delivery_Date', { required: 'La fecha de inicio es obligatoria' })}
+          />
           <InputForm
             label="Fecha de Fin"
             id="fechaFin"
             type="date"
             min={minEndDate} // Deshabilita días anteriores a la fecha de inicio + 1 día
             error={errors.End_Date?.message}
-            {...register('End_Date', { required: 'La fecha de fin es obligatoria' })}
+            {...register('End_Date', {
+              required: 'La fecha de fin es obligatoria',
+            })}
           />
         </div>
 
@@ -182,7 +186,11 @@ const VolunteerForm = () => {
           </Link>
         </div>
       </form>
+
+      {/* Modal de confirmación */}
       <ConfirmationModal isOpen={isOpen} onClose={closeModal} />
+
+      {/* Modal de límite de solicitudes */}
       <RateLimitModal isOpen={rateLimitExceeded} onClose={() => setRateLimitExceeded(false)} />
     </div>
   );
