@@ -5,6 +5,7 @@ import useTitles from '../../../Hooks/useTitles';
 import { useSiteSettings } from '../../../Hooks/useSiteSettings';
 import useButtons from '../../../Hooks/useButtons';
 import useNavbarItemsId from '../../../Hooks/useNavbarItemsId';
+import { GalleryImage } from '../../../Types/informativeType';
 
 const GalerySection = () => {
   const { data: galleryImages, isError } = useGalery();
@@ -36,14 +37,36 @@ const GalerySection = () => {
       </p>
 
       <div className="relative overflow-hidden w-full max-w-full sm:max-w-5xl lg:max-w-6xl mt-12">
-        <Marquee gradient={false} speed={50} pauseOnHover>
-          {imagesToDisplay.map((image: any, index: number) => (
+        <Marquee 
+          gradient={false} 
+          speed={40} 
+          pauseOnHover={false} 
+          loop={0}
+          delay={0}
+        >
+          {/* Primera serie de imágenes */}
+          {imagesToDisplay.map((image: GalleryImage, index: number) => (
             <img
-              key={index}
+              key={`original-${index}`}
               className="gallery-item w-[200px] sm:w-[250px] lg:w-[325px] h-[150px] sm:h-[180px] lg:h-[200px] mx-2"
               src={image?.gallery_Image_Url}
-              alt={`Instalación ${index + 1}`}
-              loading="lazy"
+              alt={`Galería del Hogar - Imagen ${index + 1}`}
+              onError={(e) => {
+                e.currentTarget.src = 'https://via.placeholder.com/325x200?text=Imagen+no+disponible';
+              }}
+            />
+          ))}
+          
+          {/* Duplicar imágenes para asegurar continuidad */}
+          {imagesToDisplay.map((image: GalleryImage, index: number) => (
+            <img
+              key={`duplicate-${index}`}
+              className="gallery-item w-[200px] sm:w-[250px] lg:w-[325px] h-[150px] sm:h-[180px] lg:h-[200px] mx-2"
+              src={image?.gallery_Image_Url}
+              alt={`Galería del Hogar - Imagen ${index + 1}`}
+              onError={(e) => {
+                e.currentTarget.src = 'https://via.placeholder.com/325x200?text=Imagen+no+disponible';
+              }}
             />
           ))}
         </Marquee>
