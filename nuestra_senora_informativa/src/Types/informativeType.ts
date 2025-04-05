@@ -135,3 +135,9 @@ export type AplicationFormDTO = {
   location_AP: string;
   status_Name: string;
 };
+
+
+export interface GalleryImage {
+  gallery_Image_Url: string;
+  id?: number;
+}
