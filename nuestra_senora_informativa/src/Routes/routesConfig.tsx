@@ -29,7 +29,7 @@ const useRoutesConfig = () => {
       element: <Galery />
     },
     {
-      path: routes['Proceso_ingreso'] || '/proceso_ingreso',
+      path: routes['Proceso de ingreso'] || '/proceso-ingreso',
       element: <Registration />
     },
     {
