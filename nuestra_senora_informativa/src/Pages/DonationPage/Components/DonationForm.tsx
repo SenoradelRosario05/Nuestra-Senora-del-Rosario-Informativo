@@ -73,14 +73,14 @@ const DonationForm = () => {
   {...register('Dn_Name', { required: 'El nombre es obligatorio' })}
 />
 <InputForm
-  label="Primer Apellido"
+  label="Primer apellido"
   id="primerApellido"
   error={errors.Dn_Lastname1?.message}
   placeholder="Ingrese su primer apellido"
   {...register('Dn_Lastname1', { required: 'El primer apellido es obligatorio' })}
 />
 <InputForm
-  label="Segundo Apellido"
+  label="Segundo apellido"
   id="segundoApellido"
   error={errors.Dn_Lastname2?.message}
   placeholder="Ingrese su segundo apellido"
@@ -98,7 +98,7 @@ const DonationForm = () => {
   })}
 />
 <InputForm
-  label="Correo Electrónico"
+  label="Correo electrónico"
   id="email"
   error={errors.Dn_Email?.message}
   placeholder="Ejemplo: correo@dominio.com"
@@ -118,7 +118,7 @@ const DonationForm = () => {
   {...register('Dn_Phone', { required: 'El teléfono es obligatorio' })}
 />
 <InputForm
-  label="Fecha de Entrega"
+  label="Fecha de entrega"
   id="fecha"
   type="date"
   error={errors.Delivery_date?.message}
@@ -136,7 +136,7 @@ const DonationForm = () => {
 />
 
 <CustomSelect
-  label="Tipo de Donación"
+  label="Tipo de donación"
   id="tipo-donacion"
   error={errors.Id_DonationType?.message}
   options={donationTypes.map((type: any) => ({

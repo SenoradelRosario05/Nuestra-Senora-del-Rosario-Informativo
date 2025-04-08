@@ -79,7 +79,7 @@ const VolunteerForm = () => {
             {...register('Vn_Name', { required: 'El nombre es obligatorio' })}
           />
           <InputForm
-            label="Primer Apellido"
+            label="Primer apellido"
             id="primerApellido"
             placeholder="Primer apellido del voluntario"
             error={errors.Vn_Lastname1?.message}
@@ -89,7 +89,7 @@ const VolunteerForm = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <InputForm
-            label="Segundo Apellido"
+            label="Segundo apellido"
             id="segundoApellido"
             placeholder="Segundo apellido del voluntario"
             error={errors.Vn_Lastname2?.message}
@@ -110,7 +110,7 @@ const VolunteerForm = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <InputForm
-            label="Correo Electrónico"
+            label="Correo electrónico"
             id="correo"
             placeholder="Ejemplo: correo@dominio.com"
             type="email"
@@ -135,7 +135,7 @@ const VolunteerForm = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <InputForm
-            label="Fecha de Inicio"
+            label="Fecha de inicio"
             id="fechaInicio"
             type="date"
             min={today}
@@ -144,7 +144,7 @@ const VolunteerForm = () => {
             {...register('Delivery_Date', { required: 'La fecha de inicio es obligatoria' })}
           />
           <InputForm
-            label="Fecha de Fin"
+            label="Fecha de fin"
             id="fechaFin"
             type="date"
             min={minEndDate} // Deshabilita días anteriores a la fecha de inicio + 1 día
@@ -157,7 +157,7 @@ const VolunteerForm = () => {
 
         <div>
           <CustomSelect
-            label="Tipo de Voluntariado"
+            label="Tipo de voluntariado"
             id="tipoVoluntariado"
             error={errors.Id_VoluntarieType?.message}
             options={voluntarieTypes.map((type: any) => ({
