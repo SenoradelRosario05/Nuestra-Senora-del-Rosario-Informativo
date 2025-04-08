@@ -14,7 +14,7 @@ const VolunteerProfile = () => {
   
   return (
     <div className="flex flex-col items-center pt-20 py-12 px-0 bg-white w-full">
-      <h2 className="text-[#0d313f] text-[35px] font-semibold font-'Poppins' uppercase mb-4">{title?.title_Text_Section}</h2>
+      <h2 className="text-[#0d313f] text-[35px] font-semibold font-'Poppins' mb-4">{title?.title_Text_Section}</h2>
       <div className="flex items-center justify-center my-6 w-full max-w-lg">
         <div className="w-1/4 sm:w-1/3 md:w-1/2 border-t-2 border-[#0d313f]"></div>
         <img className="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px] mx-4" src={IconsDA?.icon_HGA_Url} alt="Logo de la institución" />
@@ -26,7 +26,7 @@ const VolunteerProfile = () => {
   </p>
 
       <div className="bg-[#f3f3f3] w-full px-0 lg:px-12 py-12">
-        <h3 className="text-center text-[#0d313f] text-[30px] font-semibold font-'Poppins' uppercase mb-8">{Subtitle?.title_Text_Section}</h3>
+        <h3 className="text-center text-[#0d313f] text-[30px] font-semibold font-'Poppins' mb-8">{Subtitle?.title_Text_Section}</h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
           {Cards?.map((item: any) => (

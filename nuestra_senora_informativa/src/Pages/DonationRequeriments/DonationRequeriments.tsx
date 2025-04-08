@@ -16,7 +16,7 @@ function DonationRequeriments() {
       <div className="relative z-10 text-center">
         {/* Título Principal */}
         <h2 className="text-[#0d313f] text-[35px] font-semibold font-'Poppins' uppercase mb-4">
-          DONACIONES
+          Donaciones
         </h2>
 
         {/* Div para las líneas y el logo */}
