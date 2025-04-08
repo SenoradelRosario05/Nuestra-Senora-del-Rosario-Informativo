@@ -23,7 +23,7 @@ const PigeonMap = () => {
     <div className="min-h-screen bg-white flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8 mt-16 relative">
       {isError && <div>Error fetching data.</div>}
 
-      <h2 className="text-[#0d313f] text-[28px] sm:text-[35px] font-normal font-Poppins uppercase text-center">
+      <h2 className="text-[#0d313f] text-[28px] sm:text-[35px] font-normal font-Poppins    text-center">
         {title ? title.title_Text_Section : "Ubicación"}
       </h2>
 
