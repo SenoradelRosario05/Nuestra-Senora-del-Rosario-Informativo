@@ -51,14 +51,14 @@ const AplicationForm: React.FC = () => {
             {...register('name_AP', { required: 'El nombre es obligatorio' })}
           />
           <InputForm
-            label="Primer Apellido"
+            label="Primer apellido"
             id="lastname1_AP"
             error={errors.lastName1_AP?.message}
             placeholder='Primer apellido adulto mayor'
             {...register('lastName1_AP', { required: 'El primer apellido es obligatorio' })}
           />
           <InputForm
-            label="Segundo Apellido"
+            label="Segundo apellido"
             id="lastname2_AP"
             error={errors.lastName2_AP?.message}
             placeholder='Segundo apellido adulto mayor'
@@ -103,14 +103,14 @@ const AplicationForm: React.FC = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <InputForm
-            label="Nombre del Encargado"
+            label="Nombre del encargado"
             id="name_GD"
             placeholder='Nombre del encargado del adulto mayor'
             error={errors.guardianName?.message}
             {...register('guardianName', { required: 'El nombre del encargado es obligatorio' })}
           />
           <InputForm
-            label="Primer Apellido del Encargado"
+            label="Primer apellido del encargado"
             id="lastname1_GD"
             placeholder='Primer apellido del encargado del adulto mayor'
             error={errors.guardianLastName1?.message}
@@ -120,14 +120,14 @@ const AplicationForm: React.FC = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <InputForm
-            label="Segundo Apellido del Encargado"
+            label="Segundo apellido del encargado"
             id="lastname2_GD"
             placeholder='Segundo apellido del encargado del adulto mayor'
             error={errors.guardianLastName2?.message}
             {...register('guardianLastName2', { required: 'El segundo apellido del encargado es obligatorio' })}
           />
           <InputForm
-            label="Cédula del Encargado"
+            label="Cédula del encargado"
             id="cedula_GD"
             error={errors.guardianCedula?.message}
             placeholder='Ejemplo: 102340567' 
@@ -142,7 +142,7 @@ const AplicationForm: React.FC = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <InputForm
-            label="Teléfono del Encargado"
+            label="Teléfono del encargado"
             id="phone_GD"
             type="tel"
             placeholder='Ejemplo: 88888888'
@@ -153,7 +153,7 @@ const AplicationForm: React.FC = () => {
             })}
           />
           <InputForm
-            label="Correo Electrónico del Encargado"
+            label="Correo electrónico del encargado"
             id="email_GD"
             type="email"
             error={errors.guardianEmail?.message}
