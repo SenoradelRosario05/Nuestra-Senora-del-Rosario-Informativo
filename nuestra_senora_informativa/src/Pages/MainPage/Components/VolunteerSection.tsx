@@ -20,7 +20,7 @@ const VolunteerSection = () => {
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center py-12 px-4 sm:px-6 lg:px-8">
-      <h2 className="text-[#0d313f] text-[28px] sm:text-[35px] font-normal font-'Poppins' uppercase text-center">
+      <h2 className="text-[#0d313f] text-[28px] sm:text-[35px] font-normal font-'Poppins' text-center">
         {titleData?.title_Text_Section || ""}
       </h2>
       <div className="flex items-center justify-center my-6 w-full max-w-lg">
@@ -44,7 +44,7 @@ const VolunteerSection = () => {
         </p>
       </div>
 
-      <h2 className="text-[#0d313f] text-[35px] font-normal font-'Poppins' uppercase text-center mb-8">
+      <h2 className="text-[#0d313f] text-[35px] font-normal font-'Poppins'  text-center mb-8">
         {Subtitle ? Subtitle.title_Text_Section : ""}
       </h2>
 

@@ -28,7 +28,7 @@ const GalerySection = () => {
           src={siteSettingsData?.icon_HGA_Url}
           alt="Icon"
         />
-        <h2 className="text-[#0d313f] text-[28px] sm:text-[35px] font-normal font-'Poppins' uppercase text-center">
+        <h2 className="text-[#0d313f] text-[28px] sm:text-[35px] font-normal font-'Poppins'  text-center">
           {title?.title_Text_Section}
         </h2>
       </div>
