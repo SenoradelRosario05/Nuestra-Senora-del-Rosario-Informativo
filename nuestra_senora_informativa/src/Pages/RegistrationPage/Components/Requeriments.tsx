@@ -26,7 +26,7 @@ const Requeriments = () => {
       <div className="h-auto bg-white p-10 pt-20 px-6 sm:px-16 lg:px-32">
         {/* Título principal */}
         <div className="flex justify-center">
-          <h1 className="text-center text-[#0d313f] text-[30px] font-normal uppercase mb-8">
+          <h1 className="text-center text-[#0d313f] text-[30px] font-normal  mb-8">
             {title?.title_Text_Section}
           </h1>
         </div>
@@ -44,7 +44,7 @@ const Requeriments = () => {
         </p>
 
         {/* Requisitos Administrativos */}
-        <h2 className="text-[#0d313f] text-[30px] font-normal uppercase mb-6 text-center">
+        <h2 className="text-[#0d313f] text-[30px] font-normal mb-6 text-center">
           {Subtitle?.title_Text_Section}
         </h2>
 
@@ -65,7 +65,7 @@ const Requeriments = () => {
         </ul>
 
         {/* Requisitos de Enfermería */}
-        <h2 className="text-[#0d313f] text-[30px] font-normal uppercase mb-6 text-center mt-10">
+        <h2 className="text-[#0d313f] text-[30px] font-normal mb-6 text-center mt-10">
           Requisitos de Enfermería
         </h2>
 
@@ -86,7 +86,7 @@ const Requeriments = () => {
         </ul>
 
         {/* Sección de Información Importante */}
-        <h2 className="text-[#0d313f] text-[30px] font-normal uppercase mb-6 text-center mt-10">
+        <h2 className="text-[#0d313f] text-[30px] font-normal mb-6 text-center mt-10">
           {SubtitleInformation?.title_Text_Section}
         </h2>
 
