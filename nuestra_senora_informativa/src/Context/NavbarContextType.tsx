@@ -1,5 +1,5 @@
 import React from 'react';
-// this is context
+
 type NavbarContextType = {
   openDropdowns: Record<number, boolean>;
   setOpenDropdowns: React.Dispatch<React.SetStateAction<Record<number, boolean>>>;

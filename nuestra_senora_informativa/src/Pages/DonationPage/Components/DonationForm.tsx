@@ -65,6 +65,17 @@ const DonationForm = () => {
       </h3>
       <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-4xl space-y-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <InputForm
+            label="Cédula"
+            id="cedula"
+            error={errors.Dn_Cedula?.message}
+            placeholder="Ejemplo: 102340567"
+            {...register('Dn_Cedula', {
+              required: 'La cédula es obligatoria',
+              minLength: { value: 9, message: 'La cédula debe tener exactamente 9 caracteres' },
+              maxLength: { value: 9, message: 'La cédula debe tener exactamente 9 caracteres' },
+            })}
+          />
         <InputForm
   label="Nombre"
   id="nombre"
@@ -107,17 +118,6 @@ const DonationForm = () => {
       message: 'Solo letras y espacios'
     }
    })}
-/>
-<InputForm
-  label="Cédula"
-  id="cedula"
-  error={errors.Dn_Cedula?.message}
-  placeholder="Ejemplo: 102340567"
-  {...register('Dn_Cedula', {
-    required: 'La cédula es obligatoria',
-    minLength: { value: 9, message: 'La cédula debe tener exactamente 9 caracteres' },
-    maxLength: { value: 9, message: 'La cédula debe tener exactamente 9 caracteres' },
-  })}
 />
 <InputForm
   label="Correo electrónico"
