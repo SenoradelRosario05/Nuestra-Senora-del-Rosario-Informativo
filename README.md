@@ -21,7 +21,7 @@ Este documento proporciona una guía clara para el equipo de desarrollo sobre c�
   - Crea una nueva rama para cada funcionalidad o tarea en la que trabajes. Usa nombres descriptivos y sigue una convención clara.
   - **Ejemplo**: `feature/sobre-nosotros`, `fix/bug-visualizacion-perfil`.
 - **No acumules múltiples funcionalidades en una misma rama**:
-  - Una vez que termines una funcionalidad, fusiona la rama con `main` o `develop` a través de un pull request, y crea una nueva rama para la siguiente tarea.
+  - Una vez que termines una funcionalidad, fusiona la rama con `main` o `develop` a través de un pull request, y crea una nueva rama para la siguiente tarea .
 - **Nombra las ramas consistentemente**:
   - Usa prefijos como `feature/`, `fix/`, `improvement/` para indicar el tipo de trabajo que se está realizando.
 - **Mantén las ramas sincronizadas**:
