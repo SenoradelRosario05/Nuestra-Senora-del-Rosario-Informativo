@@ -86,6 +86,18 @@ const VolunteerForm = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-4xl space-y-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <InputForm
+           label="Cédula"
+           id="cedula"
+           placeholder="Ejem: 102340567"
+           error={errors.Vn_Cedula?.message}
+           {...register('Vn_Cedula', {
+             required: 'La cédula es obligatoria',
+             minLength: { value: 9, message: 'La cédula debe tener exactamente 9 caracteres' },
+             maxLength: { value: 9, message: 'La cédula debe tener exactamente 9 caracteres' },
+             pattern: { value: /^\d+$/, message: 'Solo números' }
+           })}
+         />
+          <InputForm
             label="Nombre"
             id="nombre"
             placeholder="Nombre del voluntario"
@@ -99,6 +111,9 @@ const VolunteerForm = () => {
               }
             })}
           />
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <InputForm
             label="Primer apellido"
             id="primerApellido"
@@ -113,9 +128,6 @@ const VolunteerForm = () => {
               }
             })}
           />
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <InputForm
             label="Segundo apellido"
             id="segundoApellido"
@@ -128,18 +140,6 @@ const VolunteerForm = () => {
                 value: /^[A-Za-z\s]+$/,
                 message: 'Solo letras y espacios'
               }
-            })}
-          />
-          <InputForm
-            label="Cédula"
-            id="cedula"
-            placeholder="Ejem: 102340567"
-            error={errors.Vn_Cedula?.message}
-            {...register('Vn_Cedula', {
-              required: 'La cédula es obligatoria',
-              minLength: { value: 9, message: 'La cédula debe tener exactamente 9 caracteres' },
-              maxLength: { value: 9, message: 'La cédula debe tener exactamente 9 caracteres' },
-              pattern: { value: /^\d+$/, message: 'Solo números' }
             })}
           />
         </div>
