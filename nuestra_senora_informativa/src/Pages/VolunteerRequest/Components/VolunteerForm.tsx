@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { FormVolunteerCreateDto } from '../../../Types/informativeType';
@@ -13,6 +13,7 @@ import {
   RateLimitModal,
   LoadingSpinner
 } from '../../../Components';
+import ToastMessage from '../../../Components/ToastMessage';
 
 const VolunteerForm = () => {
   const {
@@ -29,6 +30,7 @@ const VolunteerForm = () => {
   const { isOpen, openModal, closeModal } = useModal();
   const navigate = useNavigate();
   const { mutation, setRateLimitExceeded, rateLimitExceeded } = usePostFormVolunteer();
+  const [toast, setToast] = useState<{ message: string; type: 'error' } | null>(null);
 
   // Fecha mínima para End_Date = Delivery_Date + 1 día
   const startDate = watch('Delivery_Date');
@@ -53,12 +55,40 @@ const VolunteerForm = () => {
           navigate('/');
         }, 4000);
       },
-      onError: (err: any) => {
-        // si rate limit
-        if (err.response?.status === 429) {
-          setRateLimitExceeded(true);
-        }
+      // dentro de VolunteerForm, en el onError de mutate:
+
+onError: (err: any) => {
+    console.error('FULL ERROR PAYLOAD:', err.response?.data);
+
+    // 1) Validación de solapamiento o formato inválido -> status 400
+    if (err.response?.status === 400 && err.response.data?.errors) {
+      const apiErrs = err.response.data.errors as Record<string, string[]>;
+      // Extrae el mensaje exacto de end_Date
+      const msgs = apiErrs.end_Date?.join(' ') 
+                || Object.values(apiErrs).flat().join('. ');
+      
+      // Si es un error de conversión de fecha, muestra algo amigable:
+      if (msgs.includes('Could not convert string to DateTime')) {
+        setToast({
+          message: 'La fecha de fin no tiene un formato válido. Verifica que sea YYYY-MM-DD.',
+          type: 'error'
+        });
+      } else {
+        // Otro error de validación
+        setToast({ message: msgs, type: 'error' });
       }
+      return;
+    }
+
+    // 2) Rate limit
+    if (err.response?.status === 429) {
+      setRateLimitExceeded(true);
+      return;
+    }
+
+    // 3) Cualquier otro
+    setToast({ message: 'Error, ya has enviado una solicitud en este lapso de tiempo', type: 'error' });
+  }
     });
   };
 
@@ -85,6 +115,13 @@ const VolunteerForm = () => {
 
       <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-4xl space-y-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {toast && (
+       <ToastMessage
+         message={toast.message}
+         type={toast.type}
+         onClose={() => setToast(null)}
+       />
+     )}
           <InputForm
            label="Cédula"
            id="cedula"
