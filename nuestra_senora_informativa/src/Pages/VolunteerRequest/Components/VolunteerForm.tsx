@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { FormVolunteerCreateDto } from '../../../Types/informativeType';
@@ -13,24 +13,23 @@ import {
   RateLimitModal,
   LoadingSpinner
 } from '../../../Components';
-import ToastMessage from '../../../Components/ToastMessage';
 
 const VolunteerForm = () => {
   const {
     register,
     handleSubmit,
     setValue,
+    setError,
     watch,
     formState: { errors },
     reset
   } = useForm<FormVolunteerCreateDto>();
   const { data: siteSettings } = useSiteSettings();
-  const siteSettingsData = siteSettings ? siteSettings[0] : null;
+  const siteSettingsData = siteSettings?.[0] ?? null;
   const { data: voluntarieTypes, isLoading, isError } = useVoluntarieType();
   const { isOpen, openModal, closeModal } = useModal();
   const navigate = useNavigate();
-  const { mutation, setRateLimitExceeded, rateLimitExceeded } = usePostFormVolunteer();
-  const [toast, setToast] = useState<{ message: string; type: 'error' } | null>(null);
+  const { mutation, rateLimitExceeded, setRateLimitExceeded } = usePostFormVolunteer();
 
   // Fecha mínima para End_Date = Delivery_Date + 1 día
   const startDate = watch('Delivery_Date');
@@ -46,6 +45,9 @@ const VolunteerForm = () => {
   }, [startDate, minEndDate, setValue]);
 
   const onSubmit = (data: FormVolunteerCreateDto) => {
+    // Clear previous rate-limit modal if any
+    setRateLimitExceeded(false);
+
     mutation.mutate(data, {
       onSuccess: () => {
         reset();
@@ -55,45 +57,40 @@ const VolunteerForm = () => {
           navigate('/');
         }, 4000);
       },
-      // dentro de VolunteerForm, en el onError de mutate:
+      onError: (err: any) => {
+        const status = err.response?.status;
+        const apiErrs = err.response?.data?.errors as Record<string, string[]> | undefined;
 
-onError: (err: any) => {
-    console.error('FULL ERROR PAYLOAD:', err.response?.data);
+        // 1) Validación 400
+        if (status === 400 && apiErrs) {
+          const msgs =
+            apiErrs.end_Date?.join(' ') ||
+            Object.values(apiErrs).flat().join('. ');
+          // error en los inputs
+          setError('Delivery_Date', { type: 'manual', message: msgs });
+          setError('End_Date',      { type: 'manual', message: msgs });
+          return;
+        }
 
-    // 1) Validación de solapamiento o formato inválido -> status 400
-    if (err.response?.status === 400 && err.response.data?.errors) {
-      const apiErrs = err.response.data.errors as Record<string, string[]>;
-      // Extrae el mensaje exacto de end_Date
-      const msgs = apiErrs.end_Date?.join(' ') 
-                || Object.values(apiErrs).flat().join('. ');
-      
-      // Si es un error de conversión de fecha, muestra algo amigable:
-      if (msgs.includes('Could not convert string to DateTime')) {
-        setToast({
-          message: 'La fecha de fin no tiene un formato válido. Verifica que sea YYYY-MM-DD.',
-          type: 'error'
-        });
-      } else {
-        // Otro error de validación
-        setToast({ message: msgs, type: 'error' });
+        // 2) Rate limit → error en inputs + mostrar modal
+        if (status === 429) {
+          const msg = 'Ya has enviado una solicitud en este lapso de tiempo';
+          setError('Delivery_Date', { type: 'manual', message: msg });
+          setError('End_Date',      { type: 'manual', message: msg });
+          setRateLimitExceeded(true);
+          return;
+        }
+
+        // 3) Otros errores: muestra en inputs
+        const fallback = 'Ya has enviado una solicitud en este lapso de tiempo';
+        setError('Delivery_Date', { type: 'manual', message: fallback });
+        setError('End_Date',      { type: 'manual', message: fallback });
       }
-      return;
-    }
-
-    // 2) Rate limit
-    if (err.response?.status === 429) {
-      setRateLimitExceeded(true);
-      return;
-    }
-
-    // 3) Cualquier otro
-    setToast({ message: 'Error, ya has enviado una solicitud en este lapso de tiempo', type: 'error' });
-  }
     });
   };
 
   if (isLoading) return <LoadingSpinner />;
-  if (isError) return <div>Error al cargar los tipos de voluntariado</div>;
+  if (isError)    return <div>Error al cargar los tipos de voluntariado</div>;
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center pt-20 py-12 px-4 sm:px-6 lg:px-8">
@@ -102,11 +99,13 @@ onError: (err: any) => {
       </h2>
       <div className="flex items-center justify-center my-6 w-full max-w-lg">
         <div className="w-1/4 sm:w-1/3 md:w-1/2 border-t-2 border-[#0d313f]" />
-        <img
-          className="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px] mx-4"
-          src={siteSettingsData?.icon_HGA_Url}
-          alt="Logo de la institución"
-        />
+        {siteSettingsData && (
+          <img
+            className="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px] mx-4"
+            src={siteSettingsData.icon_HGA_Url}
+            alt="Logo de la institución"
+          />
+        )}
         <div className="w-1/4 sm:w-1/3 md:w-1/2 border-t-2 border-[#0d313f]" />
       </div>
       <h3 className="text-[#0d313f] text-[28px] font-normal font-Poppins uppercase text-center mb-8">
@@ -115,25 +114,18 @@ onError: (err: any) => {
 
       <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-4xl space-y-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {toast && (
-       <ToastMessage
-         message={toast.message}
-         type={toast.type}
-         onClose={() => setToast(null)}
-       />
-     )}
           <InputForm
-           label="Cédula"
-           id="cedula"
-           placeholder="Ejem: 102340567"
-           error={errors.Vn_Cedula?.message}
-           {...register('Vn_Cedula', {
-             required: 'La cédula es obligatoria',
-             minLength: { value: 9, message: 'La cédula debe tener exactamente 9 caracteres' },
-             maxLength: { value: 9, message: 'La cédula debe tener exactamente 9 caracteres' },
-             pattern: { value: /^\d+$/, message: 'Solo números' }
-           })}
-         />
+            label="Cédula"
+            id="cedula"
+            placeholder="Ejem: 102340567"
+            error={errors.Vn_Cedula?.message}
+            {...register('Vn_Cedula', {
+              required: 'La cédula es obligatoria',
+              minLength: { value: 9, message: 'Debe tener 9 caracteres' },
+              maxLength: { value: 9, message: 'Debe tener 9 caracteres' },
+              pattern: { value: /^\d+$/, message: 'Solo números' }
+            })}
+          />
           <InputForm
             label="Nombre"
             id="nombre"
@@ -142,10 +134,7 @@ onError: (err: any) => {
             {...register('Vn_Name', {
               required: 'El nombre es obligatorio',
               maxLength: { value: 25, message: 'Máximo 25 caracteres' },
-              pattern: {
-                value: /^[A-Za-z\s]+$/,
-                message: 'Solo letras y espacios'
-              }
+              pattern: { value: /^[A-Za-z\s]+$/, message: 'Solo letras y espacios' }
             })}
           />
         </div>
@@ -154,29 +143,23 @@ onError: (err: any) => {
           <InputForm
             label="Primer apellido"
             id="primerApellido"
-            placeholder="Primer apellido del voluntario"
+            placeholder="Primer apellido"
             error={errors.Vn_Lastname1?.message}
             {...register('Vn_Lastname1', {
               required: 'El primer apellido es obligatorio',
               maxLength: { value: 25, message: 'Máximo 25 caracteres' },
-              pattern: {
-                value: /^[A-Za-z\s]+$/,
-                message: 'Solo letras y espacios'
-              }
+              pattern: { value: /^[A-Za-z\s]+$/, message: 'Solo letras y espacios' }
             })}
           />
           <InputForm
             label="Segundo apellido"
             id="segundoApellido"
-            placeholder="Segundo apellido del voluntario"
+            placeholder="Segundo apellido"
             error={errors.Vn_Lastname2?.message}
             {...register('Vn_Lastname2', {
               required: 'El segundo apellido es obligatorio',
               maxLength: { value: 25, message: 'Máximo 25 caracteres' },
-              pattern: {
-                value: /^[A-Za-z\s]+$/,
-                message: 'Solo letras y espacios'
-              }
+              pattern: { value: /^[A-Za-z\s]+$/, message: 'Solo letras y espacios' }
             })}
           />
         </div>
@@ -185,8 +168,8 @@ onError: (err: any) => {
           <InputForm
             label="Correo electrónico"
             id="correo"
-            placeholder="Ejemplo: correo@dominio.com"
             type="email"
+            placeholder="correo@dominio.com"
             error={errors.Vn_Email?.message}
             {...register('Vn_Email', {
               required: 'El correo es obligatorio',
@@ -199,14 +182,14 @@ onError: (err: any) => {
           <InputForm
             label="Teléfono"
             id="telefono"
-            placeholder="Ejemplo: 88888888"
             type="tel"
+            placeholder="88888888"
             error={errors.Vn_Phone?.message}
             {...register('Vn_Phone', {
               required: 'El teléfono es obligatorio',
               pattern: { value: /^\d+$/, message: 'Solo números' },
-              minLength: { value: 8, message: 'Debe tener al menos 8 dígitos' },
-              maxLength: { value: 8, message: 'No puede exceder 8 dígitos' }
+              minLength: { value: 8, message: 'Debe tener 8 dígitos' },
+              maxLength: { value: 8, message: 'Debe tener 8 dígitos' }
             })}
           />
         </div>
@@ -239,12 +222,12 @@ onError: (err: any) => {
             label="Tipo de voluntariado"
             id="tipoVoluntariado"
             error={errors.Id_VoluntarieType?.message}
-            options={voluntarieTypes.map((type: { id_VoluntarieType: any; name_voluntarieType: any; }) => ({
-              value: type.id_VoluntarieType,
-              label: type.name_voluntarieType
+            options={voluntarieTypes.map((t: { id_VoluntarieType: any; name_voluntarieType: any; }) => ({
+              value: t.id_VoluntarieType,
+              label: t.name_voluntarieType
             }))}
             {...register('Id_VoluntarieType', {
-              required: 'El tipo de voluntariado es obligatorio'
+              required: 'El tipo es obligatorio'
             })}
           />
         </div>
