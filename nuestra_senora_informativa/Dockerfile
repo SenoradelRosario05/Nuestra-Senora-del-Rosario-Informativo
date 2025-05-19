@@ -1,5 +1,5 @@
 # ----------------------------
-# 1) BUILD STAGE
+# 1) BUILD STAGES
 # ----------------------------
     FROM node:18-alpine AS build
 
