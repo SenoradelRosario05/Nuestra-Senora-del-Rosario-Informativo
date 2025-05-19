@@ -115,6 +115,7 @@ const VolunteerForm = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-4xl space-y-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <InputForm
+
             label="Cédula"
             id="cedula"
             placeholder="Ejem: 102340567"
@@ -127,6 +128,7 @@ const VolunteerForm = () => {
             })}
           />
           <InputForm
+
             label="Nombre"
             id="nombre"
             placeholder="Nombre del voluntario"
@@ -138,7 +140,6 @@ const VolunteerForm = () => {
             })}
           />
         </div>
-
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <InputForm
             label="Primer apellido"

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { useLocation } from 'react-router-dom'; // Importa useLocation para detectar la ruta actual
+import { useLocation } from 'react-router-dom'; 
 import NavbarContext from '../Context/NavbarContextType'; 
 import { useNavbarItems } from '../Hooks/useNavbarItems';
 import { useSiteSettings } from '../Hooks/useSiteSettings';
