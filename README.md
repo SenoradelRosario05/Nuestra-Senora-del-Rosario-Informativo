@@ -65,7 +65,7 @@ Este documento proporciona una guía clara para el equipo de desarrollo sobre c�
   - Los comentarios deben explicar la funcionalidad del código, no simplemente lo que hace.
 - **Código limpio y entendible**:
   - Mantén las funciones y métodos pequeños y enfocados en una sola tarea.
-  - Elimina código redundante y organiza el código de manera lógica.
+  - Elimina código redundante y organiza el código de manera lógicas.
 
 ## Recomendaciones Generales
 
