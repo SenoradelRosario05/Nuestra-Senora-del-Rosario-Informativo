@@ -158,6 +158,7 @@ const VolunteerForm = () => {
             })}
           />
           <InputForm
+
             label="Nombre"
             id="nombre"
             placeholder="Nombre del voluntario"
