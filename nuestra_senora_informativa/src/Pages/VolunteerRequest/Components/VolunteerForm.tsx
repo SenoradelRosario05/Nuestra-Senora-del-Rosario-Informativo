@@ -48,6 +48,9 @@ const VolunteerForm = () => {
     // Clear previous rate-limit modal if any
     setRateLimitExceeded(false);
 
+    // Clear previous rate-limit modal if any
+    setRateLimitExceeded(false);
+
     mutation.mutate(data, {
       onSuccess: () => {
         reset();
@@ -71,7 +74,29 @@ const VolunteerForm = () => {
           setError('End_Date',      { type: 'manual', message: msgs });
           return;
         }
+      onError: (err: any) => {
+        const status = err.response?.status;
+        const apiErrs = err.response?.data?.errors as Record<string, string[]> | undefined;
 
+        // 1) Validación 400
+        if (status === 400 && apiErrs) {
+          const msgs =
+            apiErrs.end_Date?.join(' ') ||
+            Object.values(apiErrs).flat().join('. ');
+          // error en los inputs
+          setError('Delivery_Date', { type: 'manual', message: msgs });
+          setError('End_Date',      { type: 'manual', message: msgs });
+          return;
+        }
+
+        // 2) Rate limit → error en inputs + mostrar modal
+        if (status === 429) {
+          const msg = 'Ya has enviado una solicitud en este lapso de tiempo';
+          setError('Delivery_Date', { type: 'manual', message: msg });
+          setError('End_Date',      { type: 'manual', message: msg });
+          setRateLimitExceeded(true);
+          return;
+        }
         // 2) Rate limit → error en inputs + mostrar modal
         if (status === 429) {
           const msg = 'Ya has enviado una solicitud en este lapso de tiempo';
@@ -86,10 +111,16 @@ const VolunteerForm = () => {
         setError('Delivery_Date', { type: 'manual', message: fallback });
         setError('End_Date',      { type: 'manual', message: fallback });
       }
+        // 3) Otros errores: muestra en inputs
+        const fallback = 'Ya has enviado una solicitud en este lapso de tiempo';
+        setError('Delivery_Date', { type: 'manual', message: fallback });
+        setError('End_Date',      { type: 'manual', message: fallback });
+      }
     });
   };
 
   if (isLoading) return <LoadingSpinner />;
+  if (isError)    return <div>Error al cargar los tipos de voluntariado</div>;
   if (isError)    return <div>Error al cargar los tipos de voluntariado</div>;
 
   return (
@@ -115,7 +146,6 @@ const VolunteerForm = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-4xl space-y-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <InputForm
-
             label="Cédula"
             id="cedula"
             placeholder="Ejem: 102340567"
@@ -137,6 +167,7 @@ const VolunteerForm = () => {
               required: 'El nombre es obligatorio',
               maxLength: { value: 25, message: 'Máximo 25 caracteres' },
               pattern: { value: /^[A-Za-z\s]+$/, message: 'Solo letras y espacios' }
+          
             })}
           />
         </div>

@@ -6,28 +6,34 @@ import { useSiteSettings } from '../../../Hooks/useSiteSettings';
 
 const VolunteerProfile = () => {
   const { data: Cards } = useCardsVolunteerProfile();
-  const { data: title } = useTitles (10);
-  const { data: Subtitle } = useTitles (11);
+  const { data: title } = useTitles(10);
+  const { data: Subtitle } = useTitles(11);
   const { data: button } = useButtons(4);
   const { data: IconsDataArray } = useSiteSettings();
   const IconsDA = IconsDataArray ? IconsDataArray[0] : null;
-  
+
   return (
     <div className="flex flex-col items-center pt-20 py-12 px-0 bg-white w-full">
-      <h2 className="text-[#0d313f] text-[35px] font-semibold font-'Poppins' mb-4">{title?.title_Text_Section}</h2>
+      <h2 className="text-[#0d313f] text-[35px] font-semibold font-'Poppins' mb-4">
+        {title?.title_Text_Section}
+      </h2>
       <div className="flex items-center justify-center my-6 w-full max-w-lg">
         <div className="w-1/4 sm:w-1/3 md:w-1/2 border-t-2 border-[#0d313f]"></div>
-        <img className="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px] mx-4" src={IconsDA?.icon_HGA_Url} alt="Logo de la institución" />
+        <img
+          className="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px] mx-4"
+          src={IconsDA?.icon_HGA_Url}
+          alt="Logo de la institución"
+        />
         <div className="w-1/4 sm:w-1/3 md:w-1/2 border-t-2 border-[#0d313f]"></div>
       </div>
-
       <p className="text-lg text-center text-black font-normal font-'Poppins' max-w-4xl mb-8">
-{title?.description_Section}
-  </p>
+        {title?.description_Section}
+      </p>
 
       <div className="bg-[#f3f3f3] w-full px-0 lg:px-12 py-12">
-        <h3 className="text-center text-[#0d313f] text-[30px] font-semibold font-'Poppins' mb-8">{Subtitle?.title_Text_Section}</h3>
-
+        <h3 className="text-center text-[#0d313f] text-[30px] font-semibold font-'Poppins' mb-8">
+          {Subtitle?.title_Text_Section}
+        </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
           {Cards?.map((item: any) => (
             <div
@@ -39,7 +45,9 @@ const VolunteerProfile = () => {
                 color="#0d315e"
                 iconName={item.tittle_Volunteer_Profile.toLowerCase()}
               />
-              <h4 className="text-[#000000] text-xl font-semibold mb-2">{item.tittle_Volunteer_Profile}</h4>
+              <h4 className="text-[#000000] text-xl font-semibold mb-2">
+                {item.tittle_Volunteer_Profile}
+              </h4>
               <p className="text-[#000000] text-lg font-normal font-'Poppins'">
                 {item.description_Volunteer_Profile}
               </p>
@@ -48,11 +56,24 @@ const VolunteerProfile = () => {
         </div>
       </div>
 
+      {/* Sección de Trabajos Comunales (informativo) */}
+      <div className="bg-[#f3f3f3] w-full px-0 lg:px-12 py-12">
+        <h3 className="text-center text-[#0d313f] text-[30px] font-semibold font-'Poppins' mb-8">
+          Trabajos Comunales Universitarios (TCU)
+        </h3>
+        <p className="text-lg text-center text-black font-normal font-'Poppins' max-w-4xl mx-auto">
+          El Hogar de Ancianos Nuestra Señora del Rosario de Santa Cruz ofrece la opción de realizar Trabajos Comunales Universitarios (TCU), permitiendo a los estudiantes participar en actividades de apoyo y convivencia con nuestros adultos mayores mientras cumplen con sus requisitos académicos. Para solicitar este servicio o recibir más información, comunícate vía correo electrónico a hogar.nsrosario@yahoo.es o llama al teléfono 2680‑0591.
+        </p>
+      </div>
+
       <div className="mt-12 flex justify-center">
         <a href="/formulario_voluntariado">
-        <button className="bg-[#dab87d] text-[#0d313f] text-[18px] sm:text-[22px] font-bold font-'Poppins' py-3 sm:py-3 px-6 sm:px-6 rounded-[20px] sm:rounded-[30px] shadow-lg transition-all duration-300 hover:bg-[#c7a46d] hover:scale-105" type="button">
-          {button?.buttonText}
-        </button>
+          <button
+            className="bg-[#dab87d] text-[#0d313f] text-[18px] sm:text-[22px] font-bold font-'Poppins' py-3 sm:py-3 px-6 sm:px-6 rounded-[20px] sm:rounded-[30px] shadow-lg transition-all duration-300 hover:bg-[#c7a46d] hover:scale-105"
+            type="button"
+          >
+            {button?.buttonText}
+          </button>
         </a>
       </div>
     </div>

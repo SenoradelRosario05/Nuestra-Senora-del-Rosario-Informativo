@@ -62,7 +62,7 @@ function DonationRequeriments() {
         </p>
 
         <p className="text-3xl font-semibold text-[#0d313f] mb-10">
-          Número Sinpe Móvil: 8888-8888
+          Número Sinpe Móvil: 8554-1919
         </p>
 
         {/* Botón de Donación */}
