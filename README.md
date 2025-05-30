@@ -1,6 +1,6 @@
 # Proyecto: Hogar de Ancianos Nuestra Señora del Rosario.
 
-## Tabla de Contenidos
+## Tabla de Contenidoss
 1. [Introducción](#introducción)
 2. [Flujo de Trabajo con Git](#flujo-de-trabajo-con-git)
    - [Creación y Gestión de Ramas](#creación-y-gestión-de-ramas)
