@@ -65,37 +65,59 @@ const DonationForm = () => {
       </h3>
       <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-4xl space-y-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <InputForm
+            label="Cédula"
+            id="cedula"
+            error={errors.Dn_Cedula?.message}
+            placeholder="Ejemplo: 102340567"
+            {...register('Dn_Cedula', {
+              required: 'La cédula es obligatoria',
+              minLength: { value: 9, message: 'La cédula debe tener exactamente 9 caracteres' },
+              maxLength: { value: 9, message: 'La cédula debe tener exactamente 9 caracteres' },
+            })}
+          />
         <InputForm
   label="Nombre"
   id="nombre"
   error={errors.Dn_Name?.message}
   placeholder="Ingrese su nombre"
-  {...register('Dn_Name', { required: 'El nombre es obligatorio' })}
+  {...register('Dn_Name', {
+    required: 'El nombre es obligatorio',
+    minLength: { value: 2, message: 'El nombre debe tener al menos 2 caracteres' },
+    maxLength: { value: 30, message: 'El nombre no puede exceder los 30 caracteres' },
+    pattern: {
+      value: /^[A-Za-z\s]+$/,
+      message: 'Solo letras y espacios'
+    }
+  })}
 />
 <InputForm
   label="Primer apellido"
   id="primerApellido"
   error={errors.Dn_Lastname1?.message}
   placeholder="Ingrese su primer apellido"
-  {...register('Dn_Lastname1', { required: 'El primer apellido es obligatorio' })}
+  {...register('Dn_Lastname1', { required: 'El primer apellido es obligatorio',
+    minLength: { value: 2, message: 'El primer apellido debe tener al menos 2 caracteres' },
+    maxLength: { value: 30, message: 'El primer apellido no puede exceder los 30 caracteres' },
+    pattern: {
+      value: /^[A-Za-z\s]+$/,
+      message: 'Solo letras y espacios'
+    }
+   })}
 />
 <InputForm
   label="Segundo apellido"
   id="segundoApellido"
   error={errors.Dn_Lastname2?.message}
   placeholder="Ingrese su segundo apellido"
-  {...register('Dn_Lastname2', { required: 'El segundo apellido es obligatorio' })}
-/>
-<InputForm
-  label="Cédula"
-  id="cedula"
-  error={errors.Dn_Cedula?.message}
-  placeholder="Ejemplo: 102340567"
-  {...register('Dn_Cedula', {
-    required: 'La cédula es obligatoria',
-    minLength: { value: 9, message: 'La cédula debe tener exactamente 9 caracteres' },
-    maxLength: { value: 9, message: 'La cédula debe tener exactamente 9 caracteres' },
-  })}
+  {...register('Dn_Lastname2', { required: 'El segundo apellido es obligatorio',
+    minLength: { value: 2, message: 'El segundo apellido debe tener al menos 2 caracteres' },
+    maxLength: { value: 30, message: 'El segundo apellido no puede exceder los 30 caracteres' },
+    pattern: {
+      value: /^[A-Za-z\s]+$/,
+      message: 'Solo letras y espacios'
+    }
+   })}
 />
 <InputForm
   label="Correo electrónico"

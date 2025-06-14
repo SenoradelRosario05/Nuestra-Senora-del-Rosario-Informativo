@@ -6,35 +6,51 @@ import { useSiteSettings } from '../../../Hooks/useSiteSettings';
 import { useModal } from '../../../Hooks/useModal';
 import { useVoluntarieType } from '../Hooks/useVoluntarieType';
 import { usePostFormVolunteer } from '../Hooks/usePostVolunteerFrm';
-import { InputForm, CustomSelect, ConfirmationModal, RateLimitModal, LoadingSpinner } from '../../../Components';
+import {
+  InputForm,
+  CustomSelect,
+  ConfirmationModal,
+  RateLimitModal,
+  LoadingSpinner
+} from '../../../Components';
 
 const VolunteerForm = () => {
-  const { register, handleSubmit, setValue, watch, formState: { errors }, reset } = useForm<FormVolunteerCreateDto>();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    setError,
+    watch,
+    formState: { errors },
+    reset
+  } = useForm<FormVolunteerCreateDto>();
   const { data: siteSettings } = useSiteSettings();
-  const siteSettingsData = siteSettings ? siteSettings[0] : null;
+  const siteSettingsData = siteSettings?.[0] ?? null;
   const { data: voluntarieTypes, isLoading, isError } = useVoluntarieType();
   const { isOpen, openModal, closeModal } = useModal();
   const navigate = useNavigate();
+  const { mutation, rateLimitExceeded, setRateLimitExceeded } = usePostFormVolunteer();
 
-  const { mutation, setRateLimitExceeded, rateLimitExceeded } = usePostFormVolunteer();
-
-  // Obtenemos el valor de la fecha de inicio
+  // Fecha mínima para End_Date = Delivery_Date + 1 día
   const startDate = watch('Delivery_Date');
-
   const today = new Date().toISOString().split('T')[0];
-  // Calculamos la fecha mínima para la fecha de fin (startDate + 1 día)
-  const minEndDate = startDate 
+  const minEndDate = startDate
     ? new Date(new Date(startDate).getTime() + 86400000).toISOString().split('T')[0]
     : today;
 
-  // Actualizamos la fecha de fin cuando cambie la fecha de inicio
   useEffect(() => {
     if (startDate) {
-      setValue('End_Date', new Date(minEndDate));
+      setValue('End_Date', minEndDate as any);
     }
   }, [startDate, minEndDate, setValue]);
 
   const onSubmit = (data: FormVolunteerCreateDto) => {
+    // Clear previous rate-limit modal if any
+    setRateLimitExceeded(false);
+
+    // Clear previous rate-limit modal if any
+    setRateLimitExceeded(false);
+
     mutation.mutate(data, {
       onSuccess: () => {
         reset();
@@ -44,11 +60,68 @@ const VolunteerForm = () => {
           navigate('/');
         }, 4000);
       },
+      onError: (err: any) => {
+        const status = err.response?.status;
+        const apiErrs = err.response?.data?.errors as Record<string, string[]> | undefined;
+
+        // 1) Validación 400
+        if (status === 400 && apiErrs) {
+          const msgs =
+            apiErrs.end_Date?.join(' ') ||
+            Object.values(apiErrs).flat().join('. ');
+          // error en los inputs
+          setError('Delivery_Date', { type: 'manual', message: msgs });
+          setError('End_Date',      { type: 'manual', message: msgs });
+          return;
+        }
+      onError: (err: any) => {
+        const status = err.response?.status;
+        const apiErrs = err.response?.data?.errors as Record<string, string[]> | undefined;
+
+        // 1) Validación 400
+        if (status === 400 && apiErrs) {
+          const msgs =
+            apiErrs.end_Date?.join(' ') ||
+            Object.values(apiErrs).flat().join('. ');
+          // error en los inputs
+          setError('Delivery_Date', { type: 'manual', message: msgs });
+          setError('End_Date',      { type: 'manual', message: msgs });
+          return;
+        }
+
+        // 2) Rate limit → error en inputs + mostrar modal
+        if (status === 429) {
+          const msg = 'Ya has enviado una solicitud en este lapso de tiempo';
+          setError('Delivery_Date', { type: 'manual', message: msg });
+          setError('End_Date',      { type: 'manual', message: msg });
+          setRateLimitExceeded(true);
+          return;
+        }
+        // 2) Rate limit → error en inputs + mostrar modal
+        if (status === 429) {
+          const msg = 'Ya has enviado una solicitud en este lapso de tiempo';
+          setError('Delivery_Date', { type: 'manual', message: msg });
+          setError('End_Date',      { type: 'manual', message: msg });
+          setRateLimitExceeded(true);
+          return;
+        }
+
+        // 3) Otros errores: muestra en inputs
+        const fallback = 'Ya has enviado una solicitud en este lapso de tiempo';
+        setError('Delivery_Date', { type: 'manual', message: fallback });
+        setError('End_Date',      { type: 'manual', message: fallback });
+      }
+        // 3) Otros errores: muestra en inputs
+        const fallback = 'Ya has enviado una solicitud en este lapso de tiempo';
+        setError('Delivery_Date', { type: 'manual', message: fallback });
+        setError('End_Date',      { type: 'manual', message: fallback });
+      }
     });
   };
 
   if (isLoading) return <LoadingSpinner />;
-  if (isError) return <div>Error al cargar los tipos de voluntariado</div>;
+  if (isError)    return <div>Error al cargar los tipos de voluntariado</div>;
+  if (isError)    return <div>Error al cargar los tipos de voluntariado</div>;
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center pt-20 py-12 px-4 sm:px-6 lg:px-8">
@@ -56,15 +129,16 @@ const VolunteerForm = () => {
         Voluntariado
       </h2>
       <div className="flex items-center justify-center my-6 w-full max-w-lg">
-        <div className="w-1/4 sm:w-1/3 md:w-1/2 border-t-2 border-[#0d313f]"></div>
-        <img
-          className="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px] mx-4"
-          src={siteSettingsData?.icon_HGA_Url}
-          alt="Logo de la institución"
-        />
-        <div className="w-1/4 sm:w-1/3 md:w-1/2 border-t-2 border-[#0d313f]"></div>
+        <div className="w-1/4 sm:w-1/3 md:w-1/2 border-t-2 border-[#0d313f]" />
+        {siteSettingsData && (
+          <img
+            className="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px] mx-4"
+            src={siteSettingsData.icon_HGA_Url}
+            alt="Logo de la institución"
+          />
+        )}
+        <div className="w-1/4 sm:w-1/3 md:w-1/2 border-t-2 border-[#0d313f]" />
       </div>
-
       <h3 className="text-[#0d313f] text-[28px] font-normal font-Poppins uppercase text-center mb-8">
         Información del Voluntario
       </h3>
@@ -72,38 +146,52 @@ const VolunteerForm = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-4xl space-y-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <InputForm
-            label="Nombre"
-            id="nombre"
-            placeholder="Nombre del voluntario"
-            error={errors.Vn_Name?.message}
-            {...register('Vn_Name', { required: 'El nombre es obligatorio' })}
-          />
-          <InputForm
-            label="Primer apellido"
-            id="primerApellido"
-            placeholder="Primer apellido del voluntario"
-            error={errors.Vn_Lastname1?.message}
-            {...register('Vn_Lastname1', { required: 'El primer apellido es obligatorio' })}
-          />
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <InputForm
-            label="Segundo apellido"
-            id="segundoApellido"
-            placeholder="Segundo apellido del voluntario"
-            error={errors.Vn_Lastname2?.message}
-            {...register('Vn_Lastname2', { required: 'El segundo apellido es obligatorio' })}
-          />
-          <InputForm
             label="Cédula"
             id="cedula"
             placeholder="Ejem: 102340567"
             error={errors.Vn_Cedula?.message}
             {...register('Vn_Cedula', {
               required: 'La cédula es obligatoria',
-              minLength: { value: 9, message: 'La cédula debe tener exactamente 9 caracteres' },
-              maxLength: { value: 9, message: 'La cédula debe tener exactamente 9 caracteres' },
+              minLength: { value: 9, message: 'Debe tener 9 caracteres' },
+              maxLength: { value: 9, message: 'Debe tener 9 caracteres' },
+              pattern: { value: /^\d+$/, message: 'Solo números' }
+            })}
+          />
+          <InputForm
+
+            label="Nombre"
+            id="nombre"
+            placeholder="Nombre del voluntario"
+            error={errors.Vn_Name?.message}
+            {...register('Vn_Name', {
+              required: 'El nombre es obligatorio',
+              maxLength: { value: 25, message: 'Máximo 25 caracteres' },
+              pattern: { value: /^[A-Za-z\s]+$/, message: 'Solo letras y espacios' }
+          
+            })}
+          />
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <InputForm
+            label="Primer apellido"
+            id="primerApellido"
+            placeholder="Primer apellido"
+            error={errors.Vn_Lastname1?.message}
+            {...register('Vn_Lastname1', {
+              required: 'El primer apellido es obligatorio',
+              maxLength: { value: 25, message: 'Máximo 25 caracteres' },
+              pattern: { value: /^[A-Za-z\s]+$/, message: 'Solo letras y espacios' }
+            })}
+          />
+          <InputForm
+            label="Segundo apellido"
+            id="segundoApellido"
+            placeholder="Segundo apellido"
+            error={errors.Vn_Lastname2?.message}
+            {...register('Vn_Lastname2', {
+              required: 'El segundo apellido es obligatorio',
+              maxLength: { value: 25, message: 'Máximo 25 caracteres' },
+              pattern: { value: /^[A-Za-z\s]+$/, message: 'Solo letras y espacios' }
             })}
           />
         </div>
@@ -112,24 +200,29 @@ const VolunteerForm = () => {
           <InputForm
             label="Correo electrónico"
             id="correo"
-            placeholder="Ejemplo: correo@dominio.com"
             type="email"
+            placeholder="correo@dominio.com"
             error={errors.Vn_Email?.message}
             {...register('Vn_Email', {
               required: 'El correo es obligatorio',
               pattern: {
                 value: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-                message: 'Correo inválido',
-              },
+                message: 'Correo inválido'
+              }
             })}
           />
           <InputForm
             label="Teléfono"
             id="telefono"
-            placeholder="Ejemplo: 88888888"
             type="tel"
+            placeholder="88888888"
             error={errors.Vn_Phone?.message}
-            {...register('Vn_Phone', { required: 'El teléfono es obligatorio' })}
+            {...register('Vn_Phone', {
+              required: 'El teléfono es obligatorio',
+              pattern: { value: /^\d+$/, message: 'Solo números' },
+              minLength: { value: 8, message: 'Debe tener 8 dígitos' },
+              maxLength: { value: 8, message: 'Debe tener 8 dígitos' }
+            })}
           />
         </div>
 
@@ -140,17 +233,18 @@ const VolunteerForm = () => {
             type="date"
             min={today}
             error={errors.Delivery_Date?.message}
-            className={`${errors.Delivery_Date ? 'border-red-500 bg-red-100' : ''}`}
-            {...register('Delivery_Date', { required: 'La fecha de inicio es obligatoria' })}
+            {...register('Delivery_Date', {
+              required: 'La fecha de inicio es obligatoria'
+            })}
           />
           <InputForm
             label="Fecha de fin"
             id="fechaFin"
             type="date"
-            min={minEndDate} // Deshabilita días anteriores a la fecha de inicio + 1 día
+            min={minEndDate}
             error={errors.End_Date?.message}
             {...register('End_Date', {
-              required: 'La fecha de fin es obligatoria',
+              required: 'La fecha de fin es obligatoria'
             })}
           />
         </div>
@@ -160,11 +254,13 @@ const VolunteerForm = () => {
             label="Tipo de voluntariado"
             id="tipoVoluntariado"
             error={errors.Id_VoluntarieType?.message}
-            options={voluntarieTypes.map((type: any) => ({
-              value: type.id_VoluntarieType,
-              label: type.name_voluntarieType,
+            options={voluntarieTypes.map((t: { id_VoluntarieType: any; name_voluntarieType: any; }) => ({
+              value: t.id_VoluntarieType,
+              label: t.name_voluntarieType
             }))}
-            {...register('Id_VoluntarieType', { required: 'El tipo de voluntariado es obligatorio' })}
+            {...register('Id_VoluntarieType', {
+              required: 'El tipo es obligatorio'
+            })}
           />
         </div>
 
@@ -172,7 +268,6 @@ const VolunteerForm = () => {
           <button
             type="submit"
             className="mt-4 px-8 py-4 bg-[#317591] text-white text-xl font-bold rounded-md shadow-md hover:bg-[#27597a] transition-colors duration-300 font-Poppins"
-            tabIndex={0}
             disabled={mutation.isLoading}
           >
             {mutation.isLoading ? 'Enviando...' : 'Enviar Solicitud'}
@@ -180,17 +275,13 @@ const VolunteerForm = () => {
           <Link
             to="/"
             className="mt-4 px-8 py-4 bg-red-600 text-white text-xl font-bold rounded-md shadow-md hover:bg-red-700 transition-colors duration-300 font-Poppins"
-            tabIndex={1}
           >
             Cancelar
           </Link>
         </div>
       </form>
 
-      {/* Modal de confirmación */}
       <ConfirmationModal isOpen={isOpen} onClose={closeModal} />
-
-      {/* Modal de límite de solicitudes */}
       <RateLimitModal isOpen={rateLimitExceeded} onClose={() => setRateLimitExceeded(false)} />
     </div>
   );
