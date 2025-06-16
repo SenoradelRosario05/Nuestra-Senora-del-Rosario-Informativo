@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://nuestrasenorainformativo.com/sitemap.xml
+
+# Disallow old domain references (if any)
+# Block any remaining old domain crawling attempts

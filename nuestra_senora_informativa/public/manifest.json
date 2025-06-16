@@ -1,0 +1,25 @@
+{
+  "name": "Hogar de Ancianos Nuestra Señora del Rosario",
+  "short_name": "Hogar NSR",
+  "description": "Hogar de ancianos en Santa Cruz, Guanacaste. Cuidado integral para adultos mayores.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#317591",
+  "icons": [
+    {
+      "src": "https://i.ibb.co/D5xXgD5/Icon-whitout-fondo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://i.ibb.co/D5xXgD5/Icon-whitout-fondo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "lang": "es",
+  "orientation": "portrait",
+  "scope": "/",
+  "categories": ["healthcare", "social"]
+}

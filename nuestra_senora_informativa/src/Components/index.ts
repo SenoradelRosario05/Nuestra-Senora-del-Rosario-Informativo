@@ -7,3 +7,4 @@ export { default as InputForm } from './InputForm';
 export { default as LoadingSpinner } from './LoadingSpinner';
 export { default as ServiceCard } from './ServiceCard';
 export {default as RateLimitModal} from './RateLimitModal';
+export { SEO } from './SEO';
